@@ -1,12 +1,11 @@
 package heu.iot.Controller.Student;
 
-import heu.iot.Model.Student;
-import heu.iot.Service.StudentService;
+import heu.iot.Model.Emploee;
+import heu.iot.Service.EmploeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -19,17 +18,15 @@ import java.util.List;
 @RequestMapping("/student")
 public class hello {
     @Autowired
-    private StudentService studentservice;
+    private EmploeeService emploeeService;
     @RequestMapping("/class")
     public String showclass(){
         return "student/sclass";
     }
 
-    @RequestMapping("/add")
-    public Student add(@RequestParam("id") Integer id,@RequestParam("name") String name){
-        Student student=new Student();
-        student.setId(id);
-        student.setName(name);
-        return studentservice.addStudent(student);
+    @RequestMapping("/show")
+//    @RequestParam("id") Integer id, @RequestParam("name") String name
+    public List<Emploee> show(){
+        return emploeeService.getEmploee();
     }
 }

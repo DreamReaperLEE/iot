@@ -6,15 +6,20 @@ import javax.persistence.Id;
 
 /**
  * @Author: Sumail-Lee
- * @Date: 9:42 2017/11/27
+ * @Date: 19:36 2017/11/28
  */
 
 @Entity
-public class Student {
-
+public class Emploee {
     @Id
     @GeneratedValue
     private Integer id;
+    private String name;
+    private String password;
+    private int priv;
+
+    public Emploee() {
+    }
 
     public Integer getId() {
         return id;
@@ -32,8 +37,19 @@ public class Student {
         this.name = name;
     }
 
-    private String name;
+    public String getPassword() {
+        return password;
+    }
 
-    public Student() {
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public int getPriv() {
+        return priv;
+    }
+
+    public void setPriv(int priv) {
+        this.priv = priv;
     }
 }
