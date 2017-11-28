@@ -4,7 +4,6 @@ import heu.iot.Model.Student;
 import heu.iot.Service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,14 +15,14 @@ import java.util.List;
  * @Date: 9:09 2017/11/27
  */
 
-@RestController
+@Controller
 @RequestMapping("/student")
 public class hello {
     @Autowired
     private StudentService studentservice;
-    @RequestMapping("/hello")
-    public List<Student> hello(){
-        return studentservice.getStudent();
+    @RequestMapping("/class")
+    public String showclass(){
+        return "student/sclass";
     }
 
     @RequestMapping("/add")
