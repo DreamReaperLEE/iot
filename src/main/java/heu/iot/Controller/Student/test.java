@@ -17,6 +17,8 @@ import java.util.List;
 public class test {
     @Autowired
     private EmploeeService emploeeService;
+    @RequestMapping("hi")
+
 
     @RequestMapping("/test")
     public Emploee showEmploee() throws Exception{
