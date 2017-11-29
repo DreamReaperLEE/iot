@@ -4,7 +4,7 @@ import heu.iot.Model.Emploee;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+@Repository
 public interface EmploeeMapper {
     int deleteByPrimaryKey(Integer id);
 

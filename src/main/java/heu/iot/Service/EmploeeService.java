@@ -13,11 +13,15 @@ import java.util.List;
  */
 @Service("emploeeService")
 public class EmploeeService {
-    @Autowired(required = false)
+    @Autowired
     private EmploeeMapper emploeeMapper;
 
     public Emploee showEmploee()  throws Exception{
         Integer a=2013201308;
         return emploeeMapper.selectByPrimaryKey(a);
+    }
+
+    public List<Emploee> showAll()  throws Exception{
+        return emploeeMapper.showAll();
     }
 }

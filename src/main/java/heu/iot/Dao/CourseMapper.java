@@ -1,7 +1,7 @@
 package heu.iot.Dao;
 
 import heu.iot.Model.Course;
-import org.springframework.stereotype.Repository;
+
 
 
 public interface CourseMapper {
