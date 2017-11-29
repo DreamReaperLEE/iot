@@ -1,30 +1,19 @@
 package heu.iot.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
-/**
- * @Author: Sumail-Lee
- * @Date: 20:39 2017/11/28
- */
-@Entity
 public class Exam {
-    @Id
-    @GeneratedValue
-    private int id;
+    private Integer id;
+
     private String date;
-    private String stime;
+
     private String etime;
 
-    public Exam() {
-    }
+    private String stime;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -33,15 +22,7 @@ public class Exam {
     }
 
     public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getStime() {
-        return stime;
-    }
-
-    public void setStime(String stime) {
-        this.stime = stime;
+        this.date = date == null ? null : date.trim();
     }
 
     public String getEtime() {
@@ -49,6 +30,14 @@ public class Exam {
     }
 
     public void setEtime(String etime) {
-        this.etime = etime;
+        this.etime = etime == null ? null : etime.trim();
+    }
+
+    public String getStime() {
+        return stime;
+    }
+
+    public void setStime(String stime) {
+        this.stime = stime == null ? null : stime.trim();
     }
 }

@@ -1,37 +1,27 @@
 package heu.iot.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
-/**
- * @Author: Sumail-Lee
- * @Date: 20:39 2017/11/28
- */
-@Entity
 public class Paper {
-    @Id
-    @GeneratedValue
-    private int id;
-    private int eid;
+    private Integer id;
+
+    private Integer eid;
+
     private String detail;
 
-    public Paper() {
-    }
+    private Integer level;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getEid() {
+    public Integer getEid() {
         return eid;
     }
 
-    public void setEid(int eid) {
+    public void setEid(Integer eid) {
         this.eid = eid;
     }
 
@@ -40,6 +30,14 @@ public class Paper {
     }
 
     public void setDetail(String detail) {
-        this.detail = detail;
+        this.detail = detail == null ? null : detail.trim();
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 }

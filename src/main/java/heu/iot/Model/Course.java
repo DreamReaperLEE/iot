@@ -1,29 +1,19 @@
 package heu.iot.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
-/**
- * @Author: Sumail-Lee
- * @Date: 20:35 2017/11/28
- */
-@Entity
 public class Course {
-    @Id
-    @GeneratedValue
-    private int id;
+    private Integer id;
+
     private String cname;
-    private int tid;
 
-    public Course() {
-    }
+    private String cdetail;
 
-    public int getId() {
+    private Integer tid;
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -32,14 +22,22 @@ public class Course {
     }
 
     public void setCname(String cname) {
-        this.cname = cname;
+        this.cname = cname == null ? null : cname.trim();
     }
 
-    public int getTid() {
+    public String getCdetail() {
+        return cdetail;
+    }
+
+    public void setCdetail(String cdetail) {
+        this.cdetail = cdetail == null ? null : cdetail.trim();
+    }
+
+    public Integer getTid() {
         return tid;
     }
 
-    public void setTid(int tid) {
+    public void setTid(Integer tid) {
         this.tid = tid;
     }
 }

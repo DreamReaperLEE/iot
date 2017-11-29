@@ -1,47 +1,37 @@
 package heu.iot.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
-/**
- * @Author: Sumail-Lee
- * @Date: 20:41 2017/11/28
- */
-@Entity
 public class Score {
-    @Id
-    @GeneratedValue
-    private int id;
-    private int sid;
-    private int pid;
+    private Integer id;
+
+    private Integer sid;
+
+    private Integer pid;
+
     private String detail;
-    private float score;
 
-    public Score() {
-    }
+    private Float score;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getSid() {
+    public Integer getSid() {
         return sid;
     }
 
-    public void setSid(int sid) {
+    public void setSid(Integer sid) {
         this.sid = sid;
     }
 
-    public int getPid() {
+    public Integer getPid() {
         return pid;
     }
 
-    public void setPid(int pid) {
+    public void setPid(Integer pid) {
         this.pid = pid;
     }
 
@@ -50,14 +40,14 @@ public class Score {
     }
 
     public void setDetail(String detail) {
-        this.detail = detail;
+        this.detail = detail == null ? null : detail.trim();
     }
 
-    public float getScore() {
+    public Float getScore() {
         return score;
     }
 
-    public void setScore(float score) {
+    public void setScore(Float score) {
         this.score = score;
     }
 }

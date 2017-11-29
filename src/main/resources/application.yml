@@ -7,7 +7,7 @@ spring:
       maxFileSize: 100MB
       maxRequestSize: 1000MB
   datasource:
-    name: ceats
+    name: ishop
     url: jdbc:mysql://localhost:3306/ceats
     driverClassName: com.mysql.jdbc.Driver
     username: root
@@ -27,16 +27,12 @@ spring:
   thymeleaf:
     cache: false
     mode: LEGACYHTML5
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-## MyBatis
-#mybatis:
-#  type-aliases-package: com.zjm.model
-#  mapper-locations:   classpath:/mapper/*.xml
-#  configuration:
-#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+# MyBatis
+mybatis:
+  type-aliases-package: heu.iot.Model
+  mapper-locations: classpath:/mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 #PageHelper
 pagehelper:
@@ -46,7 +42,7 @@ pagehelper:
 server:
   port: 8080
 #Myconfig
-filePath: src/main/resources/static/img/s
-pageNum: 5
-commentPageNum: 8
+#filePath: src/main/resources/static/img/s
+#pageNum: 5
+#commentPageNum: 8
 

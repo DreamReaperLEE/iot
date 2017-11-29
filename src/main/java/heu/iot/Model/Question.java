@@ -1,41 +1,33 @@
 package heu.iot.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
-/**
- * @Author: Sumail-Lee
- * @Date: 20:37 2017/11/28
- */
-
 public class Question {
-    @Id
-    @GeneratedValue
-    private int id;
-    private int cid;
+    private Integer id;
+
+    private Integer cid;
+
     private String desc;
+
     private String digital;
-    private int type;
+
+    private Integer type;
+
     private String answer;
-    private int level;
 
-    public Question() {
-    }
+    private Integer level;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getCid() {
+    public Integer getCid() {
         return cid;
     }
 
-    public void setCid(int cid) {
+    public void setCid(Integer cid) {
         this.cid = cid;
     }
 
@@ -44,7 +36,7 @@ public class Question {
     }
 
     public void setDesc(String desc) {
-        this.desc = desc;
+        this.desc = desc == null ? null : desc.trim();
     }
 
     public String getDigital() {
@@ -52,14 +44,14 @@ public class Question {
     }
 
     public void setDigital(String digital) {
-        this.digital = digital;
+        this.digital = digital == null ? null : digital.trim();
     }
 
-    public int getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 
@@ -68,14 +60,14 @@ public class Question {
     }
 
     public void setAnswer(String answer) {
-        this.answer = answer;
+        this.answer = answer == null ? null : answer.trim();
     }
 
-    public int getLevel() {
+    public Integer getLevel() {
         return level;
     }
 
-    public void setLevel(int level) {
+    public void setLevel(Integer level) {
         this.level = level;
     }
 }

@@ -1,6 +1,6 @@
 package heu.iot.Service;
 
-import heu.iot.Dao.EmploeeDao;
+import heu.iot.Dao.EmploeeMapper;
 import heu.iot.Model.Emploee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,14 +9,15 @@ import java.util.List;
 
 /**
  * @Author: Sumail-Lee
- * @Date: 19:38 2017/11/28
+ * @Date: 11:18 2017/11/29
  */
 @Service("emploeeService")
 public class EmploeeService {
-    @Autowired
-    private EmploeeDao emploeedao;
+    @Autowired(required = false)
+    private EmploeeMapper emploeeMapper;
 
-    public List<Emploee> getEmploee(){
-        return emploeedao.findAll();
+    public Emploee showEmploee()  throws Exception{
+        Integer a=2013201308;
+        return emploeeMapper.selectByPrimaryKey(a);
     }
 }
