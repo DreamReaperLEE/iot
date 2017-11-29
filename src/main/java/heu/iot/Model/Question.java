@@ -8,7 +8,7 @@ import javax.persistence.Id;
  * @Author: Sumail-Lee
  * @Date: 20:37 2017/11/28
  */
-@Entity
+
 public class Question {
     @Id
     @GeneratedValue
