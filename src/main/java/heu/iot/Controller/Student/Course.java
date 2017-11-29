@@ -1,7 +1,11 @@
 package heu.iot.Controller.Student;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * @Author: Sumail-Lee
@@ -11,8 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/student")
 public class Course {
-    @RequestMapping("/course")
-    public String showCourse(){
+    @Autowired
+    private Course course;
+
+    @RequestMapping({"/course","/"})
+    public String showCourse(HttpSession session, Model model){
+
+        model.addAttribute("catogary",null);
         return "student/allCourse";
     }
 }

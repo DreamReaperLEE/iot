@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="heu.iot.Dao.CourseMapper">
+    <resultMap id="BaseResultMap" type="heu.iot.Model.Course_Emploee">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="cname" jdbcType="VARCHAR" property="cname" />
+        <result column="cdetail" jdbcType="VARCHAR" property="cdetail" />
+        <result column="name" jdbcType="VARCHAR" property="tname" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        course.id,course.cname,course.cdetail,emploee.name
+    </sql>
+    <select id="showAllCourse" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List" />
+    from course,emploee
+    WHERE course.tid=emploee.id
+    </select>
+</mapper>

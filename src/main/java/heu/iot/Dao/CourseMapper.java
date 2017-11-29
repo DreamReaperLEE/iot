@@ -2,6 +2,7 @@ package heu.iot.Dao;
 
 import heu.iot.Model.Course;
 
+import java.util.List;
 
 
 public interface CourseMapper {
@@ -16,4 +17,6 @@ public interface CourseMapper {
     int updateByPrimaryKeySelective(Course record);
 
     int updateByPrimaryKey(Course record);
+
+    List<Course> showAllCourse();
 }
