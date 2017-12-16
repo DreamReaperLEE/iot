@@ -3,12 +3,13 @@
 <mapper namespace="heu.iot.Dao.ExamMapper">
   <resultMap id="BaseResultMap" type="heu.iot.Model.Exam">
     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="ename" jdbcType="VARCHAR" property="ename" />
     <result column="date" jdbcType="VARCHAR" property="date" />
     <result column="etime" jdbcType="VARCHAR" property="etime" />
     <result column="stime" jdbcType="VARCHAR" property="stime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, date, etime, stime
+    id, ename, date, etime, stime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -21,16 +22,19 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="heu.iot.Model.Exam">
-    insert into exam (id, date, etime, 
-      stime)
-    values (#{id,jdbcType=INTEGER}, #{date,jdbcType=VARCHAR}, #{etime,jdbcType=VARCHAR}, 
-      #{stime,jdbcType=VARCHAR})
+    insert into exam (id, ename, date, 
+      etime, stime)
+    values (#{id,jdbcType=INTEGER}, #{ename,jdbcType=VARCHAR}, #{date,jdbcType=VARCHAR}, 
+      #{etime,jdbcType=VARCHAR}, #{stime,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="heu.iot.Model.Exam">
     insert into exam
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
+      </if>
+      <if test="ename != null">
+        ename,
       </if>
       <if test="date != null">
         date,
@@ -46,6 +50,9 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
+      <if test="ename != null">
+        #{ename,jdbcType=VARCHAR},
+      </if>
       <if test="date != null">
         #{date,jdbcType=VARCHAR},
       </if>
@@ -60,6 +67,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="heu.iot.Model.Exam">
     update exam
     <set>
+      <if test="ename != null">
+        ename = #{ename,jdbcType=VARCHAR},
+      </if>
       <if test="date != null">
         date = #{date,jdbcType=VARCHAR},
       </if>
@@ -74,7 +84,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="heu.iot.Model.Exam">
     update exam
-    set date = #{date,jdbcType=VARCHAR},
+    set ename = #{ename,jdbcType=VARCHAR},
+      date = #{date,jdbcType=VARCHAR},
       etime = #{etime,jdbcType=VARCHAR},
       stime = #{stime,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}

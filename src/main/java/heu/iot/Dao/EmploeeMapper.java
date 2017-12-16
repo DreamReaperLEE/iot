@@ -1,10 +1,11 @@
 package heu.iot.Dao;
 
 import heu.iot.Model.Emploee;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-@Repository
+
 public interface EmploeeMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -17,6 +18,8 @@ public interface EmploeeMapper {
     int updateByPrimaryKeySelective(Emploee record);
 
     int updateByPrimaryKey(Emploee record);
+
+    int updatePassword(@Param("id") Integer id, @Param("origin") String origin,@Param("password") String password);
 
     List<Emploee> showAll();
 }

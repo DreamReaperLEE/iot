@@ -5,6 +5,8 @@ public class Question {
 
     private Integer cid;
 
+    private String label;
+
     private String desc;
 
     private String digital;
@@ -29,6 +31,14 @@ public class Question {
 
     public void setCid(Integer cid) {
         this.cid = cid;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label == null ? null : label.trim();
     }
 
     public String getDesc() {

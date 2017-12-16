@@ -9,7 +9,7 @@ import java.util.List;
  * @Author: Sumail-Lee
  * @Date: 16:53 2017/11/29
  */
-@Repository
+
 public interface Course_EmploeeMapper {
     List<Course_Emploee> showAllCourse();
 }

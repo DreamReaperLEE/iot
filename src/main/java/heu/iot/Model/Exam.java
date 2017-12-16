@@ -3,6 +3,8 @@ package heu.iot.Model;
 public class Exam {
     private Integer id;
 
+    private String ename;
+
     private String date;
 
     private String etime;
@@ -15,6 +17,14 @@ public class Exam {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getEname() {
+        return ename;
+    }
+
+    public void setEname(String ename) {
+        this.ename = ename == null ? null : ename.trim();
     }
 
     public String getDate() {

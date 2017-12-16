@@ -17,9 +17,9 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
   <!--<select id="showAllCourse" resultMap="BaseResultMap">-->
-    <!--SELECT-->
-    <!--<include refid="Base_Column_List"/>-->
-    <!--from emploee-->
+  <!--SELECT-->
+  <!--<include refid="Base_Column_List"/>-->
+  <!--from emploee-->
   <!--</select>-->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from course

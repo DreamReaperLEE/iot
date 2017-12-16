@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="heu.iot.Dao.CourseMapper">
+<mapper namespace="heu.iot.Dao.Course_EmploeeMapper">
     <resultMap id="BaseResultMap" type="heu.iot.Model.Course_Emploee">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="cname" jdbcType="VARCHAR" property="cname" />
@@ -14,5 +14,6 @@
     SELECT <include refid="Base_Column_List" />
     from course,emploee
     WHERE course.tid=emploee.id
+
     </select>
 </mapper>

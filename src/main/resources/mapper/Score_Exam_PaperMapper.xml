@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="heu.iot.Dao.Score_Exam_PaperMapper">
+    <resultMap id="BaseResultMap" type="heu.iot.Model.Score_Exam_Paper">
+        <id column="id" jdbcType="INTEGER" property="eid" />
+        <result column="ename" jdbcType="VARCHAR" property="ename" />
+        <result column="score" jdbcType="FLOAT" property="score" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        exam.id,exam.ename,score.score
+    </sql>
+    <select id="showAllExamByStudentId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        from score,paper,exam
+        WHERE paper.eid=exam.id and score.pid=paper.id
+    </select>
+</mapper>

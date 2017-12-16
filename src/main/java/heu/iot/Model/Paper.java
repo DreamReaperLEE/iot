@@ -7,6 +7,8 @@ public class Paper {
 
     private String detail;
 
+    private String answer;
+
     private Integer level;
 
     public Integer getId() {
@@ -31,6 +33,14 @@ public class Paper {
 
     public void setDetail(String detail) {
         this.detail = detail == null ? null : detail.trim();
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer == null ? null : answer.trim();
     }
 
     public Integer getLevel() {

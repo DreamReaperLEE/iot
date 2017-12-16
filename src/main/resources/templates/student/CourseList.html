@@ -1,5 +1,6 @@
 
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8">
@@ -46,32 +47,30 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li><a href="course"><span class="glyphicon glyphicon-book" ></span>  培训课程</a></li>
-                <li class="active"><a href="exam"><span class="glyphicon glyphicon-pencil" ></span>  在线考核</a></li>
+                <li class="active"><a href="course"><span class="glyphicon glyphicon-book" ></span>  培训课程</a></li>
+                <li><a href="exam"><span class="glyphicon glyphicon-pencil" ></span>  在线考核</a></li>
                 <li><a href="score"><span class="glyphicon glyphicon-folder-open" ></span>  成绩查询</a></li>
                 <li><a href="info"><span class="glyphicon glyphicon-user" ></span>  个人信息维护</a></li>
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">进行中考试</h1>
+            <h1 class="page-header" th:text="${course.cname}">未知</h1>
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
                     <tr>
                         <th>编号</th>
-                        <th>考试名称</th>
-                        <th>考试开始时间</th>
-                        <th>考试结束时间</th>
+                        <th>章节</th>
+                        <th>讲授内容</th>
                         <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>1,001</td>
-                        <td>Lorem</td>
-                        <td>ipsum</td>
-                        <td>dolor</td>
-                        <td><button type="button" class="btn btn-success">开始考试</button></td>
+                    <tr th:each="each : ${sourceList}">
+                        <td th:text="${each.id}">null</td>
+                        <td th:text="${each.lesson}">null</td>
+                        <td th:text="${each.topic}">null</td>
+                        <td><a th:href="'course_detail?id='+${course.id}+'&lesson='+${each.lesson}"><button type="button" class="btn btn-success">开始学习</button></a></td>
                     </tr>
                     </tbody>
                 </table>

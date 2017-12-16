@@ -6,10 +6,11 @@
     <result column="cid" jdbcType="INTEGER" property="cid" />
     <result column="lesson" jdbcType="INTEGER" property="lesson" />
     <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="topic" jdbcType="VARCHAR" property="topic" />
     <result column="detail" jdbcType="VARCHAR" property="detail" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, cid, lesson, type, detail
+    id, cid, lesson, type, topic, detail
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -17,15 +18,29 @@
     from source
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectByCourseLesson" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from source
+    where cid = #{id,jdbcType=INTEGER} and lesson = #{lesson,jdbcType=INTEGER}
+  </select>
+  <select id="selectByCourse" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from source
+    where cid = #{cid,jdbcType=INTEGER} and type=0 order by lesson
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from source
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="heu.iot.Model.Source">
     insert into source (id, cid, lesson, 
-      type, detail)
+      type, topic, detail
+      )
     values (#{id,jdbcType=INTEGER}, #{cid,jdbcType=INTEGER}, #{lesson,jdbcType=INTEGER}, 
-      #{type,jdbcType=INTEGER}, #{detail,jdbcType=VARCHAR})
+      #{type,jdbcType=INTEGER}, #{topic,jdbcType=VARCHAR}, #{detail,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="heu.iot.Model.Source">
     insert into source
@@ -41,6 +56,9 @@
       </if>
       <if test="type != null">
         type,
+      </if>
+      <if test="topic != null">
+        topic,
       </if>
       <if test="detail != null">
         detail,
@@ -59,6 +77,9 @@
       <if test="type != null">
         #{type,jdbcType=INTEGER},
       </if>
+      <if test="topic != null">
+        #{topic,jdbcType=VARCHAR},
+      </if>
       <if test="detail != null">
         #{detail,jdbcType=VARCHAR},
       </if>
@@ -76,6 +97,9 @@
       <if test="type != null">
         type = #{type,jdbcType=INTEGER},
       </if>
+      <if test="topic != null">
+        topic = #{topic,jdbcType=VARCHAR},
+      </if>
       <if test="detail != null">
         detail = #{detail,jdbcType=VARCHAR},
       </if>
@@ -87,6 +111,7 @@
     set cid = #{cid,jdbcType=INTEGER},
       lesson = #{lesson,jdbcType=INTEGER},
       type = #{type,jdbcType=INTEGER},
+      topic = #{topic,jdbcType=VARCHAR},
       detail = #{detail,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>

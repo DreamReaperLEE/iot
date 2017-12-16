@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="heu.iot.Model.Question">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="cid" jdbcType="INTEGER" property="cid" />
+    <result column="label" jdbcType="VARCHAR" property="label" />
     <result column="desc" jdbcType="VARCHAR" property="desc" />
     <result column="digital" jdbcType="VARCHAR" property="digital" />
     <result column="type" jdbcType="INTEGER" property="type" />
@@ -11,7 +12,7 @@
     <result column="level" jdbcType="INTEGER" property="level" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, cid, desc, digital, type, answer, level
+    id, cid, label, desc, digital, type, answer, level
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -24,12 +25,12 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="heu.iot.Model.Question">
-    insert into question (id, cid, desc, 
-      digital, type, answer, 
-      level)
-    values (#{id,jdbcType=INTEGER}, #{cid,jdbcType=INTEGER}, #{desc,jdbcType=VARCHAR}, 
-      #{digital,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{answer,jdbcType=VARCHAR}, 
-      #{level,jdbcType=INTEGER})
+    insert into question (id, cid, label, 
+      desc, digital, type, 
+      answer, level)
+    values (#{id,jdbcType=INTEGER}, #{cid,jdbcType=INTEGER}, #{label,jdbcType=VARCHAR}, 
+      #{desc,jdbcType=VARCHAR}, #{digital,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{answer,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="heu.iot.Model.Question">
     insert into question
@@ -39,6 +40,9 @@
       </if>
       <if test="cid != null">
         cid,
+      </if>
+      <if test="label != null">
+        label,
       </if>
       <if test="desc != null">
         desc,
@@ -63,6 +67,9 @@
       <if test="cid != null">
         #{cid,jdbcType=INTEGER},
       </if>
+      <if test="label != null">
+        #{label,jdbcType=VARCHAR},
+      </if>
       <if test="desc != null">
         #{desc,jdbcType=VARCHAR},
       </if>
@@ -86,6 +93,9 @@
       <if test="cid != null">
         cid = #{cid,jdbcType=INTEGER},
       </if>
+      <if test="label != null">
+        label = #{label,jdbcType=VARCHAR},
+      </if>
       <if test="desc != null">
         desc = #{desc,jdbcType=VARCHAR},
       </if>
@@ -107,6 +117,7 @@
   <update id="updateByPrimaryKey" parameterType="heu.iot.Model.Question">
     update question
     set cid = #{cid,jdbcType=INTEGER},
+      label = #{label,jdbcType=VARCHAR},
       desc = #{desc,jdbcType=VARCHAR},
       digital = #{digital,jdbcType=VARCHAR},
       type = #{type,jdbcType=INTEGER},

@@ -9,6 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class CeatsApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(CeatsApplication.class, args);
+
 	}
 }

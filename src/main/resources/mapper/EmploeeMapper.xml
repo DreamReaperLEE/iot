@@ -84,4 +84,9 @@
       priv = #{priv,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <update id="updatePassword" parameterType="map">
+    update emploee
+    set password = #{password,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER} and password = #{origin,jdbcType=VARCHAR}
+  </update>
 </mapper>

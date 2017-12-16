@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8">
@@ -64,11 +65,11 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>1,001</td>
-                        <td>Lorem</td>
-                        <td>ipsum</td>
-                        <td><button type="button" class="btn btn-success">查看详细成绩</button></td>
+                    <tr th:each="each : ${scoreList}">
+                        <td th:text="${each.eid}">null</td>
+                        <td th:text="${each.ename}">null</td>
+                        <td th:text="${each.score}">null</td>
+                        <td><a th:href="'course_list?id='+${each.eid}"><button type="button" class="btn btn-success">查看详细成绩</button></a></td>
                     </tr>
                     </tbody>
                 </table>
@@ -81,10 +82,10 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="/js/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')</script>
-<script src="js/bootstrap.min.js"></script>
+<script>window.jQuery || document.write('<script src="/js/jquery.min.js"><\/script>')</script>
+<script src="/js/bootstrap.min.js"></script>
 <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-<script src="js/holder.min.js"></script>
+<script src="/js/holder.min.js"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 </body>
 </html>

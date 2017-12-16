@@ -1,5 +1,6 @@
 
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8">
@@ -53,7 +54,10 @@
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">培训课程展示</h1>
+            <div class="center-block">
+                <h1 class="page-header">培训课程展示</h1>
+            </div>
+
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
@@ -66,12 +70,12 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>1,001</td>
-                        <td>Lorem</td>
-                        <td>ipsum</td>
-                        <td>dolor</td>
-                        <td><button type="button" class="btn btn-success">开始学习</button></td>
+                    <tr th:each="each : ${course_emploeeList}">
+                        <td th:text="${each.id}">null</td>
+                        <td th:text="${each.cname}">null</td>
+                        <td th:text="${each.cdetail}">null</td>
+                        <td th:text="${each.tname}">null</td>
+                        <td><a th:href="'course_list?id='+${each.id}"><button type="button" class="btn btn-success">详细内容</button></a></td>
                     </tr>
                     </tbody>
                 </table>
@@ -84,10 +88,10 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="/js/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')</script>
-<script src="js/bootstrap.min.js"></script>
+<script>window.jQuery || document.write('<script src="/js/jquery.min.js"><\/script>')</script>
+<script src="/js/bootstrap.min.js"></script>
 <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-<script src="js/holder.min.js"></script>
+<script src="/js/holder.min.js"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 </body>
 </html>

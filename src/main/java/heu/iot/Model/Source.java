@@ -9,6 +9,8 @@ public class Source {
 
     private Integer type;
 
+    private String topic;
+
     private String detail;
 
     public Integer getId() {
@@ -41,6 +43,14 @@ public class Source {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic == null ? null : topic.trim();
     }
 
     public String getDetail() {
