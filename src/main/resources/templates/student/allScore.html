@@ -36,7 +36,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">登出</a></li>
+                <li><a href="/logout">登出</a></li>
             </ul>
         </div>
     </div>
@@ -46,10 +46,10 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li><a href="course"><span class="glyphicon glyphicon-book" ></span>  培训课程</a></li>
-                <li><a href="exam"><span class="glyphicon glyphicon-pencil" ></span>  在线考核</a></li>
-                <li class="active"><a href="score"><span class="glyphicon glyphicon-folder-open" ></span>  成绩查询</a></li>
-                <li><a href="info"><span class="glyphicon glyphicon-user" ></span>  个人信息维护</a></li>
+                <li><a href="/student/course"><span class="glyphicon glyphicon-book" ></span>  培训课程</a></li>
+                <li><a href="/student/exam"><span class="glyphicon glyphicon-pencil" ></span>  在线考核</a></li>
+                <li class="active"><a href="/student/score"><span class="glyphicon glyphicon-folder-open" ></span>  成绩查询</a></li>
+                <li><a href="/student/info"><span class="glyphicon glyphicon-user" ></span>  个人信息维护</a></li>
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -69,7 +69,7 @@
                         <td th:text="${each.eid}">null</td>
                         <td th:text="${each.ename}">null</td>
                         <td th:text="${each.score}">null</td>
-                        <td><a th:href="'course_list?id='+${each.eid}"><button type="button" class="btn btn-success">查看详细成绩</button></a></td>
+                        <td><a th:href="'/student/course_list?id='+${each.eid}"><button type="button" class="btn btn-success">查看详细成绩</button></a></td>
                     </tr>
                     </tbody>
                 </table>

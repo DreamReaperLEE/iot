@@ -21,6 +21,12 @@
     <include refid="Base_Column_List"/>
     from emploee
   </select>
+  <select id="checkPassword" parameterType="map" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from emploee
+    where id = #{id,jdbcType=INTEGER} and password = #{password,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from emploee
     where id = #{id,jdbcType=INTEGER}

@@ -21,5 +21,7 @@ public interface EmploeeMapper {
 
     int updatePassword(@Param("id") Integer id, @Param("origin") String origin,@Param("password") String password);
 
+    Emploee checkPassword(@Param("id") Integer id,@Param("password") String password);
+
     List<Emploee> showAll();
 }
