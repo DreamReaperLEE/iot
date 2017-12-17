@@ -31,6 +31,7 @@ public class CourseController {
 
     @RequestMapping({"/course","/"})
     public String showCourse(HttpSession session, Model model){
+
         List<Course_Emploee> course_emploeeList=courseService.showAllCourse();
         model.addAttribute("course_emploeeList",course_emploeeList);
         return "student/allCourse";
@@ -38,6 +39,7 @@ public class CourseController {
 
     @RequestMapping("/course_detail")
     public String showCourseDetail(@RequestParam(value = "id") Integer id, @RequestParam(value = "lesson",required = false,defaultValue = "1") Integer lesson, Model model){
+
         List<Source> sourceList=sourceService.showCourseDetail(id,lesson);
         List<Source> textList=new ArrayList<Source>();
         List<Source> picList=new ArrayList<Source>();
