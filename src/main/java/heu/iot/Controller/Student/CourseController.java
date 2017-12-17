@@ -61,11 +61,17 @@ public class CourseController {
                     cname=source;
             }
         }
+        //课程名称
         model.addAttribute("cname",cname.getTopic());
+        //课程ID
         model.addAttribute("cid",cname.getCid());
+        //章节
         model.addAttribute("lesson",lesson);
+        //文本
         model.addAttribute("textList",textList);
+        //图片
         model.addAttribute("picList",picList);
+        //视频
         model.addAttribute("videoList",videoList);
         return "student/CourseDetail";
     }
