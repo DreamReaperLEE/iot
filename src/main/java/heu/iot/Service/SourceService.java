@@ -13,11 +13,28 @@ import java.util.List;
  */
 @Service("sourceService")
 public class SourceService {
+
     @Autowired
     private SourceMapper sourceMapper;
 
     public List<Source> showCourseDetail(Integer id,Integer lesson){
         return sourceMapper.selectByCourseLesson(id,lesson);
+    }
+
+    //展示所有的课程资源
+    public List<Source> showAllSource(){
+        return sourceMapper.showAllSource();
+    }
+
+    public Source selectByPrimaryKey(Integer id)
+    {
+        return sourceMapper.selectByPrimaryKey(id);
+    }
+
+
+    public int addSource(Source source) throws Exception
+    {
+        return sourceMapper.insert(source);
     }
 
     public List<Source> selectByCourse(Integer cid){

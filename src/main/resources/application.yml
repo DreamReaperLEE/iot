@@ -7,11 +7,11 @@ spring:
       maxFileSize: 100MB
       maxRequestSize: 1000MB
   datasource:
-    name: ishop
-    url: jdbc:mysql://localhost:3306/ceats
+    name: iot
+    url: jdbc:mysql://localhost:3306/ceats?characterEncoding=utf8&useSSL=true
     driverClassName: com.mysql.jdbc.Driver
     username: root
-    password: root
+    password: sandaoliu
     type: com.alibaba.druid.pool.DruidDataSource
     maxActive: 1000
     initialSize: 5

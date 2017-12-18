@@ -12,6 +12,14 @@
   <sql id="Base_Column_List">
     id, cid, lesson, type, topic, detail
   </sql>
+
+  <!--展示所有内容-->
+  <select id="showAllSource" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from source
+  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
