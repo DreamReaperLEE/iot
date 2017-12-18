@@ -20,6 +20,11 @@
     from question
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="showAllQuestion" resultMap="BaseResultMap">
+    select
+    question.id,question.DESC,question.TYPE
+    from question
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from question
     where id = #{id,jdbcType=INTEGER}

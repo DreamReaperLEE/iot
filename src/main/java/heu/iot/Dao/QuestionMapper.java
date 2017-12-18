@@ -3,6 +3,8 @@ package heu.iot.Dao;
 import heu.iot.Model.Question;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 
 public interface QuestionMapper {
     int deleteByPrimaryKey(Integer id);
@@ -16,4 +18,6 @@ public interface QuestionMapper {
     int updateByPrimaryKeySelective(Question record);
 
     int updateByPrimaryKey(Question record);
+
+    List<Question> showAllQuestion();
 }
