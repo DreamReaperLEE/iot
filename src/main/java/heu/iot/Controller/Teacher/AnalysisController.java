@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/teacher")
-public class Analysis {
+public class AnalysisController {
 
     // 成绩查询模块
     @RequestMapping("/analysis")

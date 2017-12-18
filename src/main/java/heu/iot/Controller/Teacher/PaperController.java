@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/teacher")
-public class Paper {
+public class PaperController {
     @RequestMapping("/paper")
     public String allpaper() {
         return "teacher/Allpaper";

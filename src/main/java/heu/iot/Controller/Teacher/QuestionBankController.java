@@ -20,7 +20,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/teacher")
-public class QuestionBank {
+public class QuestionBankController {
     @Autowired
     private QuestionService questionService;
 

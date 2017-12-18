@@ -22,7 +22,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/teacher")
-public class AddLesson {
+public class AddLessonController {
 
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);
     Judge judge = new Judge();

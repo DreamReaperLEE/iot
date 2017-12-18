@@ -18,7 +18,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/teacher")
-public class Source {
+public class SourceController {
     @Autowired
     private SourceService sourceService;
 
