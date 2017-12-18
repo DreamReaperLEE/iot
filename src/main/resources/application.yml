@@ -41,8 +41,10 @@ pagehelper:
   reasonable: true
 server:
   port: 8080
+pageNum: 10
 #Myconfig
 #filePath: src/main/resources/static/img/s
 #pageNum: 5
 #commentPageNum: 8
+
 

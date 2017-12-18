@@ -16,6 +16,10 @@
     from emploee
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectByEmploeePriv" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from emploee
+    where priv = #{priv,jdbcType=INTEGER}
+  </select>
   <select id="showAll" resultMap="BaseResultMap">
     SELECT
     <include refid="Base_Column_List"/>

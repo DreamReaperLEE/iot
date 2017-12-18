@@ -19,6 +19,8 @@ public interface EmploeeMapper {
 
     int updateByPrimaryKey(Emploee record);
 
+    List<Emploee> selectByEmploeePriv(Integer priv);
+
     int updatePassword(@Param("id") Integer id, @Param("origin") String origin,@Param("password") String password);
 
     Emploee checkPassword(@Param("id") Integer id,@Param("password") String password);

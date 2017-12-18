@@ -6,17 +6,14 @@ import heu.iot.Util.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
  * 学生修改密码
+ *
  * @Author: Sumail-Lee
  * @Date: 9:45 2017/11/29
  */
@@ -29,9 +26,9 @@ public class InfoController {
     private MD5 md5 = new MD5();
 
     /**
+     * @param
      * @Author: Sumail-Lee
      * @Description: 跳转到修改密码界面
-     * @param
      * @Date: 2017/12/17 20:56
      */
     @RequestMapping("/info")
@@ -40,12 +37,12 @@ public class InfoController {
     }
 
     /**
-     * @Author: Sumail-Lee
-     * @Description: 修改密码
-     * @param inputOrigin 原始密码
+     * @param inputOrigin    原始密码
      * @param inputPassword1 新密码
      * @param inputPassword2 再次输入新密码
      * @param model
+     * @Author: Sumail-Lee
+     * @Description: 修改密码
      * @Date: 2017/12/17 20:57
      */
     @RequestMapping("/changePassword")
