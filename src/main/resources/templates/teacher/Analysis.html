@@ -71,20 +71,20 @@
                     </div>
                     <a>
                         <a th:href="generate_graph">
-                        <button type="button" class="btn btn-success">分析</button>
-                    </a>
+                            <button type="button" class="btn btn-success">分析</button>
+                        </a>
 
-                    <tr>
-                        <th>编号</th>
-                        <th>学号</th>
-                        <th>姓名</th>
-                        <th>成绩</th>
+                        <tr>
+                            <th>编号</th>
+                            <th>学号</th>
+                            <th>姓名</th>
+                            <th>成绩</th>
 
-                    </tr>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="each : ${scoreList}">
-                        <td th:text="${each.pid}">null</td>
+                    <tr th:each="each : ${score_emploeeList}">
+                        <td th:text="${each.id}">null</td>
                         <td th:text="${each.sid}">null</td>
                         <td th:text="${each.name}">null</td>
                         <td th:text="${each.score}">null</td>
@@ -95,7 +95,15 @@
                     </a>
                     </span>
 
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
+</html>
+
 </html>
 </tbody>
 </table>
