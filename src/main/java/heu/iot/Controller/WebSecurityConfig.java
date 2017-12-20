@@ -51,12 +51,12 @@ public class WebSecurityConfig extends WebMvcConfigurerAdapter {
             String url = request.getRequestURL().toString();
             HttpSession session = request.getSession();
             //登陆控制
-            if (session.getAttribute(ID) == null) {
-                //登陆域控制
-//                if (session.getAttribute(LEVEL).toString().equals("2") && !url.matches("(.*)student(.*)")) {
-//                    response.sendRedirect("/login");
-//                    return false;
-//                }
+            if (session.getAttribute(ID) != null) {
+//                登陆域控制
+                if (session.getAttribute(LEVEL).toString().equals("2") && !url.matches("(.*)student(.*)")) {
+                    response.sendRedirect("/login");
+                    return false;
+                }
                 return true;
             }
 

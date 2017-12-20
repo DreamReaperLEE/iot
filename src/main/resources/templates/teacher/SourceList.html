@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="zh-CN">
@@ -36,7 +37,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/logout">登出</a></li>
+                <li><a href="#">登出</a></li>
             </ul>
         </div>
     </div>
@@ -46,35 +47,36 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li><a href="/student/course"><span class="glyphicon glyphicon-book" ></span>  培训课程</a></li>
-                <li class="active"><a href="/student/exam"><span class="glyphicon glyphicon-pencil" ></span>  在线考核</a></li>
-                <li><a href="/student/score"><span class="glyphicon glyphicon-folder-open" ></span>  成绩查询</a></li>
-                <li><a href="/student/info"><span class="glyphicon glyphicon-user" ></span>  个人信息维护</a></li>
+                <li class="active"><a href="question"><span class="glyphicon glyphicon-book" ></span>  题库管理</a></li>
+                <li><a href="source"><span class="glyphicon glyphicon-pencil" ></span>  课程管理</a></li>
+                <li><a href="paper"><span class="glyphicon glyphicon-folder-open" ></span>  试卷管理</a></li>
+                <li><a href="analysis"><span class="glyphicon glyphicon-user" ></span>  成绩管理</a></li>
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h3 class="page-header">进行中考试</h3>
-            <div class="alert alert-success" role="alert" th:text="${success}" th:if="${success!=null}"></div>
-            <div class="alert alert-danger" role="alert" th:text="${fail}" th:if="${fail!=null}"></div>
-            <div class="alert alert-info" role="alert" th:text="${info}" th:if="${info!=null}"></div>
+            <h1 class="page-header" th:text="${source.topic}">未知</h1>
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th>考试编号</th>
-                        <th>考试名称</th>
-                        <th>考试开始时间</th>
-                        <th>考试结束时间</th>
-                        <th>操作</th>
+                        <!--<th>编号</th>-->
+                        <th>课程号</th>
+                        <th>章节</th>
+                        <th>课程难度</th>
+                        <th>题目</th>
+                        <!--<th>具体内容</th>-->
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="each : ${examList}">
-                        <td th:text="${each.id}">null</td>
-                        <td th:text="${each.ename}">null</td>
-                        <td th:text="${each.stime}">null</td>
-                        <td th:text="${each.etime}">null</td>
-                        <td><a th:href="'/student/startExam?eid='+${each.id}+'&ename='+${each.ename}"><button type="button" class="btn btn-success">开始考试</button></a></td>
+                    <tr th:each="each : ${source}">
+                        <!--<td th:text="${each.id}">null</td>-->
+                        <td th:text="${each.cid}">null</td>
+                        <td th:text="${each.type}">null</td>
+                        <td th:text="${each.lesson}">null</td>
+                        <td th:text="${each.topic}">null</td>
+                        <!--<td th:text="${each.detail}">null</td>-->
+                        <td><a th:href="'/teacher/learn_lesson?id='+${each.id}"><button type="button" class="btn btn-success">开始学习</button></a></td>
                     </tr>
                     </tbody>
                 </table>
@@ -87,10 +89,10 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="/js/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="/js/jquery.min.js"><\/script>')</script>
-<script src="/js/bootstrap.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')</script>
+<script src="js/bootstrap.min.js"></script>
 <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-<script src="/js/holder.min.js"></script>
+<script src="js/holder.min.js"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 </body>
 </html>

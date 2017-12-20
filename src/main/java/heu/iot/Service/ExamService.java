@@ -2,9 +2,11 @@ package heu.iot.Service;
 
 import heu.iot.Dao.ExamMapper;
 import heu.iot.Model.Exam;
+import heu.iot.Util.TimeFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,13 +23,12 @@ public class ExamService {
     @Autowired
     private ExamMapper examMapper;
 
-//    public List<Exam> showAllExam() throws ParseException {
-//        String DateStr1 = "10:20:16";
-//        String DateStr2 = "15:50:35";
-//        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-//        Date dateTime1 = dateFormat.parse(DateStr1);
-//        Date dateTime2 = dateFormat.parse(DateStr2);
-//        int i = dateTime1.compareTo(dateTime2);
-//        System.out.println(i < 0);
-//    }
+    public List<Exam> showCurrentExam() {
+        String date= TimeFactory.getCurrentDate();
+        String time=TimeFactory.getCurrentHour();
+        List<Exam> examList=examMapper.showCurrentExam(date,time);
+        return examList;
+    }
+
+
 }

@@ -66,10 +66,10 @@
                     </thead>
                     <tbody>
                     <tr th:each="each : ${scoreList}">
-                        <td th:text="${each.eid}">null</td>
+                        <td th:text="${each.pid}">null</td>
                         <td th:text="${each.ename}">null</td>
                         <td th:text="${each.score}">null</td>
-                        <td><a th:href="'/student/course_list?id='+${each.eid}"><button type="button" class="btn btn-success">查看详细成绩</button></a></td>
+                        <td><a th:href="'/student/detailScore?pid='+${each.pid}+'&ename='+${each.ename}"><button type="button" class="btn btn-success">查看详细成绩</button></a></td>
                     </tr>
                     </tbody>
                 </table>

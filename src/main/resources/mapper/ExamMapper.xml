@@ -21,6 +21,12 @@
     delete from exam
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  <select id="showCurrentExam" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from exam
+    where date = #{date,jdbcType=VARCHAR} and  etime> #{time,jdbcType=VARCHAR} and #{time,jdbcType=VARCHAR} >stime
+  </select>
   <insert id="insert" parameterType="heu.iot.Model.Exam">
     insert into exam (id, ename, date, 
       etime, stime)

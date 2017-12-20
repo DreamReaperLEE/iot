@@ -6,16 +6,16 @@ package heu.iot.Model;
  * @Since: 17:28 2017/12/11
  */
 public class Score_Exam_Paper {
-    private int eid;
+    private int pid;
     private String ename;
     private float score;
 
-    public int getEid() {
-        return eid;
+    public int getPid() {
+        return pid;
     }
 
-    public void setEid(int eid) {
-        this.eid = eid;
+    public void setPid(int pid) {
+        this.pid = pid;
     }
 
     public String getEname() {

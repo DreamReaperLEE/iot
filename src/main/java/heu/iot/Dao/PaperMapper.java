@@ -16,4 +16,6 @@ public interface PaperMapper {
     int updateByPrimaryKeySelective(Paper record);
 
     int updateByPrimaryKey(Paper record);
+
+    Paper selectByEid(Integer id);
 }

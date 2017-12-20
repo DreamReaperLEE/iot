@@ -23,4 +23,9 @@ public interface SourceMapper {
     int updateByPrimaryKeySelective(Source record);
 
     int updateByPrimaryKey(Source record);
+
+    List<Source> showAllSource();
+
+    //    增加课程
+    int addSource(Source source);
 }

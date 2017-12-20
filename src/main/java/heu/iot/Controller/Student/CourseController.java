@@ -58,6 +58,8 @@ public class CourseController {
     public String showCourseDetail(@RequestParam(value = "id") Integer id, @RequestParam(value = "lesson", required = false, defaultValue = "1") Integer lesson, Model model) {
         //获取该章节资源列表
         List<Source> sourceList = sourceService.showCourseDetail(id, lesson);
+        //获取该章节资源列表
+        List<Source> nextLesson = sourceService.showCourseDetail(id, lesson + 1);
         //文本类资源列表
         List<Source> textList = new ArrayList<Source>();
         //图片类资源列表
@@ -83,7 +85,11 @@ public class CourseController {
                     cname = source;
             }
         }
-
+        //是否有下一章
+        if (nextLesson.size() != 0)
+            model.addAttribute("nextLesson", "success");
+        else
+            model.addAttribute("nextLesson", "fail");
         //课程名称
         model.addAttribute("cname", cname.getTopic());
         //课程ID

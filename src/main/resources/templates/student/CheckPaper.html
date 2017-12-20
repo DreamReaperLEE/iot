@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="http://v3.bootcss.com/favicon.ico">
+
+    <title>保密教育培训考核系统</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Custom styles for this template -->
+    <link href="/css/dashboard.css" rel="stylesheet">
+    <style type="text/css">
+        p{ text-indent:2em;}
+    </style>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">保密教育在线培训考核系统</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/logout">登出</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li><a href="/student/course"><span class="glyphicon glyphicon-book" ></span>  培训课程</a></li>
+                <li><a href="/student/exam"><span class="glyphicon glyphicon-pencil" ></span>  在线考核</a></li>
+                <li class="active"><a href="/student/score"><span class="glyphicon glyphicon-folder-open" ></span>  成绩查询</a></li>
+                <li><a href="/student/info"><span class="glyphicon glyphicon-user" ></span>  个人信息维护</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <div class="center-block">
+                <h3 class="page-header" th:text="${ename}">null</h3>
+            </div>
+            <div th:each="each,eachStat : ${online_tests}">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" th:text="'第'+${eachStat.count}+'题'">null</h3>
+                        <p th:text=" ${each.getQuestion().desc}"></p>
+                        <img th:src="${each.getQuestion().digital}" alt="" width="600" height= "1200" class="img-thumbnail" th:if="${each.getQuestion().more==1}">
+                        <video th:src="${each.getQuestion().digital}" height="400" controls preload="metadata" th:if="${each.getQuestion().type==2}"></video>
+                    </div>
+                    <div class="panel-body">
+                            <h3>选项及答案：</h3>
+                            <!--如果为单选-->
+                            <div th:each="every,everyStat : ${each.getChoice()}" th:if="${each.getQuestion().type==1}" th:with="correct=${each.getCorrect()},answer=${each.getAnswer()}">
+                                <p class="lead" th:text="${every}" th:if="${everyStat.index!=correct.get(0)&&everyStat.index!=answer.get(0)}">null</p>
+                                <p class="bg-success lead" th:text="${every}" th:if="${everyStat.index==correct.get(0)}">null</p>
+                                <p class="bg-danger lead" th:text="${every}" th:if="${everyStat.index!=correct.get(0)&&everyStat.index==answer.get(0)}">null</p>
+                            </div>
+                            <!--如果为多选-->
+                            <div class="checkbox" th:each="every,everyStat : ${each.getChoice()}" th:if="${each.getQuestion().type==2}" th:with="correct=${each.getCorrect()},answer=${each.getAnswer()}">
+                                <p class="lead" th:text="${every}" th:if="${!correct.contains(everyStat.index)&&!answer.contains(everyStat.index)}">null</p>
+                                <p class="bg-success lead" th:text="${every}" th:if="${correct.contains(everyStat.index)}">null</p>
+                                <p class="bg-danger lead" th:text="${every}" th:if="${!correct.contains(everyStat.index)&&answer.contains(everyStat.index)}">null</p>
+                            </div>
+                            <!--如果为判断-->
+                            <div th:if="${each.getQuestion().type==0}" th:with="correct=${each.getCorrect()},answer=${each.getAnswer()}">
+                                <p class="lead" th:text="正确" th:if="${1!=correct.get(0)&&1!=answer.get(0)}">null</p>
+                                <p class="bg-success lead" th:text="正确" th:if="${1==correct.get(0)}">null</p>
+                                <p class="bg-danger lead" th:text="正确" th:if="${1!=correct.get(0)&&1==answer.get(0)}">null</p>
+
+                                <p class="lead" th:text="错误" th:if="${0!=correct.get(0)&&0!=answer.get(0)}">null</p>
+                                <p class="bg-success lead" th:text="错误" th:if="${0==correct.get(0)}">null</p>
+                                <p class="bg-danger lead" th:text="错误" th:if="${0!=correct.get(0)&&0==answer.get(0)}">null</p>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="/js/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="/js/jquery.min.js"><\/script>')</script>
+<script src="/js/bootstrap.min.js"></script>
+<!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+<script src="/js/holder.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+</body>
+</html>

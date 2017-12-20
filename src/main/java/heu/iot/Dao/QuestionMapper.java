@@ -3,7 +3,9 @@ package heu.iot.Dao;
 import heu.iot.Model.Question;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 public interface QuestionMapper {
@@ -20,4 +22,7 @@ public interface QuestionMapper {
     int updateByPrimaryKey(Question record);
 
     List<Question> showAllQuestion();
+
+    List<Question> showSelected(List<Integer> info);
+
 }

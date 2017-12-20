@@ -56,20 +56,22 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <button type="button" class="btn btn-default"><a th:href="'course_list?id='+${cid}">返回课程目录</a></button>
                 <h1 th:text="'第'+${lesson}+'讲——'+${cname}">null</h1>
-            <div class="jumbotron" th:each="each : ${textList}">
-                <h2 th:text="${each.topic}">null</h2>
-                <p th:text="${each.detail}">null</p>
-            </div>
-            <div class="jumbotron" th:each="each : ${picList}">
-                <h2 th:text="${each.topic}">null</h2>
-                <img th:src="${each.detail}" alt="" class="img-thumbnail">
-            </div>
             <div class="jumbotron" th:each="each : ${videoList}">
-                <h2 th:text="${each.topic}">null</h2>
-                <p th:text="${each.detail}">null</p>
+                <h3 th:text="${each.topic}">null</h3>
+                <video th:src="${each.detail}" height="100%" controls preload="metadata"></video>
+            </div>
+            <div class="jumbotron">
+                <div th:each="each : ${textList}">
+                    <h3 th:text="${each.topic}">null</h3>
+                    <p th:text="${each.detail}">null</p>
+                </div>
+                <div th:each="each : ${picList}">
+                    <img th:src="${each.detail}" alt="" class="img-thumbnail">
+                    <h4 th:text="${each.topic}">null</h4>
+                </div>
             </div>
 
-            <p>
+            <p th:if="${nextLesson=='success'}">
                 <a class="btn btn-lg btn-primary" th:href="'/student/course_detail?id='+${cid}+'&lesson='+${lesson+1}" role="button">进入下一讲</a>
             </p>
         </div>

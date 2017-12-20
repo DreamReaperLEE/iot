@@ -9,6 +9,8 @@ public class Question {
 
     private String desc;
 
+    private Integer more;
+
     private String digital;
 
     private Integer type;
@@ -16,6 +18,14 @@ public class Question {
     private String answer;
 
     private Integer level;
+
+    public Integer getMore() {
+        return more;
+    }
+
+    public void setMore(Integer more) {
+        this.more = more;
+    }
 
     public Integer getId() {
         return id;

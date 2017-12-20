@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @Author: Sumail-Lee
@@ -29,4 +31,12 @@ public class testController {
 //
 //        return source;
 //    }
+    public static void main(String args[]){
+
+        ArrayList<Integer> list=new ArrayList<Integer>() ;
+        list.add(1);
+        list.add(2);
+        System.out.println(list.contains(1));
+        System.out.println(list.contains(3));
+    }
 }

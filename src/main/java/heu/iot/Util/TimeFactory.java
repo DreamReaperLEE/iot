@@ -21,4 +21,14 @@ public class TimeFactory {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return df.format(new Date());
     }
+
+    public static String getCurrentHour() {
+        SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
+        return df.format(new Date());
+    }
+
+    public static String getCurrentDate() {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        return df.format(new Date());
+    }
 }

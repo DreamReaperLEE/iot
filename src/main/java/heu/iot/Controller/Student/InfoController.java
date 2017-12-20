@@ -56,8 +56,8 @@ public class InfoController {
         //将密码转换为md5
         inputOrigin = md5.getMd5(inputOrigin);
         inputPassword1 = md5.getMd5(inputPassword1);
-
         Integer id = Integer.valueOf(session.getAttribute(WebSecurityConfig.ID).toString());
+        //判断是否更新成功
         int result = infoService.changePassword(id, inputOrigin, inputPassword1);
         if (result == 0)
             model.addAttribute("fail", "更新失败，密码错误");
