@@ -21,19 +21,14 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Untitled</title>
     <script>
-        function test(o) {
-            if (!o.checked) {
-                return;
+        function fun() {
+            obj = document.getElementsByName("test");
+            check_val = [];
+            for (k in obj) {
+                if (obj[k].checked)
+                    check_val.push(obj[k].value);
             }
-            var tr = o.parentNode.parentNode;
-            var tds = tr.cells;
-            // var str = "you click ";
-            for (var i = 0; i < tds.length; i++) {
-                if (i < 3) {
-                    strstr = str + tds[i].innerHTML + "--";
-                }
-            }
-            alert(str);
+            alert(check_val);
         }
     </script>
 </head>
@@ -79,23 +74,46 @@
                         <th>组卷</th>
                         <th>编号</th>
                         <th>题目描述</th>
-                        <th>题目类型</th>
+                        <th>题目答案</th>
+                        <th>题目难度</th>
                     </tr>
-                    </thead>
+                    <!--<form role="form" method="POST" th:action="@{/teacher/set_paper}" th:object="${questions}">-->
+                    <!--<tr th:each="each : ${questionsList}">-->
+
+                    <!--<td><label for="id"></label><input type="checkbox" class="form-control"-->
+                    <!--id="id"-->
+                    <!--th:value="${each.id}"/>-->
+                    <!--</td>-->
+                    <!--<td th:text="${each.id}"></td>-->
+                    <!--<td th:text="${each.desc}">null</td>-->
+                    <!--<td th:text="${each.answer}">null</td>-->
+                    <!--<td th:text="${each.level}">null</td>-->
+                    <!--<button type="submit" class="btn btn-default">Sign in</button>-->
+                    <!--</form>-->
                     <tbody>
                     <tr th:each="each : ${questionsList}">
-                        <td><input type="checkbox" onclick="test(this);"/></td>
-                        <td th:text="${each.id}">null</td>
+                        <td><input type="checkbox" value="${each.id}" name="test"/>
+                        </td>
+                        <td th:text="${each.id}"></td>
                         <td th:text="${each.desc}">null</td>
-                        <td th:text="${each.type}">null</td>
+                        <td th:text="${each.answer}">null</td>
+                        <td th:text="${each.level}">null</td>
+                        <div>
+                            <span style="position:absolute; right:60px; bottom:0px;">
+                                 <!--<a class="btn btn-lg btn-primary" th:href="'/student/course_detail?id='+${cid}+'&lesson='+${lesson+1}" role="button">进入下一讲</a>-->
+                                <a href="/teacher/set_paper">
+                                    <button type="button" class="btn btn-success" onclick="fun()">组卷</button></a>
+                                        </span>
+                            </button>
+
+                            </span>
+                        </div>
                     </tr>
+                    </tbody>
+                    </thead>
+
                 </table>
-                <div>
-                    <span style="position:absolute; right:60px; bottom:0px;">
-                        <a th:href="set_paper">
-                            <button type="button" class="btn btn-success">组卷</button></a>
-                           </span>
-                </div>
+
             </div>
         </div>
     </div>

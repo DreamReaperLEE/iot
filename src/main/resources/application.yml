@@ -8,10 +8,10 @@ spring:
       maxRequestSize: 1000MB
   datasource:
     name: iot
-    url: jdbc:mysql://localhost:3306/ceats?characterEncoding=utf8&useSSL=true
+    url: jdbc:mysql://localhost:3306/iot?characterEncoding=utf8&useSSL=true
     driverClassName: com.mysql.jdbc.Driver
     username: root
-    password: sandaoliu
+    password: 123456
     type: com.alibaba.druid.pool.DruidDataSource
     maxActive: 1000
     initialSize: 5
