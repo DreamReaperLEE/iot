@@ -4,12 +4,14 @@ import heu.iot.Model.Course_Emploee;
 import heu.iot.Model.Source;
 import heu.iot.Service.CourseService;
 import heu.iot.Service.SourceService;
+import heu.iot.Util.Excel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -21,22 +23,21 @@ import java.util.Random;
 @RestController
 @RequestMapping("/student")
 public class testController {
-//    @Autowired
-//    private SourceService sourceService;
-//ddsfsdfsf
-//    @RequestMapping("/course_detail")
-//    public Source showCourseDetail(@RequestParam(value = "id") Integer id, @RequestParam(value = "lesson",required = false,defaultValue = "1") Integer lesson, Model model){
-//       Source source=sourceService.showCourseDetail(id,lesson);
-////        model.addAttribute("course_emploeeList",course_emploeeList);
-//
-//        return source;
-//    }
-    public static void main(String args[]){
 
-        ArrayList<Integer> list=new ArrayList<Integer>() ;
-        list.add(1);
-        list.add(2);
-        System.out.println(list.contains(1));
-        System.out.println(list.contains(3));
-    }
+//    @RequestMapping("/excel")
+//    public String excle(HttpServletResponse response) throws Exception {
+//        ArrayList<ArrayList<String>> list=new ArrayList<ArrayList<String>>() ;
+//        ArrayList<String> every=new ArrayList<String>();
+//        every.add("测试1");
+//        every.add("测试2");
+//        list.add(every);
+//        list.add(every);
+//        return Excel.createExcel("测试",every,list,response);
+//    }
+
+//    public static void main(String args[]){
+//
+//
+//
+//    }
 }

@@ -12,4 +12,6 @@ import java.util.List;
 
 public interface Course_EmploeeMapper {
     List<Course_Emploee> showAllCourse();
+
+    List<Course_Emploee> showSelected(String cname);
 }

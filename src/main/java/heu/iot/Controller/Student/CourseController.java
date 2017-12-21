@@ -46,6 +46,14 @@ public class CourseController {
         return "student/allCourse";
     }
 
+    @RequestMapping("/course_select")
+    public String showSelected(@RequestParam(value = "cname") String cname,HttpSession session, Model model) {
+        //获取所有课程列表
+        List<Course_Emploee> course_emploeeList = courseService.showSelected(cname);
+        model.addAttribute("course_emploeeList", course_emploeeList);
+        return "student/allCourse";
+    }
+
     /**
      * @param id     课程id
      * @param lesson 章节id

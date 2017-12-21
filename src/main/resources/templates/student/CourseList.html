@@ -68,7 +68,7 @@
                     <tbody>
                     <tr th:each="each : ${sourceList}">
                         <td th:text="${each.id}">null</td>
-                        <td th:text="${each.lesson}">null</td>
+                        <td th:text="'第'+${each.lesson}+'章'">null</td>
                         <td th:text="${each.topic}">null</td>
                         <td><a th:href="'/student/course_detail?id='+${course.id}+'&lesson='+${each.lesson}"><button type="button" class="btn btn-success">开始学习</button></a></td>
                     </tr>

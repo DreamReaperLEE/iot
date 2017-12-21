@@ -23,5 +23,11 @@ public class CourseService {
     public List<Course_Emploee> showAllCourse(){
         return course_emploeeMapper.showAllCourse();
     }
+
+    public List<Course_Emploee> showSelected(String cname){
+        return course_emploeeMapper.showSelected(cname);
+    }
+
+
     public Course selectByPrimaryKey(Integer id){return courseMapper.selectByPrimaryKey(id);}
 }
