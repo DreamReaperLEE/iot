@@ -1,16 +1,14 @@
 package heu.iot.Controller.Teacher;
 
 import com.github.pagehelper.PageHelper;
+import heu.iot.Model.Exam;
 import heu.iot.Model.Question;
-import heu.iot.Model.Source;
-import heu.iot.Service.CourseService;
 import heu.iot.Service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -40,14 +38,15 @@ public class QuestionBankController {
 
     // 自动组卷模块
     @RequestMapping("/automatic_question")
-    public String automaticQuestion() {
-        return "teacher/AutomaticPaper";
+    public ModelAndView automaticQuestion() {
+        Question question = new Question();
+        return new ModelAndView("/teacher/AutomaticPaper").addObject(question);
     }
 
-
-    // 设置考试时间以及科目
-    @RequestMapping("/set_paper")
-    public String setPaper() {
-        return "teacher/SetPaper";
+    // 设置考试时间以及科目的一个跳转
+    @RequestMapping(value = "/set_paper")
+    public ModelAndView setPaper(Model model) {
+        Exam exam = new Exam();
+        return new ModelAndView("teacher/SetPaper").addObject(exam);
     }
 }

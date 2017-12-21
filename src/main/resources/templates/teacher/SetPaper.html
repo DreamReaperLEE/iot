@@ -14,6 +14,8 @@
 
     <!-- Bootstrap core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
 
 
     <!-- Custom styles for this template -->
@@ -60,22 +62,33 @@
             <div class="table-responsive">
                 <table class="table table-striped" type="checkbox">
                     <thead>
-                    <form action="/example/html5/demo_form.asp" method="get">
-                        考试时间: <input type="datetime-local" name="user_date"/>
-                    </form>
-                    <span style="position:absolute; left: 30px; bottom:10px;">
+                    </tr>
+                    <form role="form" method="post" th:action="@{/teacher/add_paper}" th:object="${exam}">
+
+                        <label for="date">考试时间:</label><input type="date" class="form-control" id="date"
+                                                              th:field="*{date}"/>
+                        <label for="stime">考试开始时间：</label><input type="time" class="form-control" id="stime"
+                                                                 th:field="*{stime}"/>
+                        <label for="etime">考试结束时间：</label><input type="time" class="form-control" id="etime"
+                                                                 th:field="*{etime}"/>
+                        <span style="position:absolute; left: 30px; bottom:10px;">
                         <select>
-                        <option value="volvo">考试科目</option>
-                        <option value="saab">数据库</option>
-                        <option value="opel">java</option>
-                        <option value="audi">数据结构</option>
-                    </select>
-                           </span>
-                    <span style="position:absolute; right:60px; bottom:0px;">
-                            <button type="button" class="btn btn-success">组卷</button>
+                            <option value="ename" th:field="*{ename}" id="ename" class="form-control">考试科目</option>
+                            <option value="ename" th:field="*{ename}" id="ename" class="form-control">数据库</option>
+                            <option value="ename" th:field="*{ename}" id="ename" class="form-control">java</option>
+                            <option value="ename" th:field="*{ename}" id="ename" class="form-control">数据结构</option>
+                            </select>
+                        </span>
+                        <span style="position:absolute; right:60px; bottom:0px;">
+                            <button type="submit" class="btn btn-success">开始考试</button>
+                            </a>
                            </span>
 
 
+                    </form>
+
+                    </thead>
+                </table>
             </div>
         </div>
     </div>

@@ -22,7 +22,7 @@
   </select>
   <select id="showAllQuestion" resultMap="BaseResultMap">
     select
-    question.id,question.DESC,question.TYPE
+    question.id,question.DESC,question.level,question.answer
     from question
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">

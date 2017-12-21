@@ -14,10 +14,24 @@
 
     <!-- Bootstrap core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 
+    <script src="/js/bootstrap-multiselect.js"></script>
+    <link href="/css/bootstrap-multiselect.css" rel="stylesheet"/>
 
+    <!--<script src="~/Scripts/Home/Index_davidstutz.js"></script>-->
+
+    <script>
+        $(function () {
+            $('#sel_search_orderstatus4').multipleSelect({
+                placeholder: "请选择",
+                single: true
+            });
+        })
+    </script>
     <!-- Custom styles for this template -->
     <link href="/css/dashboard.css" rel="stylesheet">
+    </link>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Untitled</title>
 
@@ -60,50 +74,47 @@
             <div class="table-responsive">
                 <table class="table table-striped" type="checkbox">
                 <thead>
-
-                <span style="position:absolute; left: 30px; bottom:10px;">
-                        <select>
-                        <option value="volvo">考试科目</option>
-                        <option value="saab">数据库</option>
-                        <option value="opel">java</option>
-                        <option value="audi">数据结构</option>
+                <form>
+                <label class="control-label col-xs-1" for="sel_search_orderstatus4">考试科目</label>
+                <div class="col-xs-2" style="margin-top:7px;">
+                    <select id="sel_search_orderstatus4" style="width:150px" multiple="multiple">
+                        <option value="1">数据库</option>
+                        <option value="2">java</option>
+                        <option value="3">c语言</option>
+                        <option value="4">计算机网络</option>
                     </select>
-                           </span>
-
-                <span style="position:absolute; left: 160px; bottom:10px;">
-                        <select>
-                        <option value="volvo">题目难度</option>
-                        <option value="saab">1</option>
-                        <option value="opel">2</option>
-                        <option value="audi">3</option>
-                            <option value="audi">4</option>
-                            <option value="audi">5</option>
+                </div>
+                <label class="control-label col-xs-1" for="sel_search_orderstatus4">题目难度</label>
+                <div class="col-xs-2" style="margin-top:7px;">
+                    <select id="sel_search_orderstatus4" style="width:150px" multiple="multiple">
+                        <option value="5">1</option>
+                        <option value="6">2</option>
+                        <option value="7">3</option>
+                        <option value="8">4</option>
                     </select>
-                           </span>
-                <span style="position:absolute; left: 290px; bottom:10px;">
-                        <select>
-                        <option value="volvo">题目数量</option>
-                        <option value="saab">10</option>
-                        <option value="opel">20</option>
-                        <option value="audi">30</option>
+                </div>
+                <label class="control-label col-xs-1" for="sel_search_orderstatus4">题目数量</label>
+                <div class="col-xs-2" style="margin-top:7px;">
+                    <select id="sel_search_orderstatus4" style="width:150px" multiple="multiple">
+                        <option value="9">10</option>
+                        <option value="10">20</option>
+                        <option value="11">30</option>
                     </select>
-                           </span>
+                </div>
 
-
+                </thead>
                 <form action="" method="get">
                     题目类型
                     <label><input name="Fruit" type="checkbox" value=""/>单选 </label>
                     <label><input name="Fruit" type="checkbox" value=""/>多选</label>
                     <label><input name="Fruit" type="checkbox" value=""/>填空 </label>
                 </form>
-
-
                 <span style="position:absolute; right:60px; bottom:0px;">
                       <a th:href="set_paper">
                             <button type="button" class="btn btn-success">组卷</button></a>
                            </span>
-
-
+                </table>
+            </div>
             </div>
         </div>
     </div>
@@ -113,7 +124,6 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="/js/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')</script>
 <script src="js/bootstrap.min.js"></script>
 <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
 <script src="js/holder.min.js"></script>

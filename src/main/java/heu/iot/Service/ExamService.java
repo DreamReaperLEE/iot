@@ -21,6 +21,10 @@ public class ExamService {
     @Autowired
     private ExamMapper examMapper;
 
+    public int insert(Exam record){
+        return examMapper.insert(record);
+    }
+
 //    public List<Exam> showAllExam() throws ParseException {
 //        String DateStr1 = "10:20:16";
 //        String DateStr2 = "15:50:35";
