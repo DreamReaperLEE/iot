@@ -12,6 +12,6 @@
     <select id="showAllExamByStudentId" resultMap="BaseResultMap">
         SELECT <include refid="Base_Column_List" />
         from score,paper,exam
-        WHERE paper.eid=exam.id and score.pid=paper.id
+        WHERE paper.eid=exam.id and score.pid=paper.id and score.score!=-1
     </select>
 </mapper>

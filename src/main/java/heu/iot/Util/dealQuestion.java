@@ -20,13 +20,25 @@ public class dealQuestion {
      * @param questionList 题库类列表
      * @Date: 2017/12/20 19:58
      */
-    public static ArrayList<Online_Test> QuestionToList(List<Question> questionList){
+    public static ArrayList<Online_Test> QuestionToList(List<Question> questionList,String... result){
         ArrayList<Online_Test> online_tests=new ArrayList<Online_Test>();
-        for(Question each:questionList){
-            Question_Json question_json=MyJson.JsonToQuestion(each.getAnswer());
+        ArrayList<ArrayList<Integer>> answer=new ArrayList<ArrayList<Integer>>();
+        ArrayList<Integer> noanswer=new ArrayList<Integer>();
+        noanswer.add(-1);
+        if(result.length!=0) {
+            answer =MyJson.JsonToList(result[0]);
+        }
+        for(int i=0;i<questionList.size();i++){
+            Question_Json question_json=MyJson.JsonToQuestion(questionList.get(i).getAnswer());
             Online_Test online_test=new Online_Test();
-            online_test.setQuestion(each);
+            online_test.setQuestion(questionList.get(i));
             online_test.setChoice(question_json.getChoice());
+            if(result.length!=0) {
+                online_test.setAnswer(answer.get(i));
+            }
+            else{
+                online_test.setAnswer(noanswer);
+            }
             online_tests.add(online_test);
         }
         return online_tests;

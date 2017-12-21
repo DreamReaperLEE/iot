@@ -58,27 +58,21 @@ public class ExamController {
 
 
     /**
-     * @Author: Sumail-Lee
-     * @Description: 开始考试
-     * @param eid 考试id
-     * @param ename 考试名称
+     * @param eid     考试id
+     * @param ename   考试名称
      * @param model
      * @param session
+     * @Author: Sumail-Lee
+     * @Description: 开始考试
      * @Date: 2017/12/20 19:52
      */
     @RequestMapping("/startExam")
     public String startExam(@RequestParam(value = "eid") Integer eid, @RequestParam(value = "ename") String ename, Model model, HttpSession session) {
         //获取试卷
         Paper paper = paperService.showPaper(eid);
-        //如果已经答题过，则显示已经答题过
+        //如果已经答题过，则返回已达题目
         Score score = scoreService.selectBySidPid(Integer.valueOf(session.getAttribute(WebSecurityConfig.ID).toString()), paper.getId());
-        if (score != null) {
-            //获取所有考试列表
-            List<Exam> examList = examService.showCurrentExam();
-            model.addAttribute("examList", examList);
-            model.addAttribute("info", "您已经进行过答题，请进入成绩查询界面查看成绩！");
-            return "student/allExam";
-        }
+
         Exam_Json exam_json = MyJson.JsonToExam(paper.getDetail());
         List<String> info = exam_json.getInfo();
         //获取题号列表
@@ -89,7 +83,12 @@ public class ExamController {
         //获取所有题目
         List<Question> questionList = questionService.showSelected(numinfo);
         //题目列表，即为试卷
-        ArrayList<Online_Test> online_tests = dealQuestion.QuestionToList(questionList);
+        ArrayList<Online_Test> online_tests;
+        //如果答题过则将记录传过去，否则不穿
+        if (score != null)
+            online_tests = dealQuestion.QuestionToList(questionList, score.getDetail());
+        else
+            online_tests = dealQuestion.QuestionToList(questionList);
         model.addAttribute("online_tests", online_tests);
         model.addAttribute("eid", eid);
         model.addAttribute("ename", ename);
@@ -97,11 +96,11 @@ public class ExamController {
     }
 
     /**
-     * @Author: Sumail-Lee
-     * @Description: 处理学生提交的考卷
      * @param model
      * @param request
      * @param session
+     * @Author: Sumail-Lee
+     * @Description: 处理学生提交的考卷
      * @Date: 2017/12/20 19:53
      */
     @PostMapping("/dealPaper")
@@ -117,17 +116,14 @@ public class ExamController {
             if (request.getParameter("option" + String.valueOf(i)) != null) {
                 String[] result = request.getParameterValues("option" + String.valueOf(i));
                 answer.add(result);
-                System.out.println("单选");
             } else if (request.getParameter("choose" + String.valueOf(i)) != null) {
                 String[] result = request.getParameterValues("choose" + String.valueOf(i));
                 answer.add(result);
-                System.out.println("判断");
             } else if (request.getParameter("check" + String.valueOf(i)) != null) {
                 String[] result = request.getParameterValues("check" + String.valueOf(i));
                 answer.add(result);
-                System.out.println("多选");
             } else {
-                String[] result = {" "};
+                String[] result = {"-1"};
                 answer.add(result);
             }
         }
@@ -138,8 +134,16 @@ public class ExamController {
         score.setSid(Integer.valueOf(session.getAttribute(WebSecurityConfig.ID).toString()));
         score.setPid(paper.getId());
         score.setDetail(result);
-        //判断是否添加成功
-        int num = scoreService.submitPaper(score);
+        score.setScore(-1F);
+        //如果已经答题过，则更新题目
+        Score exist = scoreService.selectBySidPid(Integer.valueOf(session.getAttribute(WebSecurityConfig.ID).toString()), paper.getId());
+        int num;
+        if (exist != null) {
+            num = scoreService.updatePaper(score);
+        } else {
+            num = scoreService.submitPaper(score);
+        }
+
         if (num == 1) {
             model.addAttribute("success", "提交试卷成功！");
         } else {
@@ -150,8 +154,4 @@ public class ExamController {
         model.addAttribute("examList", examList);
         return "student/allExam";
     }
-
-
-
-
 }

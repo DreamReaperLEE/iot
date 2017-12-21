@@ -21,17 +21,21 @@ public class ScoreService {
     @Autowired
     private ScoreMapper scoreMapper;
 
-    public List<Score_Exam_Paper> showAllExamByStudentId(Integer id){
+    public List<Score_Exam_Paper> showAllExamByStudentId(Integer id) {
         return score_exam_paperMapper.showAllExamByStudentId(id);
     }
 
-     public int submitPaper(Score score){
-//        scoreMapper.updatePaper(score);
-        return scoreMapper.insertSelective(score);
-     }
+    public int submitPaper(Score score) {
 
-    public Score selectBySidPid(Integer sid,Integer pid){
-        return scoreMapper.selectBySidPid(sid,pid);
+        return scoreMapper.insertSelective(score);
+    }
+
+    public int updatePaper(Score score) {
+        return scoreMapper.updatePaper(score);
+    }
+
+    public Score selectBySidPid(Integer sid, Integer pid) {
+        return scoreMapper.selectBySidPid(sid, pid);
     }
 
 

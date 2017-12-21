@@ -22,7 +22,15 @@
     <style type="text/css">
         p{ text-indent:2em;}
     </style>
-
+    <!--<script type="text/javascript">-->
+        <!--function sub()-->
+        <!--{-->
+            <!--document.getElementById("form1").submit();-->
+        <!--}-->
+        <!--window.onload = function() {-->
+            <!--window.setTimeout(sub,5000);-->
+        <!--}-->
+    <!--</script>-->
 </head>
 
 <body>
@@ -60,37 +68,37 @@
             <div class="center-block">
                 <h3 class="page-header" th:text="${ename}">null</h3>
             </div>
-            <form class="form-horizontal" action="/student/dealPaper" method="post">
+            <form class="form-horizontal" action="/student/dealPaper" method="post" id="form1">
                 <input type="hidden" name="eid" th:value="${eid}">
                 <div th:each="each,eachStat : ${online_tests}">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title" th:text="'第'+${eachStat.count}+'题'">null</h3>
-                            <p th:text=" ${each.getQuestion().desc}"></p>
+                            <p th:text="${each.getQuestion().desc}"></p>
                             <img th:src="${each.getQuestion().digital}" alt="" width="600" height= "1200" class="img-thumbnail" th:if="${each.getQuestion().more==1}">
-                            <video th:src="${each.getQuestion().digital}" height="400" controls preload="metadata" th:if="${each.getQuestion().type==2}"></video>
+                            <video th:src="${each.getQuestion().digital}" height="400" controls preload="metadata" th:if="${each.getQuestion().more==2}"></video>
                         </div>
                         <div class="panel-body">
                             <div class="form-group">
                                 <!--如果为单选-->
-                                <div th:each="every,everyStat : ${each.getChoice()}" th:if="${each.getQuestion().type==1}">
+                                <div th:each="every,everyStat : ${each.getChoice()}" th:if="${each.getQuestion().type==1}" th:with="answer=${each.getAnswer()}">
                                     <label class="radio-inline">
-                                        <input type="radio" th:name="'option'+${eachStat.index}" th:id="'inlineRadio'+${everyStat.index}" th:value="${everyStat.index}" th:text=" ${every}">
+                                        <input type="radio" th:name="'option'+${eachStat.index}" th:id="'inlineRadio'+${everyStat.index}" th:value="${everyStat.index}" th:text=" ${every}" th:checked="${everyStat.index == answer.get(0)}? 'checked'">
                                     </label>
                                 </div>
                                 <!--如果为多选-->
-                                <div class="checkbox" th:each="every,everyStat : ${each.getChoice()}" th:if="${each.getQuestion().type==2}">
+                                <div class="checkbox" th:each="every,everyStat : ${each.getChoice()}" th:if="${each.getQuestion().type==2}" th:with="answer=${each.getAnswer()}">
                                     <label>
-                                        <input type="checkbox" th:name="'check'+${eachStat.index}" th:value="${everyStat.index}" th:text=" ${every}">
+                                        <input type="checkbox" th:name="'check'+${eachStat.index}" th:value="${everyStat.index}" th:text=" ${every}" th:checked="${answer.contains(everyStat.index)}? 'checked'">
                                     </label>
                                 </div>
                                 <!--如果为判断-->
-                                <div th:if="${each.getQuestion().type==0}">
+                                <div th:if="${each.getQuestion().type==0}" th:with="answer=${each.getAnswer()}">
                                     <label class="radio-inline">
-                                        <input type="radio" th:name="'choose'+${eachStat.index}" id="inlineRadio1" th:value="1" >正确<br />
+                                        <input type="radio" th:name="'choose'+${eachStat.index}" id="inlineRadio1" th:value="1" th:checked="${1 == answer.get(0)}? 'checked'">正确<br />
                                     </label>
                                     <label class="radio-inline">
-                                        <input type="radio" th:name="'choose'+${eachStat.index}" id="inlineRadio0" th:value="0" >错误<br />
+                                        <input type="radio" th:name="'choose'+${eachStat.index}" id="inlineRadio0" th:value="0" th:checked="${0 == answer.get(0)}? 'checked'">错误<br />
                                     </label>
                                 </div>
                             </div>
@@ -99,7 +107,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-success">提交</button>
+                        <button type="submit" class="btn btn-success">更新试卷</button>
                     </div>
                 </div>
             </form>
