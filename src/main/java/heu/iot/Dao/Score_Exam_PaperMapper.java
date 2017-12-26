@@ -12,4 +12,6 @@ import java.util.List;
 public interface Score_Exam_PaperMapper {
 
     List<Score_Exam_Paper> showAllExamByStudentId(Integer id);
+
+    List<Score_Exam_Paper> showRecent5(Integer id);
 }

@@ -25,6 +25,10 @@ public class ScoreService {
         return score_exam_paperMapper.showAllExamByStudentId(id);
     }
 
+    public List<Score_Exam_Paper> showRecent5(Integer id){
+        return score_exam_paperMapper.showRecent5(id);
+    }
+
     public int submitPaper(Score score) {
 
         return scoreMapper.insertSelective(score);
@@ -37,6 +41,8 @@ public class ScoreService {
     public Score selectBySidPid(Integer sid, Integer pid) {
         return scoreMapper.selectBySidPid(sid, pid);
     }
+
+
 
 
 }

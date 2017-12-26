@@ -73,23 +73,23 @@
                             <!--如果为单选-->
                             <div th:each="every,everyStat : ${each.getChoice()}" th:if="${each.getQuestion().type==1}" th:with="correct=${each.getCorrect()},answer=${each.getAnswer()}">
                                 <p class="lead" th:text="${every}" th:if="${everyStat.index!=correct.get(0)&&everyStat.index!=answer.get(0)}">null</p>
-                                <p class="bg-success lead" th:text="${every}" th:if="${everyStat.index==correct.get(0)}">null</p>
+                                <p class="bg-primary lead" th:text="${every}" th:if="${everyStat.index==correct.get(0)}">null</p>
                                 <p class="bg-danger lead" th:text="${every}" th:if="${everyStat.index!=correct.get(0)&&everyStat.index==answer.get(0)}">null</p>
                             </div>
                             <!--如果为多选-->
                             <div class="checkbox" th:each="every,everyStat : ${each.getChoice()}" th:if="${each.getQuestion().type==2}" th:with="correct=${each.getCorrect()},answer=${each.getAnswer()}">
                                 <p class="lead" th:text="${every}" th:if="${!correct.contains(everyStat.index)&&!answer.contains(everyStat.index)}">null</p>
-                                <p class="bg-success lead" th:text="${every}" th:if="${correct.contains(everyStat.index)}">null</p>
+                                <p class="bg-primary lead" th:text="${every}" th:if="${correct.contains(everyStat.index)}">null</p>
                                 <p class="bg-danger lead" th:text="${every}" th:if="${!correct.contains(everyStat.index)&&answer.contains(everyStat.index)}">null</p>
                             </div>
                             <!--如果为判断-->
                             <div th:if="${each.getQuestion().type==0}" th:with="correct=${each.getCorrect()},answer=${each.getAnswer()}">
                                 <p class="lead" th:text="正确" th:if="${1!=correct.get(0)&&1!=answer.get(0)}">null</p>
-                                <p class="bg-success lead" th:text="正确" th:if="${1==correct.get(0)}">null</p>
+                                <p class="bg-primary lead" th:text="正确" th:if="${1==correct.get(0)}">null</p>
                                 <p class="bg-danger lead" th:text="正确" th:if="${1!=correct.get(0)&&1==answer.get(0)}">null</p>
 
                                 <p class="lead" th:text="错误" th:if="${0!=correct.get(0)&&0!=answer.get(0)}">null</p>
-                                <p class="bg-success lead" th:text="错误" th:if="${0==correct.get(0)}">null</p>
+                                <p class="bg-primary lead" th:text="错误" th:if="${0==correct.get(0)}">null</p>
                                 <p class="bg-danger lead" th:text="错误" th:if="${0!=correct.get(0)&&0==answer.get(0)}">null</p>
                             </div>
                     </div>

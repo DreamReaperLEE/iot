@@ -54,7 +54,7 @@ public class MainController {
         session.setAttribute(WebSecurityConfig.LEVEL, emploee.getPriv());
         session.setMaxInactiveInterval(MAX_ACTIVE_TIME);
         if (emploee.getPriv() == 2) {
-            return "redirect:/student/";
+            return "redirect:/student/index";
         }
         else
             return "student/allScore";
