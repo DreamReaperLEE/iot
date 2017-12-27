@@ -3,6 +3,12 @@ package heu.iot.Model;
 public class Exam {
     private Integer id;
 
+    private String tid;
+
+    private String edesc;
+
+    private String epic;
+
     private String ename;
 
     private String date;
@@ -17,6 +23,30 @@ public class Exam {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getTid() {
+        return tid;
+    }
+
+    public void setTid(String tid) {
+        this.tid = tid == null ? null : tid.trim();
+    }
+
+    public String getEdesc() {
+        return edesc;
+    }
+
+    public void setEdesc(String edesc) {
+        this.edesc = edesc == null ? null : edesc.trim();
+    }
+
+    public String getEpic() {
+        return epic;
+    }
+
+    public void setEpic(String epic) {
+        this.epic = epic == null ? null : epic.trim();
     }
 
     public String getEname() {

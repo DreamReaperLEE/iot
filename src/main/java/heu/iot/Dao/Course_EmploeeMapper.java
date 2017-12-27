@@ -1,7 +1,6 @@
 package heu.iot.Dao;
 
 import heu.iot.Model.Course_Emploee;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 

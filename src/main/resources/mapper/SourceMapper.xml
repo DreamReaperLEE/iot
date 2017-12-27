@@ -12,19 +12,10 @@
   <sql id="Base_Column_List">
     id, cid, lesson, type, topic, detail
   </sql>
-
-  <!--展示所有内容-->
   <select id="showAllSource" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
     from source
-  </select>
-
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from source
-    where id = #{id,jdbcType=INTEGER}
   </select>
   <select id="selectByCourseLesson" parameterType="map" resultMap="BaseResultMap">
     select
@@ -37,6 +28,12 @@
     <include refid="Base_Column_List" />
     from source
     where cid = #{cid,jdbcType=INTEGER} and type=0 order by lesson
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from source
+    where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from source

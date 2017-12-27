@@ -3,13 +3,16 @@
 <mapper namespace="heu.iot.Dao.ExamMapper">
   <resultMap id="BaseResultMap" type="heu.iot.Model.Exam">
     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="tid" jdbcType="VARCHAR" property="tid" />
+    <result column="edesc" jdbcType="VARCHAR" property="edesc" />
+    <result column="epic" jdbcType="VARCHAR" property="epic" />
     <result column="ename" jdbcType="VARCHAR" property="ename" />
     <result column="date" jdbcType="VARCHAR" property="date" />
     <result column="etime" jdbcType="VARCHAR" property="etime" />
     <result column="stime" jdbcType="VARCHAR" property="stime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, ename, date, etime, stime
+    id, tid, edesc, epic, ename, date, etime, stime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -17,20 +20,22 @@
     from exam
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from exam
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
   <select id="showCurrentExam" parameterType="map" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from exam
     where date = #{date,jdbcType=VARCHAR} and  etime> #{time,jdbcType=VARCHAR} and #{time,jdbcType=VARCHAR} >stime
   </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from exam
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
   <insert id="insert" parameterType="heu.iot.Model.Exam">
-    insert into exam (id, ename, date, 
+    insert into exam (id, tid, edesc, 
+      epic, ename, date, 
       etime, stime)
-    values (#{id,jdbcType=INTEGER}, #{ename,jdbcType=VARCHAR}, #{date,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{tid,jdbcType=VARCHAR}, #{edesc,jdbcType=VARCHAR}, 
+      #{epic,jdbcType=VARCHAR}, #{ename,jdbcType=VARCHAR}, #{date,jdbcType=VARCHAR}, 
       #{etime,jdbcType=VARCHAR}, #{stime,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="heu.iot.Model.Exam">
@@ -38,6 +43,15 @@
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
+      </if>
+      <if test="tid != null">
+        tid,
+      </if>
+      <if test="edesc != null">
+        edesc,
+      </if>
+      <if test="epic != null">
+        epic,
       </if>
       <if test="ename != null">
         ename,
@@ -56,6 +70,15 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
+      <if test="tid != null">
+        #{tid,jdbcType=VARCHAR},
+      </if>
+      <if test="edesc != null">
+        #{edesc,jdbcType=VARCHAR},
+      </if>
+      <if test="epic != null">
+        #{epic,jdbcType=VARCHAR},
+      </if>
       <if test="ename != null">
         #{ename,jdbcType=VARCHAR},
       </if>
@@ -73,6 +96,15 @@
   <update id="updateByPrimaryKeySelective" parameterType="heu.iot.Model.Exam">
     update exam
     <set>
+      <if test="tid != null">
+        tid = #{tid,jdbcType=VARCHAR},
+      </if>
+      <if test="edesc != null">
+        edesc = #{edesc,jdbcType=VARCHAR},
+      </if>
+      <if test="epic != null">
+        epic = #{epic,jdbcType=VARCHAR},
+      </if>
       <if test="ename != null">
         ename = #{ename,jdbcType=VARCHAR},
       </if>
@@ -90,7 +122,10 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="heu.iot.Model.Exam">
     update exam
-    set ename = #{ename,jdbcType=VARCHAR},
+    set tid = #{tid,jdbcType=VARCHAR},
+      edesc = #{edesc,jdbcType=VARCHAR},
+      epic = #{epic,jdbcType=VARCHAR},
+      ename = #{ename,jdbcType=VARCHAR},
       date = #{date,jdbcType=VARCHAR},
       etime = #{etime,jdbcType=VARCHAR},
       stime = #{stime,jdbcType=VARCHAR}

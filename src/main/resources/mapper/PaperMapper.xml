@@ -12,7 +12,7 @@
     id, eid, detail, answer, level
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from paper
     where id = #{id,jdbcType=INTEGER}

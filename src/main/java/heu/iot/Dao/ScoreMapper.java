@@ -2,7 +2,6 @@ package heu.iot.Dao;
 
 import heu.iot.Model.Score;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -16,7 +15,7 @@ public interface ScoreMapper {
 
     Score selectByPrimaryKey(Integer id);
 
-    Score selectBySidPid(@Param("sid") Integer sid,@Param("pid") Integer pid);
+    Score selectBySidPid(@Param("sid") Integer sid, @Param("pid") Integer pid);
 
     List<Score> selectByStudentId(Integer id);
 

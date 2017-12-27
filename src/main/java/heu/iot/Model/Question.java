@@ -19,14 +19,6 @@ public class Question {
 
     private Integer level;
 
-    public Integer getMore() {
-        return more;
-    }
-
-    public void setMore(Integer more) {
-        this.more = more;
-    }
-
     public Integer getId() {
         return id;
     }
@@ -57,6 +49,14 @@ public class Question {
 
     public void setDesc(String desc) {
         this.desc = desc == null ? null : desc.trim();
+    }
+
+    public Integer getMore() {
+        return more;
+    }
+
+    public void setMore(Integer more) {
+        this.more = more;
     }
 
     public String getDigital() {

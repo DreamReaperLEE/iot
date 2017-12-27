@@ -5,10 +5,16 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="cname" jdbcType="VARCHAR" property="cname" />
     <result column="cdetail" jdbcType="VARCHAR" property="cdetail" />
+    <result column="cintroduce" jdbcType="VARCHAR" property="cintroduce" />
     <result column="tid" jdbcType="INTEGER" property="tid" />
+    <result column="date" jdbcType="VARCHAR" property="date" />
+    <result column="ctype" jdbcType="VARCHAR" property="ctype" />
+    <result column="cdirect" jdbcType="VARCHAR" property="cdirect" />
+    <result column="cpic" jdbcType="VARCHAR" property="cpic" />
+    <result column="cpoint" jdbcType="VARCHAR" property="cpoint" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, cname, cdetail, tid
+    id, cname, cdetail, cintroduce, tid, date, ctype, cdirect, cpic, cpoint
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -16,20 +22,19 @@
     from course
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <!--<select id="showAllCourse" resultMap="BaseResultMap">-->
-  <!--SELECT-->
-  <!--<include refid="Base_Column_List"/>-->
-  <!--from emploee-->
-  <!--</select>-->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from course
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="heu.iot.Model.Course">
     insert into course (id, cname, cdetail, 
-      tid)
+      cintroduce, tid, date, 
+      ctype, cdirect, cpic, 
+      cpoint)
     values (#{id,jdbcType=INTEGER}, #{cname,jdbcType=VARCHAR}, #{cdetail,jdbcType=VARCHAR}, 
-      #{tid,jdbcType=INTEGER})
+      #{cintroduce,jdbcType=VARCHAR}, #{tid,jdbcType=INTEGER}, #{date,jdbcType=VARCHAR}, 
+      #{ctype,jdbcType=VARCHAR}, #{cdirect,jdbcType=VARCHAR}, #{cpic,jdbcType=VARCHAR}, 
+      #{cpoint,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="heu.iot.Model.Course">
     insert into course
@@ -43,8 +48,26 @@
       <if test="cdetail != null">
         cdetail,
       </if>
+      <if test="cintroduce != null">
+        cintroduce,
+      </if>
       <if test="tid != null">
         tid,
+      </if>
+      <if test="date != null">
+        date,
+      </if>
+      <if test="ctype != null">
+        ctype,
+      </if>
+      <if test="cdirect != null">
+        cdirect,
+      </if>
+      <if test="cpic != null">
+        cpic,
+      </if>
+      <if test="cpoint != null">
+        cpoint,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -57,8 +80,26 @@
       <if test="cdetail != null">
         #{cdetail,jdbcType=VARCHAR},
       </if>
+      <if test="cintroduce != null">
+        #{cintroduce,jdbcType=VARCHAR},
+      </if>
       <if test="tid != null">
         #{tid,jdbcType=INTEGER},
+      </if>
+      <if test="date != null">
+        #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="ctype != null">
+        #{ctype,jdbcType=VARCHAR},
+      </if>
+      <if test="cdirect != null">
+        #{cdirect,jdbcType=VARCHAR},
+      </if>
+      <if test="cpic != null">
+        #{cpic,jdbcType=VARCHAR},
+      </if>
+      <if test="cpoint != null">
+        #{cpoint,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -71,8 +112,26 @@
       <if test="cdetail != null">
         cdetail = #{cdetail,jdbcType=VARCHAR},
       </if>
+      <if test="cintroduce != null">
+        cintroduce = #{cintroduce,jdbcType=VARCHAR},
+      </if>
       <if test="tid != null">
         tid = #{tid,jdbcType=INTEGER},
+      </if>
+      <if test="date != null">
+        date = #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="ctype != null">
+        ctype = #{ctype,jdbcType=VARCHAR},
+      </if>
+      <if test="cdirect != null">
+        cdirect = #{cdirect,jdbcType=VARCHAR},
+      </if>
+      <if test="cpic != null">
+        cpic = #{cpic,jdbcType=VARCHAR},
+      </if>
+      <if test="cpoint != null">
+        cpoint = #{cpoint,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -81,7 +140,13 @@
     update course
     set cname = #{cname,jdbcType=VARCHAR},
       cdetail = #{cdetail,jdbcType=VARCHAR},
-      tid = #{tid,jdbcType=INTEGER}
+      cintroduce = #{cintroduce,jdbcType=VARCHAR},
+      tid = #{tid,jdbcType=INTEGER},
+      date = #{date,jdbcType=VARCHAR},
+      ctype = #{ctype,jdbcType=VARCHAR},
+      cdirect = #{cdirect,jdbcType=VARCHAR},
+      cpic = #{cpic,jdbcType=VARCHAR},
+      cpoint = #{cpoint,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

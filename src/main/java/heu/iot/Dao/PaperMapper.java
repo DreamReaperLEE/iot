@@ -1,7 +1,6 @@
 package heu.iot.Dao;
 
 import heu.iot.Model.Paper;
-import org.springframework.stereotype.Repository;
 
 
 public interface PaperMapper {
