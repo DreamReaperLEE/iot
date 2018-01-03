@@ -1,104 +1,224 @@
 
+
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="http://v3.bootcss.com/favicon.ico">
+    <title>保密教育在线培训考核系统</title>
 
-    <title>保密教育培训考核系统</title>
+    <!-- Favicon and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico" type="image/x-icon" />
 
-    <!-- Bootstrap core CSS -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Css files -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/css/jquery.mmenu.css" rel="stylesheet">
+    <link href="/assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/assets/plugins/jquery-ui/css/jquery-ui-1.10.4.min.css" rel="stylesheet">
+    <link href="/assets/css/style.min.css" rel="stylesheet">
+    <link href="/assets/css/add-ons.min.css" rel="stylesheet">
 
-
-    <!-- Custom styles for this template -->
-    <link href="/css/dashboard.css" rel="stylesheet">
-
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 
 <body>
+<!-- start: Header -->
+<div class="navbar" role="navigation">
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">保密教育在线培训考核系统</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="/logout">登出</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-            <ul class="nav nav-sidebar">
-                <li class="active"><a href="/student/course"><span class="glyphicon glyphicon-book" ></span>  培训课程</a></li>
-                <li><a href="/student/exam"><span class="glyphicon glyphicon-pencil" ></span>  在线考核</a></li>
-                <li><a href="/student/score"><span class="glyphicon glyphicon-folder-open" ></span>  成绩查询</a></li>
-                <li><a href="/student/info"><span class="glyphicon glyphicon-user" ></span>  个人信息维护</a></li>
-            </ul>
-        </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <div class="row">
-                <div class="col-sm-2">
-                    <h3 class="page-header">当前开设课程</h3>
-                </div>
-                <form th:action="@{/student/course_select}" method="post" onsubmit="return check(this);">
-                    <div class="col-sm-3  col-md-offset-3">
-                        <input type="text"  name="cname" placeholder="请输入课程名称" />
-                        <input type="submit"  value="查询" class="button" class="btn btn-success">
-                    </div>
-                </form>
-            </div>
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>编号</th>
-                        <th>课程名称</th>
-                        <th>课程描述</th>
-                        <th>任课教师</th>
-                        <th>操作</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="each : ${course_emploeeList}">
-                        <td th:text="${each.id}">null</td>
-                        <td th:text="${each.cname}">null</td>
-                        <td th:text="${each.cdetail}">null</td>
-                        <td th:text="${each.tname}">null</td>
-                        <td><a th:href="'/student/course_list?id='+${each.id}"><button type="button" class="btn btn-success">详细内容</button></a></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <ul class="nav navbar-nav navbar-actions navbar-left">
+            <li class="visible-md visible-lg"><a href="index.html#" id="main-menu-toggle"><i class="fa fa-th-large"></i></a></li>
+            <li class="visible-xs visible-sm"><a href="index.html#" id="sidebar-menu"><i class="fa fa-navicon"></i></a></li>
+        </ul>
+
+        <form class="navbar-form navbar-left" action="/student/course_select">
+        <button type="submit" class="fa fa-search"></button>
+        <input name="cname" type="text" class="form-control" placeholder="Search..."></a>
+        </form>
+        <ul class="nav navbar-nav navbar-right">
+
+            <li class="dropdown visible-md visible-lg">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell-o"></i><span class="badge">3</span></a>
+                <ul class="dropdown-menu">
+                    <li class="dropdown-menu-header">
+                        <strong>通知</strong>
+                        <div class="progress thin">
+                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%">
+                                <span class="sr-only">30% Complete (success)</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="clearfix">
+                        <i class="fa fa-comment"></i>
+                        <a href="page-activity.html" class="notification-user"> 评论 </a>
+                        <span class="notification-action"> 回复 </span>
+                        <a href="page-activity.html" class="notification-link"> 评论</a>
+                    </li>
+                    <li class="clearfix">
+                        <i class="fa fa-pencil"></i>
+                        <a href="page-activity.html" class="notification-user"> 编辑 </a>
+                        <span class="notification-action"> 写 </span>
+                        <a href="page-activity.html" class="notification-link"> 通知 </a>
+                    </li>
+                    <li class="clearfix">
+                        <i class="fa fa-trash-o"></i>
+                        <a href="page-activity.html" class="notification-user"> 回收</a>
+                        <span class="notification-action"> 删除 <a href="#" class="notification-link"> 文件 </a></span>
+                    </li>
+                    <li class="dropdown-menu-footer text-center">
+                        <a href="page-activity.html">查看所有通知</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown visible-md visible-lg">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img class="user-avatar" th:src="${session.pic}" alt="用户名称" th:text="${session.name}"></a>
+                <ul class="dropdown-menu">
+                    <li class="dropdown-menu-header">
+                        <strong>账户</strong>
+                    </li>
+                    <li><a href="/student/info"><i class="fa fa-user"></i>编辑</a></li>
+                    <li class="divider"></li>
+                    <li><a href="index.html"><i class="fa fa-sign-out"></i>帮助</a></li>
+                    <li class="divider"></li>
+                    <li><a href="/logout"><i class="fa fa-sign-out"></i>登出</a></li>
+                </ul>
+            </li>
+            <li><a href="/logout"><i class="fa fa-power-off"></i></a></li>
+        </ul>
+
     </div>
+
+</div>
+<!-- end: Header -->
+
+<div class="container-fluid content">
+
+    <div class="row">
+
+        <div th:include="student/left :: left">
+        </div>
+
+        <!-- start: Content -->
+        <div class="main ">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header"><i class="fa fa-sitemap"></i>全部课程</h3>
+                    <ol class="breadcrumb">
+                        <li><i class="fa fa-home"></i><a href="/student/index">主页</a></li>
+                        <li><i class="fa fa-file-text"></i><a href="#">课程库</a></li>
+                        <li><i class="fa fa-sitemap"></i>全部课程</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+
+                            <ul class="list-inline">
+                                <li>
+                                    <strong>方向：</strong>
+                                </li>
+                                <li><span class="label label-info">全部</span></li>
+                                <li th:each="each : ${co_directList}"><span class="label label-default"  th:text="${each.directName}"></span></li>
+                            </ul>
+                            <div class="divider"></div>
+                            <ul class="list-inline">
+                                <li>
+                                    <strong>类型：</strong>
+                                </li>
+                                <li><span class="label label-info">全部</span></li>
+                                <li th:each="each : ${co_typeList}"><span class="label label-default"  th:text="${each.typeName}"></span></li>
+                            </ul>
+                            <div class="divider" th:if="${cname!=null}"></div>
+                            <ul class="list-inline" th:if="${cname!=null}">
+                                <li>
+                                    <strong>筛选：</strong>
+                                </li>
+                                <li><a href="/student/course"><span class="label label-default">全部</span></a></li>
+                                <li><span class="label label-info" th:text="${cname}"></span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+
+                <div class="white-bg col-md-2" th:each="each : ${courseList} " style="margin-right:10px">
+                    <a th:href="'/student/course_list?id='+${each.id}"><img style="width:100%;height:200px" th:src="${each.cpic}" class="img-rounded"></a>
+                    <p style="color:black;font-size:20px;" class="text-center" th:text="${each.cname}"></p>
+                    <p style="color:grey" th:text="${each.cdetail}"></p>
+                </div>
+                </div>
+            </div>
+        </div>
+        <!-- end: Content -->
+        <br><br><br>
+
+    </div><!--/container-->
+
+
 </div>
 
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="/js/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="/js/jquery.min.js"><\/script>')</script>
-<script src="/js/bootstrap.min.js"></script>
-<!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-<script src="/js/holder.min.js"></script>
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <div class="clearfix"></div>
+
+
+    <!-- start: JavaScript-->
+    <!--[if !IE]>-->
+
+    <script src="/assets/js/jquery-2.1.1.min.js"></script>
+
+    <!--<![endif]-->
+
+    <!--[if IE]>
+
+    <script src="/assets/js/jquery-1.11.1.min.js"></script>
+
+    <![endif]-->
+
+    <!--[if !IE]>-->
+
+    <script type="text/javascript">
+        window.jQuery || document.write("<script src='/assets/js/jquery-2.1.1.min.js'>"+"<"+"/script>");
+    </script>
+
+    <!--<![endif]-->
+
+    <!--[if IE]>
+
+    <script type="text/javascript">
+        window.jQuery || document.write("<script src='/assets/js/jquery-1.11.1.min.js'>"+"<"+"/script>");
+    </script>
+
+    <![endif]-->
+    <script src="/assets/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+
+
+    <!-- page scripts -->
+    <script src="/assets/plugins/jquery-ui/js/jquery-ui-1.10.4.min.js"></script>
+    <script src="/assets/js/jquery.easy-pie-chart.min.js"></script>
+
+    <!-- theme scripts -->
+    <script src="/assets/js/SmoothScroll.js"></script>
+    <script src="/assets/js/jquery.mmenu.min.js"></script>
+    <script src="/assets/js/core.min.js"></script>
+
+    <!-- inline scripts related to this page -->
+    <script src="/assets/js/pages/page-profile.js"></script>
+
+    <!-- end: JavaScript-->
+
 </body>
 </html>

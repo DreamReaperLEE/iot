@@ -25,4 +25,9 @@ public interface EmploeeMapper {
     Emploee checkPassword(@Param("id") Integer id, @Param("password") String password);
 
     List<Emploee> showAll();
+
+    List<Emploee> selectEmploeeByName(String name);
+
+    List<Emploee> selectByActive(Integer active);
+
 }

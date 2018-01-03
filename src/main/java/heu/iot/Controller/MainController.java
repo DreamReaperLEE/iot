@@ -52,6 +52,7 @@ public class MainController {
         session.setAttribute(WebSecurityConfig.ID, account);
         session.setAttribute(WebSecurityConfig.NAME, emploee.getName());
         session.setAttribute(WebSecurityConfig.LEVEL, emploee.getPriv());
+        session.setAttribute(WebSecurityConfig.PIC, emploee.getPic());
         session.setMaxInactiveInterval(MAX_ACTIVE_TIME);
         if (emploee.getPriv() == 2) {
             return "redirect:/student/index";

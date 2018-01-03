@@ -13,6 +13,26 @@
 
     <title>保密教育培训考核系统</title>
 
+    <!-- JS 函数 -->
+    <script>
+    function del() {
+    var msg = "您真的确定要删除吗？\n\n请确认！";
+    if (confirm(msg)==true){
+    return true;
+    }else{
+    return false;
+    }
+    }
+    function excel() {
+        var msg = "是否确认导出信息？\n\n请确认！";
+        if (confirm(msg) == true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    </script>
+
     <!-- Bootstrap core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
 
@@ -47,40 +67,113 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li class="active"><a href="course"><span class="glyphicon glyphicon-book" ></span>  人员管理</a></li>
-                <li><a href="exam"><span class="glyphicon glyphicon-pencil" ></span>  课程管理</a></li>
-                <li><a href="score"><span class="glyphicon glyphicon-folder-open" ></span>  成绩查询</a></li>
-                <li><a href="info"><span class="glyphicon glyphicon-user" ></span>  个人信息维护</a></li>
+                <!-- 胶囊式下拉菜单 -->
+                <li role="presentation" class="dropdown" class="active">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-book" ></span>  人员管理 </span>
+                    </a>
+                    <ul   class="dropdown-menu nav nav-pills nav-stacked">
+                        <li role="presentation" ><a href="/admin/adminstor/0">管理员</a></li>
+                        <li role="presentation" ><a href="/admin/teacher/0">老师</a></li>
+                        <li role="presentation" ><a href="/admin/student/0">学生</a></li>
+                    </ul>
+                </li>
+
+                <!-- 此处herf 需要改 -->
+                <li><a href="/admin/allCourse"><span class="glyphicon glyphicon-pencil" ></span>  课程管理</a></li>
+                <li role="presentation" class="dropdown" >
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-folder-open" ></span>  成绩查询 </span>
+                    </a>
+                    <ul   class="dropdown-menu nav nav-pills nav-stacked">
+                        <li role="presentation" ><a href="/admin/studentscore/0">学生成绩</a></li>
+                        <li role="presentation" ><a href="/admin/examscore/0">课程成绩</a></li>
+                    </ul>
+                </li>                <li><a href="/admin/allExam/0"><span class="glyphicon glyphicon-user" ></span>  考试管理</a></li>
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">老师</h1>
-            <td><a th:href="'/admin/goaddteacher'" ><button type="button" class="btn btn-success">增加</button></a></td>
+            <h1 class="page-header">系统管理员</h1>
+            <div class="row">
             <form th:action="@{/admin/selectteacher}" method="post" onsubmit="return check(this);">
-                <input type="text" name="sid" placeholder="请输入账号" /><br>
-                <input type="submit" value="查询" class="button">
+                <div class="col-sm-1">
+                <td><a th:href="'/admin/addemploee'" ><button type="button" class="btn btn-success">增加</button></a></td>
+                    <td><a th:href="'/admin/checkteacher'" ><button type="button" class="btn btn-success">未审核人员</button></a></td>
+                </div>
+
+
+                <div class="col-sm-4  col-md-offset-4">
+
+                <input  type="text"  name="name" placeholder="请输入姓名" />
+                    <input  type="submit"  value="查询" class="button" class="btn btn-success">
+                    <!--   警告框 得到值 -->
+                    <div class="alert alert-danger" role="alert" th:text="${b}" th:if="${b!=null}"></div>
+
+                </div>
+                <div class="col-sm-2  col-md-offset-1">
+
+                    <a href="/admin/teacher/excel" >
+                        <button type="button"   onclick="javascript:return excel();" class="btn btn-success">导出信息</button>
+                    </a>
+                </div>
             </form>
+            </div>
+            <div class="file-box">
+                <form th:action="@{admin/teacher/uploadExcel}" method="post" enctype="multipart/form-data">
+                    <input type="file" name="file" placeholder="选择文件"><br>
+                    <input type="submit" value="导入" class="button" onclick="judgeUpload()">
+                </form>
+            </div>
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
                     <tr>
                         <th>学号</th>
                         <th>姓名</th>
-                        <th>密码</th>
+                        <th>头像</th>
+                        <th>身份</th>
+
+
+
 
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="admin : ${a}">
+                    <tr th:each="admin : ${adminList}">
                         <td th:text="${admin.id}">null</td>
                         <td th:text="${admin.name}">null</td>
-                        <td th:text="${admin.password}">null</td>
-                        <td><a th:href="'/admin/teacher/delete/' + ${admin.id}" >删除</a></td>
-                        <td><a th:href="'/admin/goteacher?id='+${admin.id}" ><button type="button" class="btn btn-success">更改</button></a></td>
+                        <td th:text="${admin.pic}">null</td>
+                        <td><a th:href="'/admin/emploee/detail?id=' + ${admin.id}" ><button type="button" class="btn btn-success">详细信息</button></a></td>
+
+
+                        <!--<td><a th:href="'/admin/goadminstor?id='+${admin.id}" ><button type="button" class="btn btn-success">更改</button></a></td>-->
 
                     </tr>
                     </tbody>
                 </table>
+
+
+                <!-- 分页功能 请增加跳转页面 -->
+                <nav aria-label="Page navigation" align="center">
+                    <ul class=" pagination">
+                        <li>
+                            <a href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li>
+                            <a href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
             </div>
         </div>
     </div>

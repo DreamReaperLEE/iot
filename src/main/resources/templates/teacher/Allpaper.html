@@ -19,6 +19,17 @@
     <!-- Custom styles for this template -->
     <link href="/css/dashboard.css" rel="stylesheet">
 
+    <script>
+
+        $("#selectId").each(function(){
+            $(this).find("option").each(function(){
+                if($(this).val() == 后台传来的值){
+                    $(this).attr("selected","selected");
+                }
+            });
+        });
+
+    </script>
 </head>
 
 <body>

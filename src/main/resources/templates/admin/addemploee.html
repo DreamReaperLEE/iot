@@ -1,7 +1,5 @@
-
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<html lang="zh-CN">
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,7 +17,7 @@
 
     <!-- Custom styles for this template -->
     <link href="/css/dashboard.css" rel="stylesheet">
-
+    <meta http-equiv="Content-Type" content="multipart/form-data; charset=utf-8" />
 </head>
 
 <body>
@@ -47,40 +45,39 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li class="active"><a href="course"><span class="glyphicon glyphicon-book" ></span>  人员管理</a></li>
-                <li><a href="exam"><span class="glyphicon glyphicon-pencil" ></span>  课程管理</a></li>
-                <li><a href="score"><span class="glyphicon glyphicon-folder-open" ></span>  成绩查询</a></li>
-                <li><a href="info"><span class="glyphicon glyphicon-user" ></span>  个人信息维护</a></li>
+                <li class="active"><a href="question"><span class="glyphicon glyphicon-book" ></span>  更改管理员</a></li>
             </ul>
         </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">系统管理员</h1>
-            <td><a th:href="'/admin/addadminstor'" ><button type="button" class="btn btn-success">增加</button></a></td>
-            <form th:action="@{/admin/selectadminstor}" method="post" onsubmit="return check(this);">
-                <input type="text" name="sid" placeholder="请输入账号" /><br>
-                <input type="submit" value="查询" class="button">
-            </form>
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>学号</th>
-                        <th>姓名</th>
-                        <th>密码</th>
+        <div class="col-sm-7 col-sm-offset-3 col-md-7 col-md-offset-2 main">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">更改用户</h3>
+                </div>
+                <div class="panel-body">
+                    <!--添加课程最重要的步骤：封装成Source对象，传入数据库，正好把数据契合到数据库上-->
+                    <!--@{/teacher/addSource}是寻找对应Source的路径-->
+                    <form th:action="@{/admin/emploee/add}" method="post" onsubmit="return check(this);" enctype="multipart/form-data">
+                        <input type="text" name="id"  placeholder="账号"  /><br>
+                        <input type="text" name="name"  placeholder="名字" /><br>
+                        <input type="text" name="password"  placeholder="密码"><br>
+                        <input type="text" name="priv"  placeholder="权限"><br>
+                        <input type="text" name="email"  placeholder="邮箱"><br>
+                        <input type="text" name="tel"  placeholder="手机号" /><br>
+                        <input type="file" name="fileupload" placeholder="头像"><br>
+                        <input type="text" name="introduce"  placeholder="简介"><br>
+                        <input type="text" name="active"  placeholder="状态" /><br>
+                        <!--<input th:value="${emploee.id}" name="id" hidden readonly />-->
 
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="admin : ${a}">
-                        <td th:text="${admin.id}">null</td>
-                        <td th:text="${admin.name}">null</td>
-                        <td th:text="${admin.password}">null</td>
-                        <td><a th:href="'/admin/adminstor/delete/' + ${admin.id}" >删除</a></td>
-                        <td><a th:href="'/admin/goadminstor?id='+${admin.id}" ><button type="button" class="btn btn-success">更改</button></a></td>
 
-                    </tr>
-                    </tbody>
-                </table>
+                        <input type="submit" value="增加" class="button">
+                        <!--<input type="button" name="Submit" value="删除" th:href="'/admin/emploee/delete?id='+${emploee.id}"/>-->
+                        <!--<p th:text="${sign}"></p>-->
+                        <!--<a href="./showLessons/0">返回</a>-->
+                    </form>
+
+                </div>
+
+
             </div>
         </div>
     </div>
@@ -91,7 +88,7 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="/js/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')</script>
-<script th:src="@{/js/bootstrap.min.js}"></script>
+<script src="/js/bootstrap.min.js"></script>
 <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
 <script src="/js/holder.min.js"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->

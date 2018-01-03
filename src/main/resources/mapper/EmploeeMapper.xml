@@ -147,4 +147,18 @@
     set password = #{password,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER} and password = #{origin,jdbcType=VARCHAR}
   </update>
+
+  <select id="selectEmploeeByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select emploee.id,emploee.name
+    from emploee
+    where emploee.name LIKE concat(concat('%',#{name},'%'))
+  </select>
+  <select id="selectByEmploeePriv" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from emploee
+    where priv = #{priv,jdbcType=INTEGER}
+  </select>
+  <select id="selectByActive" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from emploee
+    where active = #{active,jdbcType=INTEGER}
+  </select>
 </mapper>

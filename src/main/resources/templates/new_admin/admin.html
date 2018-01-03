@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:include="admin/head :: head"></div>
+
+</head>
+
+<body>
+<div th:include="admin/top :: top"></div>
+
+
+<div class="container-fluid content">
+
+
+        <div th:include="admin/left :: left"></div>
+
+        <!-- start: Content -->
+        <div class="main">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header"><i class="fa fa-laptop"></i> 欢迎您，管理员！</h3>
+                    <ol class="breadcrumb">
+                        <li><i class="fa fa-home"></i><a href="index.html">主页</a></li>
+                        <li><i class="fa fa-laptop"></i>管理员端</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="info-box red-bg">
+                        <i class="fa fa-thumbs-o-up"></i>
+                        <div class="count">35</div>
+                        <div class="title">课程数</div>
+                    </div><!--/.info-box-->
+                </div><!--/.col-->
+
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="info-box green-bg">
+                        <i class="fa fa-cubes"></i>
+                        <div class="count">425</div>
+                        <div class="title">学生数</div>
+                    </div><!--/.info-box-->
+                </div><!--/.col-->
+
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="info-box blue-bg">
+                        <i class="fa fa-cloud-download"></i>
+                        <div class="count">25</div>
+                        <div class="title">教师数</div>
+                    </div><!--/.info-box-->
+                </div><!--/.col-->
+
+            </div><!--/.row-->
+
+            <div class="row" >
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h2><i class="fa fa-table red"></i><span class="break"></span><strong>考试科目情况</strong></h2>
+                                <div class="panel-actions">
+                                    <a href="table.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
+                                    <a href="table.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
+                                    <a href="table.html#" class="btn-close"><i class="fa fa-times"></i></a>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>科目</th>
+                                        <th>老师</th>
+                                        <th>考试人数</th>
+                                        <th>通过率</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>数据库</td>
+                                        <td>郑博强</td>
+                                        <td>256</td>
+                                        <td>
+                                            <span class="label label-success">80%</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>计算机网络</td>
+                                        <td>李守政</td>
+                                        <td>300</td>
+                                        <td>
+                                            <span class="label label-danger">40%</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>数学</td>
+                                        <td>尹志铭</td>
+                                        <td>432</td>
+                                        <td>
+                                            <span class="label label-default">75%</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>组合数学</td>
+                                        <td>胡鹏宇</td>
+                                        <td>233</td>
+                                        <td>
+                                            <span class="label label-warning">67%</span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <ul class="pagination">
+                                    <li><a href="table.html#">Prev</a></li>
+                                    <li class="active">
+                                        <a href="table.html#">1</a>
+                                    </li>
+                                    <li><a href="table.html#">2</a></li>
+                                    <li><a href="table.html#">3</a></li>
+                                    <li><a href="table.html#">4</a></li>
+                                    <li><a href="table.html#">5</a></li>
+                                    <li><a href="table.html#">Next</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div><!--/col-->
+
+                    <div hidden="hidden">
+                <div class="col-lg-9 col-md-12">
+
+                    <div class="panel panel-default">
+
+                        <div class="panel-heading">
+                            <i class="fa fa-refresh red"></i><h2><strong>在线人数分布</strong></h2>
+
+                            <div class="panel-actions">
+                                <a href="index.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
+                                <a href="index.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
+                                <a href="index.html#" class="btn-close"><i class="fa fa-times"></i></a>
+                            </div>
+                        </div>
+
+                        <div class="panel-body">
+                            </br/>
+                            <div id="realtime-update" style="height:200px;color:#484848;"></div>
+                        </div>
+                    </div>
+                </div><!--/col-->
+                <div class="col-lg-3 col-md-12">
+                    <div class="panel panel-default">
+                        <div class="table.html white-bg">
+                            </br/>
+                            <div class="graph-container text-center">
+                                <div id="hero-donut" class="graph" style="height:236px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--/.col-->
+
+            </div><!--/.row-->
+
+            <div class="row">
+
+                <div class="col-lg-6 col-md-12">
+
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2><i class="fa fa-flag-o red"></i><strong>课程和选课人数</strong></h2>
+                            <div class="panel-actions">
+                                <a href="index.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
+                                <a href="index.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
+                                <a href="index.html#" class="btn-close"><i class="fa fa-times"></i></a>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table bootstrap-datatable countries">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>课程</th>
+                                    <th>选课人数</th>
+                                    <th>选课百分比</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td><img src="assets/ico/flags/Germany.png" style="height:18px; margin-top:-2px;"></td>
+                                    <td>演员的自我修养</td>
+                                    <td>2563</td>
+                                    <td>
+                                        <div class="progress thin">
+                                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="73" aria-valuemin="0" aria-valuemax="100" style="width: 73%">
+                                            </div>
+                                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="27" aria-valuemin="0" aria-valuemax="100" style="width: 27%">
+                                            </div>
+                                        </div>
+                                        <span class="sr-only">73%</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><img src="assets/ico/flags/India.png" style="height:18px; margin-top:-2px;"></td>
+                                    <td>英语</td>
+                                    <td>3652</td>
+                                    <td>
+                                        <div class="progress thin">
+                                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="57" aria-valuemin="0" aria-valuemax="100" style="width: 57%">
+                                            </div>
+                                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="43" aria-valuemin="0" aria-valuemax="100" style="width: 43%">
+                                            </div>
+                                        </div>
+                                        <span class="sr-only">57%</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><img src="assets/ico/flags/Spain.png" style="height:18px; margin-top:-2px;"></td>
+                                    <td>语文</td>
+                                    <td>562</td>
+                                    <td>
+                                        <div class="progress thin">
+                                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="93" aria-valuemin="0" aria-valuemax="100" style="width: 93%">
+                                            </div>
+                                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="7" aria-valuemin="0" aria-valuemax="100" style="width: 7%">
+                                            </div>
+                                        </div>
+                                        <span class="sr-only">93%</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><img src="assets/ico/flags/Russia.png" style="height:18px; margin-top:-2px;"></td>
+                                    <td>数学</td>
+                                    <td>1258</td>
+                                    <td>
+                                        <div class="progress thin">
+                                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+                                            </div>
+                                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                            </div>
+                                        </div>
+                                        <span class="sr-only">20%</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><img src="assets/ico/flags/usa.png" style="height:18px; margin-top:-2px;"></td>
+                                    <td>计算机网络</td>
+                                    <td>4856</td>
+                                    <td>
+                                        <div class="progress thin">
+                                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+                                            </div>
+                                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                            </div>
+                                        </div>
+                                        <span class="sr-only">20%</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><img src="assets/ico/flags/brazil.png" style="height:18px; margin-top:-2px;"></td>
+                                    <td>数据结构</td>
+                                    <td>102</td>
+                                    <td>
+                                        <div class="progress thin">
+                                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+                                            </div>
+                                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                            </div>
+                                        </div>
+                                        <span class="sr-only">20%</span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div><!--/col-->
+
+
+
+
+                <div class="col-lg-3 col-md-6" hidden="hidden">
+
+                    <div class="panel panel-default">
+
+                        <div class="panel-body text-center" style="height:230px">
+                            <h2 class="lime">售出课程</h2>
+                            <div style="width:300px;left:50%;position:absolute;margin-left:-150px;">
+                                <canvas id="gauge1"></canvas>
+                            </div>
+                            <span class="pull-left"><strong class="blue">$256.256,25</strong></span>
+                            <span class="pull-right"><i class="fa fa-arrow-circle-o-up text-success"></i> 52%</span>
+                        </div>
+
+                    </div>
+
+                </div><!--/.col-->
+
+                <div class="col-lg-3 col-md-6" hidden="hidden">
+
+                    <div class="panel panel-default">
+
+                        <div class="panel-body text-center" style="height:230px">
+                            <h2 class="lime">课程好评率</h2>
+                            <div style="width:300px;left:50%;position:absolute;margin-left:-150px;">
+                                <canvas id="gauge2"></canvas>
+                            </div>
+                            <span class="pull-left"><strong class="blue"></strong></span>
+                            <span class="pull-right"><i class="fa fa-arrow-circle-o-up text-success"></i> 70%</span>
+                        </div>
+
+                    </div>
+
+                </div><!--/.col-->
+            </div><!--/row-->
+
+            <div class="row" hidden="hidden">
+
+                <div class="col-sm-12">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2><i class="fa fa-bar-chart-o red"></i><strong>统计表</strong></h2>
+                            <div class="panel-actions">
+                                <a href="charts-xcharts.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
+                                <a href="charts-xcharts.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
+                                <a href="charts-xcharts.html#" class="btn-close"><i class="fa fa-times"></i></a>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <figure class="demo" id="chart" style="height: 300px"></figure>
+                        </div>
+                    </div>
+
+                </div><!--/col-->
+
+            </div><!--/row-->
+
+
+
+
+            <div class="row">
+
+                <div class="col-lg-4 col-md-12">
+                    <div class="panel panel-default calendar">
+                        <div class="calendar-small"></div>
+                        <div class="list">
+                            <ul>
+
+
+                            </ul>
+
+                        </div>
+                    </div>
+                </div><!--/col-->
+
+                <div class="col-lg-8 col-md-12">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2><i class="fa fa-check red"></i><strong>公告栏</strong></h2>
+                            <div class="panel-actions">
+                                <a href="index.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
+                                <a href="index.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
+                                <a href="index.html#" class="btn-close"><i class="fa fa-times"></i></a>
+                            </div>
+                        </div>
+                        <div class="panel-body no-padding">
+                            <div class="todo-list">
+                                <div class="header">以前</div>
+                                <ul id="todo-2" class="todo-list-tasks">
+                                    <li>
+                                        <label class="custom-checkbox-item pull-left">
+                                            <input class="custom-checkbox" type="checkbox"/>
+                                            <span class="custom-checkbox-mark"></span>
+                                        </label>
+                                        <span class="desc">数据结构考试时间</span>
+                                    </li>
+                                    <li>
+                                        <label class="custom-checkbox-item pull-left">
+                                            <input class="custom-checkbox" type="checkbox"/>
+                                            <span class="custom-checkbox-mark"></span>
+                                        </label>
+                                        <span class="desc">计算机网络考试时间</span>
+                                    </li>
+
+                                </ul>
+                                <div class="header">今日公告</div>
+                                <ul id="todo-3" class="todo-list-tasks">
+                                    <li>
+                                        <label class="custom-checkbox-item pull-left">
+                                            <input class="custom-checkbox" type="checkbox"/>
+                                            <span class="custom-checkbox-mark"></span>
+                                        </label>
+                                        <span class="desc">组合数学即将开考</span>
+                                    </li>
+                                    <li>
+                                        <label class="custom-checkbox-item pull-left">
+                                            <input class="custom-checkbox" type="checkbox"/>
+                                            <span class="custom-checkbox-mark"></span>
+                                        </label>
+                                        <span class="desc">今日新增课程</span>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div><!--/col-->
+
+            </div><!--/row-->
+
+
+
+                </div><!--/row-->
+
+
+        </div>
+        <!-- end: Content -->
+        <br><br><br>
+
+
+
+    </div><!--/container-->
+
+
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Warning Title</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Here settings can be configured...</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div class="clearfix"></div>
+
+
+    <!-- start: JavaScript-->
+    <!--[if !IE]>-->
+
+    <script src="/assets/js/jquery-2.1.1.min.js"></script>
+
+    <!--<![endif]-->
+
+    <!--[if IE]>
+
+    <script src="/assets/js/jquery-1.11.1.min.js"></script>
+
+    <![endif]-->
+
+    <!--[if !IE]>-->
+
+    <script type="text/javascript">
+        window.jQuery || document.write("<script src='assets/js/jquery-2.1.1.min.js'>"+"<"+"/script>");
+    </script>
+
+    <!--<![endif]-->
+
+    <!--[if IE]>
+
+    <script type="text/javascript">
+        window.jQuery || document.write("<script src='assets/js/jquery-1.11.1.min.js'>"+"<"+"/script>");
+    </script>
+
+    <![endif]-->
+    <script src="/assets/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+
+
+    <!-- page scripts -->
+    <script src="/assets/plugins/jquery-ui/js/jquery-ui-1.10.4.min.js"></script>
+    <script src="/assets/plugins/touchpunch/jquery.ui.touch-punch.min.js"></script>
+    <script src="/assets/plugins/moment/moment.min.js"></script>
+    <script src="/assets/plugins/fullcalendar/js/fullcalendar.min.js"></script>
+    <!--[if lte IE 8]>
+    <script language="javascript" type="text/javascript" src="assets/plugins/excanvas/excanvas.min.js"></script>
+    <![endif]-->
+    <script src="/assets/plugins/flot/jquery.flot.min.js"></script>
+    <script src="/assets/plugins/flot/jquery.flot.pie.min.js"></script>
+    <script src="/assets/plugins/flot/jquery.flot.stack.min.js"></script>
+    <script src="/assets/plugins/flot/jquery.flot.resize.min.js"></script>
+    <script src="/assets/plugins/flot/jquery.flot.time.min.js"></script>
+    <script src="/assets/plugins/flot/jquery.flot.spline.min.js"></script>
+    <script src="/assets/plugins/xcharts/js/xcharts.min.js"></script>
+    <script src="/assets/plugins/autosize/jquery.autosize.min.js"></script>
+    <script src="/assets/plugins/placeholder/jquery.placeholder.min.js"></script>
+    <script src="/assets/plugins/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="/assets/plugins/datatables/js/dataTables.bootstrap.min.js"></script>
+    <script src="/assets/plugins/raphael/raphael.min.js"></script>
+    <script src="/assets/plugins/morris/js/morris.min.js"></script>
+    <script src="/assets/plugins/jvectormap/js/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="/assets/plugins/jvectormap/js/jquery-jvectormap-world-mill-en.js"></script>
+    <script src="/assets/plugins/jvectormap/js/gdp-data.js"></script>
+    <script src="/assets/plugins/gauge/gauge.min.js"></script>
+
+
+    <!-- theme scripts -->
+    <script src="/assets/js/SmoothScroll.js"></script>
+    <script src="/assets/js/jquery.mmenu.min.js"></script>
+    <script src="/assets/js/core.min.js"></script>
+    <script src="/assets/plugins/d3/d3.min.js"></script>
+
+    <!-- inline scripts related to this page -->
+    <script src="/assets/js/pages/index.js"></script>
+
+
+    <!-- end: JavaScript-->
+
+</body>
+</html>

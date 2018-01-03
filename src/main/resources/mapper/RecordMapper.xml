@@ -17,6 +17,12 @@
     from record
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="countLearnNum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select
+    count(cid)
+    from record
+    where sid = #{sid,jdbcType=INTEGER}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from record
     where id = #{id,jdbcType=INTEGER}

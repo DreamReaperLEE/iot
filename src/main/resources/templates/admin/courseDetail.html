@@ -17,7 +17,7 @@
 
     <!-- Custom styles for this template -->
     <link href="/css/dashboard.css" rel="stylesheet">
-
+    <meta http-equiv="Content-Type" content="multipart/form-data; charset=utf-8" />
 </head>
 
 <body>
@@ -45,52 +45,50 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li class="active"><a href="question"><span class="glyphicon glyphicon-book" ></span>  课程管理</a></li>
+                <li class="active"><a href="question"><span class="glyphicon glyphicon-book" ></span>  更改管理员</a></li>
             </ul>
         </div>
         <div class="col-sm-7 col-sm-offset-3 col-md-7 col-md-offset-2 main">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">添加课程</h3>
+                    <h3 class="panel-title">更改用户</h3>
                 </div>
                 <div class="panel-body">
                     <!--添加课程最重要的步骤：封装成Source对象，传入数据库，正好把数据契合到数据库上-->
                     <!--@{/teacher/addSource}是寻找对应Source的路径-->
-                    <form th:action="@{/admin/addadmin}" method="post" onsubmit="return check(this);">
-                        <input type="text" name="id" placeholder="账号" /><br>
-                        <input type="text" name="name" placeholder="名字" /><br>
-                        <input type="text" name="password" placeholder="密码"><br>
+                    <form th:action="@{/admin/course/updatecourse}" method="post" onsubmit="return check(this);" enctype="multipart/form-data">
+                        <input type="text" name="id" th:value="${course.id}" placeholder="课程编号" readonly  /><br>
+                        <input type="text" name="cname" th:value="${course.cname}" placeholder="课程名称" /><br>
+                        <select name = "tid" th: selected = "${emploee.name}">
+                            <div th:each="each : ${emploeeList}" >
+                                <option  th:value="${each.id}"  th:text="${each.name}"></option>
+                            </div>
+                        </select><br>
+                        <input type="text" name="cdetail" th:value="${course.cdetail}" placeholder="课程简介"><br>
+                        <input type="text" name="cintroduce" th:value="${course.cintroduce}" placeholder="详细描述" /><br>
+                        <!--<label for="date">发布时间</label><input type="date" class="form-control" id="date" name="data"-->
+                                                              <!--th:field="*{date}" value="${cdate}"/>-->
+                        <label for="date">开课日期：</label><input id="date" type="date" name="date"  th:value="${course.date}"/><br>
+                        <input type="text" name="ctype" th:value="${course.ctype}" placeholder="课程类型"><br>
+                        <input type="text" name="cdirect" th:value="${course.cdirect}" placeholder="课程方向"><br>
+                        <input type="text" name="cpic" th:value="${course.cpic}" placeholder="课程封面"><br>
+                        <input type="file" name="fileupload" placeholder="图片"><br>
+                        <input type="text" name="cpoint" th:value="${course.cpoint}" placeholder="讲师提示"><br>
+                        <!--<input th:value="${emploee.id}" name="id" hidden readonly />-->
 
+                        <td><a th:href="'/admin/course/delete/?id='+${course.id}" methods="post" ><button type="button" class="btn btn-success">删除</button></a></td>
 
-                        <!--<form action="servlet/UploadServlet" method="post" enctype="multipart/form-data">-->
-                            <!--<div align="left"><br/>-->
-                                <!--<fieldset style="width:80%">-->
-                                    <!--<div class='line'>-->
-                                        <!--<div align='left' class="leftDiv">上传课程资源文件</div>-->
-                                        <!--<div align='left' class="rightDiv">-->
-                                            <!--<input type="file" name="file1" class="text">-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                    <!--&lt;!&ndash;<div class='line'>&ndash;&gt;-->
-                                        <!--&lt;!&ndash;<div align='left' class="leftDiv"></div>&ndash;&gt;-->
-                                        <!--&lt;!&ndash;<div align='left' class="rightDiv"><br/>&ndash;&gt;-->
-                                            <!--&lt;!&ndash;<input type="submit" value="  上传文件  " class="button">&ndash;&gt;-->
-                                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                                <!--</fieldset>-->
-                            <!--</div>-->
-                        <!--</form>-->
-
-                        <!--<input type="text" name="detail" placeholder="上传内容" /><br>-->
-                        <!--下拉栏-->
-                        <!--<select name="teacherId" th:each="teacher: ${teachers}">-->
-                            <!--<option th:value="${teacher.id}"><p th:text="${teacher.name}">`</p></option>-->
-                        <!--</select><br>-->
-                        <input type="submit" value="添加" class="button">
+                        <input type="submit" value="更改" class="button">
+                        <!--<input type="button" name="Submit" value="删除" th:href="'/admin/emploee/delete?id='+${emploee.id}"/>-->
                         <!--<p th:text="${sign}"></p>-->
                         <!--<a href="./showLessons/0">返回</a>-->
                     </form>
+
+
+                    <!--<td><a th:href="'/admin/emploee/delete/?id='+${emploee.id}"  ><button type="button" class="btn btn-success">删除</button></a></td>-->
                 </div>
+
+
             </div>
         </div>
     </div>

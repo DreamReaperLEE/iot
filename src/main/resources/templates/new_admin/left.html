@@ -1,0 +1,115 @@
+
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="left">
+
+    <!-- start: Main Menu -->
+    <div class="sidebar ">
+
+        <div class="sidebar-collapse">
+            <div class="sidebar-header t-center">
+                <span><img class="text-logo" src="/assets/img/logo1.png"><i class="fa fa-space-shuttle fa-3x blue"></i></span>
+            </div>
+            <div class="sidebar-menu" th:fragment="left">
+                <ul class="nav nav-sidebar">
+                    <li><a href="#"><i class="fa fa-laptop"></i><span class="text">主页</span></a></li>
+                    <li>
+                        <a href="#"><i class="fa fa-file-text"></i><span class="text">人员管理</span> <span class="fa fa-angle-down pull-right"></span></a>
+                        <ul class="nav sub">
+                            <li><a href="page-activity.html"><i class="fa fa-car"></i><span class="text">学生</span></a></li>
+                            <li><a href="page-inbox.html"><i class="fa fa-envelope"></i><span class="text">老师</span></a></li>
+                            <li><a href="page-inbox.html"><i class="fa fa-envelope"></i><span class="text">管理员</span></a></li>
+                            <li><a href="page-inbox.html"><i class="fa fa-envelope"></i><span class="text">新增人员</span></a></li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-list-alt"></i><span class="text">课程管理</span> <span class="fa fa-angle-down pull-right"></span></a>
+                        <ul class="nav sub">
+                            <li><a href="form-elements.html"><i class="fa fa-indent"></i><span class="text">更改课程</span></a></li>
+                            <li><a href="form-wizard.html"><i class="fa fa-tags"></i><span class="text">新增课程</span></a></li>
+                            <!--<li><a href="form-dropzone.html"><i class="fa fa-plus-square-o"></i><span class="text"> Dropzone Upload</span></a></li>-->
+                            <!--<li><a href="form-x-editable.html"><i class="fa fa-pencil"></i><span class="text"> X-editable</span></a></li>-->
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#"><i class="fa fa-signal"></i><span class="text">考试管理</span> <span class="fa fa-angle-down pull-right"></span></a>
+                        <ul class="nav sub">
+                            <li><a href="chart-flot.html"><i class="fa fa-random"></i><span class="text">考试安排</span></a></li>
+                            <li><a href="chart-xchart.html"><i class="fa fa-retweet"></i><span class="text">题库管理</span></a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-signal"></i><span class="text">报表统计</span> <span class="fa fa-angle-down pull-right"></span></a>
+                        <ul class="nav sub">
+                            <li><a href="chart-flot.html"><i class="fa fa-random"></i><span class="text">人员统计</span></a></li>
+                            <li><a href="chart-xchart.html"><i class="fa fa-retweet"></i><span class="text">成绩统计</span></a></li>
+                            <li><a href="chart-xchart.html"><i class="fa fa-retweet"></i><span class="text">课程统计</span></a></li>
+
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#"><i class="fa fa-signal"></i><span class="text">消息管理</span> <span class="fa fa-angle-down pull-right"></span></a>
+                        <ul class="nav sub">
+                            <li><a href="chart-flot.html"><i class="fa fa-random"></i><span class="text">新增公告</span></a></li>
+                            <li><a href="chart-xchart.html"><i class="fa fa-retweet"></i><span class="text">公告管理</span></a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-signal"></i><span class="text">前台管理</span> <span class="fa fa-angle-down pull-right"></span></a>
+                        <ul class="nav sub">
+                            <li><a href="chart-flot.html"><i class="fa fa-random"></i><span class="text">主页图片</span></a></li>
+                            <li><a href="chart-xchart.html"><i class="fa fa-retweet"></i><span class="text">课程展示</span></a></li>
+                            <li><a href="chart-xchart.html"><i class="fa fa-retweet"></i><span class="text">教师展示</span></a></li>
+
+                        </ul>
+                    </li>
+
+
+
+                    <li>
+                        <a href="#"><i class="fa fa-bolt"></i><span class="text">个人信息管理</span> <span class="fa fa-angle-down pull-right"></span></a>
+                        <ul class="nav sub">
+                            <li><a href="icons-font-awesome.html"><i class="fa fa-meh-o"></i><span class="text">编辑个人信息</span></a></li>
+                            <li><a href="icons-climacons.html"><i class="fa fa-meh-o"></i><span class="text">修改密码</span></a></li>
+                        </ul>
+                    </li>
+
+
+                    <li>
+                        <a href="#"><i class="fa fa-signal"></i><span class="text">系统管理</span> <span class="fa fa-angle-down pull-right"></span></a>
+                        <ul class="nav sub">
+                            <li><a href="chart-flot.html"><i class="fa fa-random"></i><span class="text">备份数据库</span></a></li>
+                            <li><a href="chart-xchart.html"><i class="fa fa-retweet"></i><span class="text">还原数据库</span></a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="gallery.html"><i class="fa fa-picture-o"></i><span class="text">意见反馈</span></a></li>
+                    <!--<li><a href="calendar.html"><i class="fa fa-calendar"></i><span class="text"> Calendar</span></a></li>-->
+                </ul>
+            </div>
+        </div>
+        <div class="sidebar-footer">
+
+            <div class="sidebar-brand">
+                保密教育在线培训考试系统
+            </div>
+
+            <ul class="sidebar-terms">
+                <li><a href="index.html#">Terms</a></li>
+                <li><a href="index.html#">Privacy</a></li>
+                <li><a href="index.html#">Help</a></li>
+                <li><a href="index.html#">About</a></li>
+            </ul>
+
+            <div class="copyright text-center">
+                <small>Proton <i class="fa fa-coffee"></i> from <a href="" title="" target="_blank">wyy</a></small>
+            </div>
+        </div>
+
+    </div>
+    <!-- end: Main Menu -->
+
+</div>
+

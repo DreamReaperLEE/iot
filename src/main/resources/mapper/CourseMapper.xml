@@ -16,11 +16,27 @@
   <sql id="Base_Column_List">
     id, cname, cdetail, cintroduce, tid, date, ctype, cdirect, cpic, cpoint
   </sql>
+  <select id="countCourseNum" resultType="java.lang.Integer">
+    select
+    count(id)
+    from course
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from course
     where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="showSelected" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from course
+    where cname LIKE concat(concat('%',#{cname},'%'))
+  </select>
+  <select id="showAllCourse" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from course
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from course

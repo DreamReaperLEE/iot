@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="http://v3.bootcss.com/favicon.ico">
+
+    <title>保密教育培训考核系统</title>
+
+    <script type="text/javascript">
+        function checkpwd(){
+            var p1=document.form1.password.value;//获取密码框的值
+            var p2=document.form1.pwd2.value;//获取重新输入的密码值
+            if(p1==""){
+                alert("请输入密码！");//检测到密码为空，提醒输入//
+                document.form1.password.focus();//焦点放到密码框
+                return false;//退出检测函数
+            }//如果允许空密码，可取消这个条件
+
+            if(p1!=p2){//判断两次输入的值是否一致，不一致则显示错误信息
+                document.getElementById("msg").innerHTML="两次输入密码不一致，请重新输入";//在div显示错误信息
+                return false;
+            }else{
+                //密码一致，可以继续下一步操作
+            }
+        }
+    </script>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+<
+    <!-- Custom styles for this template -->
+    <link href="/css/dashboard.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div th:include="admin/top :: top"></div>
+
+
+
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li class="active"><a href="#"><span class="glyphicon glyphicon-book" ></span>  管理员 </a></li>
+                <!-- 人员管理   href question  存在疑问  -->
+            </ul>
+        </div>
+        <div class="col-sm-7 col-sm-offset-3 col-md-7 col-md-offset-2 main">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">添加账户</h3>
+                </div>
+                <div class="panel-body">
+
+
+                    <!--   警告框 得到值 -->
+                    <div class="alert alert-danger" role="alert" th:text="${b}" th:if="${b!=null}"></div>
+                    <!--添加课程最重要的步骤：封装成Source对象，传入数据库，正好把数据契合到数据库上-->
+                    <!--@{/teacher/addSource}是寻找对应Source的路径-->
+                    <form name="form1" th:action="@{/admin/addadmin}" method="post"  >
+
+
+                        <input type="text" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'');"  name="id" placeholder="账号" /><br>
+                        <input type="text" name="name" placeholder="名字" /><br>
+                       <!--  <input type="password" name="password" placeholder="密码"><br> -->
+
+
+                      <input type="password" placeholder="输入密码" name="password" /><br />
+                       <input type="password" placeholder="确认密码"  name="pwd2" onchange="checkpwd()" /><!--onchange事件触发检测-->
+                        <div id="msg" style="color:red;"></div>
+
+
+                        <input type="submit" value="确认添加" class="button" >
+                        <input type="button" name="Submit" value="返回" onclick ="location.href='./adminstor/0'"/>
+                        <!--<p th:text="${sign}"></p>-->
+                        <!--<a href="./showLessons/0">返回</a>-->
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="/js/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')</script>
+<script src="/js/bootstrap.min.js"></script>
+<!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+<script src="/js/holder.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+</body>
+</html>

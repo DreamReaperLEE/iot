@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="heu.iot.Dao.Co_directMapper">
+  <resultMap id="BaseResultMap" type="heu.iot.Model.Co_direct">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="direct_name" jdbcType="VARCHAR" property="directName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, direct_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from co_direct
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="showAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from co_direct
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from co_direct
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="heu.iot.Model.Co_direct">
+    insert into co_direct (id, direct_name)
+    values (#{id,jdbcType=INTEGER}, #{directName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="heu.iot.Model.Co_direct">
+    insert into co_direct
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="directName != null">
+        direct_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="directName != null">
+        #{directName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="heu.iot.Model.Co_direct">
+    update co_direct
+    <set>
+      <if test="directName != null">
+        direct_name = #{directName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="heu.iot.Model.Co_direct">
+    update co_direct
+    set direct_name = #{directName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -17,6 +17,19 @@
     from score
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="countExamNum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select
+    count(pid)
+    from score
+    where sid = #{sid,jdbcType=INTEGER}
+  </select>
+  <select id="selectByStudentId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from score
+    where sid = #{sid,jdbcType=INTEGER}
+  </select>
+
   <select id="selectBySidPid" parameterType="map" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />

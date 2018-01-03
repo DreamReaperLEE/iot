@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="heu.iot.Dao.Course_SourceMapper">
+<resultMap id="BaseResultMap" type="heu.iot.Model.Course_Source">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="cname" jdbcType="VARCHAR" property="cname" />
+    <result column="lesson" jdbcType="VARCHAR" property="lesson" />
+    <result column="topic" jdbcType="VARCHAR" property="topic" />
+    <result column="detail" jdbcType="VARCHAR" property="detail" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+</resultMap>
+<sql id="Base_Column_List">
+    course.id,course.cname,source.lesson,source.topic,source.detail,source.type
+</sql>
+<select id="showAllLessonSource" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List" />
+    from course,source
+    where course.id=source.cid and course.id = #{id,jdbcType=INTEGER}
+-- 排序
+    order by lesson asc
+</select>
+
+<select id="showOnlyLesson" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select  <include refid="Base_Column_List" />
+        from course,source
+        where course.id=source.cid and course.id = #{id,jdbcType=INTEGER}
+        order by source.lesson
+</select>
+
+<select id="showSpecialLesson" parameterType="map" resultMap="BaseResultMap">
+        select  <include refid="Base_Column_List" />
+        from course,source
+        where course.id=source.cid and source.cid = #{cid,jdbcType=INTEGER} and source.lesson = #{lesson,jdbcType=INTEGER}
+</select>
+
+<select id="showSpecialLessonType0" parameterType="map" resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List" />
+    from course,source
+    where course.id=source.cid and source.cid = #{cid,jdbcType=INTEGER} and source.lesson = #{lesson,jdbcType=INTEGER} and source.type = 0
+</select>
+
+<select id="showAllSource" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from source,course
+    where course.id=source.cid
+--     唯一显示
+    group by course.id
+</select>
+</mapper>

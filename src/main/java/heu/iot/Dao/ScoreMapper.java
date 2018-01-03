@@ -25,4 +25,6 @@ public interface ScoreMapper {
 
     int updatePaper(Score record);
 
+    int countExamNum(Integer sid);
+
 }

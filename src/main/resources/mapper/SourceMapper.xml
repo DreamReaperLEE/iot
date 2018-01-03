@@ -120,4 +120,20 @@
       detail = #{detail,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <delete id="deleteByPrimaryKeyAndLowKey" parameterType="map">
+    delete from source
+    where cid = #{id,jdbcType=INTEGER} and lesson = #{lesson,jdbcType=INTEGER}
+  </delete>
+
+  <delete id="deleteByPrimaryKeyAndLowKeyAndTopic" parameterType="map">
+    delete from source
+    where cid = #{id,jdbcType=INTEGER} and lesson = #{lesson,jdbcType=INTEGER} and topic = #{topic,jdbcType=VARCHAR}
+  </delete>
+  <select id="selectByPrimaryKeyAndLowKeyAndTopic" parameterType="map" resultMap="BaseResultMap">
+    select
+    -- 是不是因为我选出来的不是LIST型？只是其中一个对象，所以他不会执行？
+    <include refid="Base_Column_List" />
+    from source
+    where cid = #{id,jdbcType=INTEGER} and lesson = #{lesson,jdbcType=INTEGER} and topic = #{topic,jdbcType=VARCHAR}
+  </select>
 </mapper>

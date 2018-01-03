@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="heu.iot.Dao.Emploee_CourseMapper">
+  <resultMap id="BaseResultMap" type="heu.iot.Model.Emploee_Course">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="cname" jdbcType="VARCHAR" property="cname" />
+    <result column="cdetail" jdbcType="VARCHAR" property="cdetail" />
+    <result column="name" jdbcType="VARCHAR" property="tname" />
+    <result column="cintroduce" jdbcType="VARCHAR" property="cintroduce" />
+    <result column="date" jdbcType="VARCHAR" property="date" />
+    <result column="ctype" jdbcType="VARCHAR" property="ctype" />
+    <result column="cdirect" jdbcType="VARCHAR" property="cdirect" />
+    <result column="cpic" jdbcType="VARCHAR" property="cpic" />
+    <result column="cpoint" jdbcType="VARCHAR" property="cpoint" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    course.id,course.cname,course.cdetail,emploee.name,course.cintroduce,course.date,course.ctype,course.cdirect,course.cpic,course.cpoint
+  </sql>
+
+  <select id="showAllCourse" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List" />
+    from course,emploee
+    where
+
+       course.tid=emploee.id
+
+
+
+
+  </select>
+
+  <select id="selectCourseListByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+    SELECT<include refid="Base_Column_List"/>
+    FROM course,emploee
+    WHERE course.cname LIKE concat(concat('%',#{cname},'%'))  AND course.tid = emploee.id
+  </select>
+
+  <select id="selectByID" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    SELECT<include refid="Base_Column_List"/>
+    FROM course,emploee
+    WHERE course.id = #{id,jdbcType=INTEGER} AND course.tid = emploee.id
+  </select>
+</mapper>

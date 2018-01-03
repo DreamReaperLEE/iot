@@ -42,7 +42,22 @@ public class ScoreService {
         return scoreMapper.selectBySidPid(sid, pid);
     }
 
+    //求平均分
+    public float getAverageScore(Integer sid){
+        List<Score> scoreList=scoreMapper.selectByStudentId(sid);
+        int i=0;
+        float average=0;
+        for(Score each:scoreList){
+            average=average+each.getScore();
+            i++;
+        }
+        average=average/i;
+        return average;
+    }
 
+    public int countExamNum(Integer sid){
+        return scoreMapper.countExamNum(sid);
+    }
 
 
 }

@@ -1,6 +1,6 @@
 package heu.iot.Util;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
+
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -22,9 +22,9 @@ public class Excel {
     /**
      * @Author: Sumail-Lee
      * @Description: 生成Excel表并返回
-     * @param sheetname 表格名称
-     * @param title
-     * @param data
+     * @param excelName 表格名称
+     * @param title 标题
+     * @param data 数据
      * @param response
      * @Date: 2017/12/21 9:54
      */
@@ -44,7 +44,7 @@ public class Excel {
                 every.createCell(j).setCellValue(data.get(i).get(j));
             }
         }
-//输出Excel文件
+        //输出Excel文件
         OutputStream output = response.getOutputStream();
         response.reset();
         response.setHeader("Content-disposition", "attachment; filename="+excelName+".xls");

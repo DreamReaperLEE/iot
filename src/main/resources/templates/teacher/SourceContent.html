@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="zh-CN">
@@ -27,7 +26,8 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -37,7 +37,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">登出</a></li>
+                <li><a href="/logout">登出</a></li>
             </ul>
         </div>
     </div>
@@ -47,37 +47,24 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li class="active"><a href="course"><span class="glyphicon glyphicon-book" ></span>  人员管理</a></li>
-                <li><a href="exam"><span class="glyphicon glyphicon-pencil" ></span>  课程管理</a></li>
-                <li><a href="score"><span class="glyphicon glyphicon-folder-open" ></span>  成绩查询</a></li>
-                <li><a href="info"><span class="glyphicon glyphicon-user" ></span>  个人信息维护</a></li>
-                <td th:text="${sid}">null</td>
+                <li class="active"><a href="/student/course"><span class="glyphicon glyphicon-book"></span> 资源内容</a></li>
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">培训课程展示</h1>
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>学号</th>
-                        <th>姓名</th>
-                        <th>密码</th>
-
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="admin : ${emploee}">
-                        <td th:text="${admin.id}">null</td>
-                        <td th:text="${admin.name}">null</td>
-                        <td th:text="${admin.password}">null</td>
-                        <td><a th:href="'/admin/adminstor/delete/' + ${admin.id}" >删除</a></td>
-                        <td><a th:href="'/admin/goadminstor?id='+${admin.id}" ><button type="button" class="btn btn-success">更改</button></a></td>
-
-                    </tr>
-                    </tbody>
-                </table>
+            <button type="button" class="btn btn-default"><a th:href="'course_list?id='+${cid}">返回课程目录</a></button>
+            <div class="jumbotron" th:if="${textSource!=null}">
+                <h2 th:text="${textSource.topic}">null</h2>
+                <p th:text="${textSource.detail}">null</p>
             </div>
+            <div class="jumbotron" th:if="${picSource!=null}">
+                <h2 th:text="${picSource.topic}">null</h2>
+                <img th:src="${picSource.detail}" alt="" class="img-thumbnail">
+            </div>
+            <div class="jumbotron" th:if="${videoSource!=null}">
+                <h2 th:text="${videoSource.topic}">null</h2>
+                <p th:text="${videoSource.detail}">null</p>
+            </div>
+
         </div>
     </div>
 </div>
@@ -86,10 +73,11 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="/js/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')</script>
+<script>window.jQuery || document.write('<script src="/js/jquery.min.js"><\/script>')</script>
 <script src="/js/bootstrap.min.js"></script>
 <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
 <script src="/js/holder.min.js"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 </body>
 </html>
+ml>

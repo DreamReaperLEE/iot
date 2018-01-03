@@ -19,4 +19,8 @@ public interface CourseMapper {
     int updateByPrimaryKey(Course record);
 
     List<Course> showAllCourse();
+
+    int countCourseNum();
+
+    List<Course> showSelected(String cname);
 }

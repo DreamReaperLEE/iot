@@ -1,5 +1,6 @@
 package heu.iot.Dao;
 
+import heu.iot.Model.Course_Source;
 import heu.iot.Model.Source;
 import org.apache.ibatis.annotations.Param;
 
@@ -27,4 +28,15 @@ public interface SourceMapper {
 
     //    增加课程
     int addSource(Source source);
+
+    int deleteByPrimaryKeyAndLowKey(@Param("id") Integer id,@Param("lesson") Integer lesson);
+
+    int deleteByPrimaryKeyAndLowKeyAndTopic(@Param("id") Integer id,@Param("lesson") Integer lesson,
+                                            @Param("topic") String topic);
+
+    Source selectByPrimaryKeyAndLowKeyAndTopic(@Param("id") Integer id,@Param("lesson") Integer lesson,
+                                               @Param("topic") String topic);
+
+
+
 }
