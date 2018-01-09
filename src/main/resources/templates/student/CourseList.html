@@ -39,9 +39,9 @@
             <li class="visible-xs visible-sm"><a href="index.html#" id="sidebar-menu"><i class="fa fa-navicon"></i></a></li>
         </ul>
 
-        <form class="navbar-form navbar-left">
+        <form class="navbar-form navbar-left"  action="/student/course_select" method="post">
             <button type="submit" class="fa fa-search"></button>
-            <input type="text" class="form-control" placeholder="Search..."></a>
+            <input type="text" class="form-control" name="cname" placeholder="Search..."></a>
         </form>
         <ul class="nav navbar-nav navbar-right">
 
@@ -120,6 +120,10 @@
                     </ol>
                 </div>
             </div>
+
+            <div th:include="student/top4 :: top4">
+            </div>
+
             <div class="row inbox">
                 <div class="col-md-9">
                     <div class="panel panel-default">

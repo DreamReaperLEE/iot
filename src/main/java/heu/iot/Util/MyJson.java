@@ -3,6 +3,8 @@ package heu.iot.Util;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import heu.iot.Model.Exam_Json;
+import heu.iot.Model.Hierarchy;
+import heu.iot.Model.HierarchyDetail;
 import heu.iot.Model.Question_Json;
 
 import java.lang.reflect.Array;
@@ -47,6 +49,10 @@ public class MyJson {
     //将Json数据处理成Question_Json类
     public static Question_Json JsonToQuestion(String json){
         return gson.fromJson(json,Question_Json.class);
+    }
+
+    public static ArrayList<HierarchyDetail> JsonToHierarchy(String json){
+        return gson.fromJson(json,new TypeToken<ArrayList<HierarchyDetail>>(){}.getType());
     }
 
 

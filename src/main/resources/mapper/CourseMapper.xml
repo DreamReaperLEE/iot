@@ -16,6 +16,15 @@
   <sql id="Base_Column_List">
     id, cname, cdetail, cintroduce, tid, date, ctype, cdirect, cpic, cpoint
   </sql>
+  <select id="showSelected" parameterType="java.util.ArrayList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from course <where> id in
+    <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </where>
+  </select>
   <select id="countCourseNum" resultType="java.lang.Integer">
     select
     count(id)
@@ -27,11 +36,28 @@
     from course
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <select id="showSelected" resultMap="BaseResultMap">
+  <select id="selectByCname" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from course
     where cname LIKE concat(concat('%',#{cname},'%'))
+  </select>
+  <select id="selectByTypeDirect" parameterType="map"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from course
+    <if test="type != 0 or direct!=0">
+      where
+    </if>
+    <if test="type != 0">
+      ctype = #{type,jdbcType=INTEGER}
+    </if>
+    <if test="type != 0 and direct!=0">
+      and cdirect = #{direct,jdbcType=INTEGER}
+    </if>
+    <if test="type == 0 and direct!=0">
+      cdirect = #{direct,jdbcType=INTEGER}
+    </if>
   </select>
   <select id="showAllCourse" resultMap="BaseResultMap">
     select

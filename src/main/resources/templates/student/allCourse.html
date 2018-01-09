@@ -120,6 +120,9 @@
                 </div>
             </div>
 
+            <div th:include="student/top4 :: top4">
+            </div>
+
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
@@ -129,19 +132,35 @@
                                 <li>
                                     <strong>方向：</strong>
                                 </li>
-                                <li><span class="label label-info">全部</span></li>
-                                <li th:each="each : ${co_directList}"><span class="label label-default"  th:text="${each.directName}"></span></li>
+                                <!--判断是否是全部-->
+                                <li th:if="${direct eq 0}"><a th:href="'/student/course_select?type='+${type}"><span class="label label-info">全部</span></a></li>
+                                <li th:if="${direct ne 0}"><a th:href="'/student/course_select?type='+${type}"><span class="label label-default">全部</span></a></li>
+
+                                <!--判断是否是选中这个-->
+                                <li th:each="each : ${co_directList}">
+                                    <a th:href="'/student/course_select?type='+${type}+'&direct='+${each.id}">
+                                        <span class="label label-info"  th:text="${each.directName}" th:if="${direct eq each.id}"></span>
+                                        <span class="label label-default"  th:text="${each.directName}" th:if="${direct ne each.id}"></span>
+                                    </a>
+                                </li>
                             </ul>
                             <div class="divider"></div>
                             <ul class="list-inline">
                                 <li>
                                     <strong>类型：</strong>
                                 </li>
-                                <li><span class="label label-info">全部</span></li>
-                                <li th:each="each : ${co_typeList}"><span class="label label-default"  th:text="${each.typeName}"></span></li>
+                                <!--判断是否是全部-->
+                                <li th:if="${type eq 0}"><a th:href="'/student/course_select?direct='+${direct}"><span class="label label-info">全部</span></a></li>
+                                <li th:if="${type ne 0}"><a th:href="'/student/course_select?direct='+${direct}"><span class="label label-default">全部</span></a></li>
+                                <li th:each="each : ${co_typeList}">
+                                    <a th:href="'/student/course_select?direct='+${direct}+'&type='+${each.id}">
+                                        <span class="label label-info"  th:text="${each.typeName}" th:if="${type eq each.id}"></span>
+                                        <span class="label label-default"  th:text="${each.typeName}" th:if="${type ne each.id}"></span>
+                                    </a>
+                                </li>
                             </ul>
-                            <div class="divider" th:if="${cname!=null}"></div>
-                            <ul class="list-inline" th:if="${cname!=null}">
+                            <div class="divider" th:if="${cname ne 'no'}"></div>
+                            <ul class="list-inline" th:if="${cname ne 'no'}">
                                 <li>
                                     <strong>筛选：</strong>
                                 </li>
@@ -152,6 +171,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-lg-12">
 

@@ -1,99 +1,157 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="http://v3.bootcss.com/favicon.ico">
+    <title>保密教育在线培训考核系统</title>
 
-    <title>保密教育培训考核系统</title>
+    <!-- Favicon and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico" type="image/x-icon" />
 
-    <!-- Bootstrap core CSS -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Css files -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/css/jquery.mmenu.css" rel="stylesheet">
+    <link href="/assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/assets/plugins/jquery-ui/css/jquery-ui-1.10.4.min.css" rel="stylesheet">
+    <link href="/assets/css/style.min.css" rel="stylesheet">
+    <link href="/assets/css/add-ons.min.css" rel="stylesheet">
 
-
-    <!-- Custom styles for this template -->
-    <link href="/css/dashboard.css" rel="stylesheet">
-
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 
 <body>
-
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">保密教育在线培训考核系统</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="/logout">登出</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-            <ul class="nav nav-sidebar">
-                <li><a href="/student/course"><span class="glyphicon glyphicon-book" ></span>  培训课程</a></li>
-                <li><a href="/student/exam"><span class="glyphicon glyphicon-pencil" ></span>  在线考核</a></li>
-                <li class="active"><a href="/student/score"><span class="glyphicon glyphicon-folder-open" ></span>  成绩查询</a></li>
-                <li><a href="/student/info"><span class="glyphicon glyphicon-user" ></span>  个人信息维护</a></li>
-            </ul>
-        </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-
-            <div class="row">
-                <div class="col-sm-7">
-                    <h3 class="page-header">历史成绩</h3>
-                </div>
-                <div class="col-sm-3">
-                    <a href="/student/excel"><button type="button" class="btn btn-primary">成绩导出</button></a>
-                </div>
-            </div>
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>编号</th>
-                        <th>考试名称</th>
-                        <th>成绩</th>
-                        <th>操作</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="each : ${scoreList}">
-                        <td th:text="${each.pid}">null</td>
-                        <td th:text="${each.ename}">null</td>
-                        <td th:text="${each.score}">null</td>
-                        <td><a th:href="'/student/detailScore?pid='+${each.pid}+'&ename='+${each.ename}"><button type="button" class="btn btn-success">查看详细成绩</button></a></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+<div th:include="student/top :: top">
 </div>
 
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="/js/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="/js/jquery.min.js"><\/script>')</script>
-<script src="/js/bootstrap.min.js"></script>
-<!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-<script src="/js/holder.min.js"></script>
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<div class="container-fluid content">
+
+    <div class="row">
+
+        <div th:include="student/left :: left">
+        </div>
+
+        <!-- start: Content -->
+        <div class="main ">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header"><i class="fa fa-align-left"></i>成绩单</h3>
+                    <ol class="breadcrumb">
+                        <li><i class="fa fa-home"></i><a href="/student/index">主页</a></li>
+                        <li><i class="fa fa-briefcase"></i><a href="#">成绩管理</a></li>
+                        <li><i class="fa fa-align-left"></i>成绩单</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div th:include="student/top4 :: top4">
+            </div>
+
+            <div class="row">
+                <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2><i class="fa fa-table red"></i><span class="break"></span><strong>成绩单（近五门）</strong></h2>
+                            <div class="panel-actions">
+                                <a href="table.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
+                                <a href="table.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
+                                <a href="table.html#" class="btn-close"><i class="fa fa-times"></i></a>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table table-bordered table-striped table-condensed table-hover">
+                                <thead>
+                                <tr>
+                                    <th>考试编号</th>
+                                    <th>考试名称</th>
+                                    <th>成绩</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="each : ${scoreList}">
+                                    <td th:text="${each.pid}"></td>
+                                    <td th:text="${each.ename}"></td>
+                                    <td>
+                                        <label class="label label-danger" th:if="${each.score lt 60}" th:text="${each.score}">未通过</label>
+                                        <label class="label label-default" th:if="${each.score ge 60 && each.score lt 70}" th:text="${each.score}">及格</label>
+                                        <label class="label label-warning" th:if="${each.score ge 70 && each.score lt 80}" th:text="${each.score}">中等</label>
+                                        <label class="label label-info" th:if="${each.score ge 80 && each.score lt 90}" th:text="${each.score}">良好</label>
+                                        <label class="label label-success" th:if="${each.score ge 90 }" th:text="${each.score}">优秀</label>
+                                    </td>
+                                    <td>
+                                    <a th:href="'/student/detailScore?pid='+${each.pid}+'&ename='+${each.ename}"><button type="button" class="btn btn-success btn-xs">查看详细成绩</button></a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- end: Content -->
+        <br><br><br>
+
+    </div><!--/container-->
+
+
+</div>
+
+<div class="clearfix"></div>
+
+
+<!-- start: JavaScript-->
+<!--[if !IE]>-->
+
+<script src="/assets/js/jquery-2.1.1.min.js"></script>
+
+<!--<![endif]-->
+
+<!--[if IE]>
+
+<script src="/assets/js/jquery-1.11.1.min.js"></script>
+
+<![endif]-->
+
+<!--[if !IE]>-->
+
+<script type="text/javascript">
+    window.jQuery || document.write("<script src='/assets/js/jquery-2.1.1.min.js'>"+"<"+"/script>");
+</script>
+
+<!--<![endif]-->
+
+<!--[if IE]>
+
+<script type="text/javascript">
+    window.jQuery || document.write("<script src='/assets/js/jquery-1.11.1.min.js'>"+"<"+"/script>");
+</script>
+
+<![endif]-->
+<script src="/assets/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+
+
+<!-- page scripts -->
+<script src="/assets/plugins/jquery-ui/js/jquery-ui-1.10.4.min.js"></script>
+<script src="/assets/js/jquery.easy-pie-chart.min.js"></script>
+
+<!-- theme scripts -->
+<script src="/assets/js/SmoothScroll.js"></script>
+<script src="/assets/js/jquery.mmenu.min.js"></script>
+<script src="/assets/js/core.min.js"></script>
+
+<!-- inline scripts related to this page -->
+<script src="/assets/js/pages/page-profile.js"></script>
+
+<!-- end: JavaScript-->
+
 </body>
 </html>

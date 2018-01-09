@@ -9,6 +9,7 @@ import heu.iot.Model.Emploee_Course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,18 +22,21 @@ public class CourseService {
     private Emploee_CourseMapper emploee_courseMapper;
     @Autowired
     private CourseMapper courseMapper;
-
-    public List<Course> showSelected(String cname){
-        return courseMapper.showSelected(cname);
+    //根据课程名称选择
+    public List<Course> selectByCname(String cname){
+        return courseMapper.selectByCname(cname);
     }
-
-
+    //根据课程方向、课程类型选择
+    public List<Course> selectByTypeDirect(Integer type,Integer direct){
+        return courseMapper.selectByTypeDirect(type,direct);
+    }
+    //选具体某一门课
     public Course selectByPrimaryKey(Integer id){return courseMapper.selectByPrimaryKey(id);}
-
+    //获取总课程数量
     public int countCourseNum(){
         return courseMapper.countCourseNum();
     }
-
+    //获取所有课程
     public List<Course> showAllCourse(){
         return courseMapper.showAllCourse();
     }
@@ -55,8 +59,14 @@ public class CourseService {
     public Emploee_Course selectByID(Integer id){
         return emploee_courseMapper.selectByID(id);
     }
+
     public int updateCourses(Course course){
         return courseMapper.updateByPrimaryKeySelective(course);
     }
+
     public int deleteCourse(Integer id){return courseMapper.deleteByPrimaryKey(id);}
+
+    public List<Course> showSelected(ArrayList<Integer> info){
+        return courseMapper.showSelected(info);
+    }
 }

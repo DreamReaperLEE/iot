@@ -1,7 +1,9 @@
 package heu.iot.Dao;
 
 import heu.iot.Model.Course;
+import org.apache.ibatis.annotations.Param;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -22,5 +24,9 @@ public interface CourseMapper {
 
     int countCourseNum();
 
-    List<Course> showSelected(String cname);
+    List<Course> selectByCname(String cname);
+
+    List<Course> selectByTypeDirect(@Param("type") Integer type, @Param("direct") Integer direct);
+
+    List<Course> showSelected(ArrayList<Integer> info);
 }

@@ -13,7 +13,7 @@
     <result column="level" jdbcType="INTEGER" property="level" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, cid, label, desc, more, digital, type, answer, level
+    id, cid, label, question.desc,question.more, digital, question.type, answer, question.level
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 

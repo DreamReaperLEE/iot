@@ -2,6 +2,7 @@ package heu.iot.Controller.Student;
 
 import heu.iot.Model.*;
 import heu.iot.Service.*;
+import heu.iot.Util.MyJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +38,9 @@ public class CourseController {
     @Autowired
     private EmploeeService emploeeService;
 
+    @Autowired
+    private HierarchyService hierarchyService;
+
 
     /**
      * @param session
@@ -58,13 +63,25 @@ public class CourseController {
         model.addAttribute("co_directList", co_directList);
         //获取所有课程类型
         model.addAttribute("co_typeList", co_typeList);
+        //添加现有类型
+        model.addAttribute("type", 0);
+        //添加现有方向
+        model.addAttribute("direct", 0);
+        //筛选条件
+        model.addAttribute("cname", "no");
         return "student/allCourse";
     }
 
     @RequestMapping("/course_select")
-    public String showSelected(@RequestParam(value = "cname") String cname,HttpSession session, Model model) {
+    public String showSelected(@RequestParam(value = "cname",defaultValue = "no") String cname,@RequestParam(value = "type",defaultValue = "0") Integer type,@RequestParam(value = "direct",defaultValue = "0") Integer direct,HttpSession session, Model model) {
         //获取所有课程列表
-        List<Course> courseList = courseService.showSelected(cname);
+        List<Course> courseList =new ArrayList<>();
+        if(!cname.equals("no")) {
+            courseList=courseService.selectByCname(cname);
+        }
+        else{
+            courseList=courseService.selectByTypeDirect(type,direct);
+        }
         //获取所有课程类型
         List<Co_direct> co_directList=co_directService.showAllDirect();
         //获取所有课程方向
@@ -77,7 +94,26 @@ public class CourseController {
         model.addAttribute("co_typeList", co_typeList);
         //筛选条件
         model.addAttribute("cname", cname);
+        //添加现有类型
+        model.addAttribute("type", type);
+        //添加现有方向
+        model.addAttribute("direct", direct);
         return "student/allCourse";
+    }
+
+    /**
+     * @Author: Sumail-Lee
+     * @Description: 获取所有课程体系列表
+     * @param model
+     * @Date: 2018/1/8 16:43
+     */
+    @RequestMapping("/course_hierarchy")
+    public String showHierarchy(Model model){
+        List<Hierarchy> hierarchyList=hierarchyService.showAll();
+        //所有体系列表
+        model.addAttribute("hierarchyList", hierarchyList);
+        return "student/courseHierarchy";
+
     }
 
     /**
@@ -138,7 +174,7 @@ public class CourseController {
         model.addAttribute("picList", picList);
         //视频
         model.addAttribute("videoList", videoList);
-        return "student/new_CourseDetail";
+        return "student/CourseDetail";
     }
 
 
@@ -161,11 +197,24 @@ public class CourseController {
         model.addAttribute("sourceList", sourceList);
         model.addAttribute("emploee", emploee);
         return "student/CourseList";
-
     }
 
-//    @RequestMapping("/test")
-//    public String test(){
-//        return "student/new_test";
-//    }
+    @RequestMapping("/hierarchyDetail")
+    public String hierarchyDetail(@RequestParam(value = "id") Integer id, Model model){
+        //获取标题等信息
+        Hierarchy hierarchy=hierarchyService.selectByPrimaryKey(id);
+        //获取列表
+        ArrayList<HierarchyDetail> hierarchyDetailArrayList=MyJson.JsonToHierarchy(hierarchy.getDetail());
+        //列表转换
+        for(int i=0;i<hierarchyDetailArrayList.size();i++){
+            hierarchyDetailArrayList.get(i).setCourseList(courseService.showSelected(hierarchyDetailArrayList.get(i).getIntList()));
+        }
+        //标题等信息
+        model.addAttribute("hierarchy", hierarchy);
+        //具体课程等信息
+        model.addAttribute("hierarchyDetailArrayList", hierarchyDetailArrayList);
+        return "student/HierarchyDetail";
+    }
 }
+
+

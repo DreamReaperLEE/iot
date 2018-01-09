@@ -1,96 +1,127 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="http://v3.bootcss.com/favicon.ico">
+    <title>保密教育在线培训考核系统</title>
 
-    <title>保密教育培训考核系统</title>
+    <!-- Favicon and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico" type="image/x-icon" />
 
-    <!-- Bootstrap core CSS -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Css files -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/css/jquery.mmenu.css" rel="stylesheet">
+    <link href="/assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/assets/plugins/jquery-ui/css/jquery-ui-1.10.4.min.css" rel="stylesheet">
+    <link href="/assets/css/style.min.css" rel="stylesheet">
+    <link href="/assets/css/add-ons.min.css" rel="stylesheet">
 
-
-    <!-- Custom styles for this template -->
-    <link href="/css/dashboard.css" rel="stylesheet">
-
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 
 <body>
+<div th:include="student/top :: top">
+</div>
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">保密教育在线培训考核系统</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="/logout">登出</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<div class="container-fluid content">
 
-<div class="container-fluid">
     <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-            <ul class="nav nav-sidebar">
-                <li><a href="/student/course"><span class="glyphicon glyphicon-book" ></span>  培训课程</a></li>
-                <li class="active"><a href="/student/exam"><span class="glyphicon glyphicon-pencil" ></span>  在线考核</a></li>
-                <li><a href="/student/score"><span class="glyphicon glyphicon-folder-open" ></span>  成绩查询</a></li>
-                <li><a href="/student/info"><span class="glyphicon glyphicon-user" ></span>  个人信息维护</a></li>
-            </ul>
+
+        <div th:include="student/left :: left">
         </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h3 class="page-header">进行中考试</h3>
+
+        <!-- start: Content -->
+        <div class="main ">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header"><i class="fa fa-indent"></i>在线考核</h3>
+                    <ol class="breadcrumb">
+                        <li><i class="fa fa-home"></i><a href="/student/index">主页</a></li>
+                        <li><i class="fa fa-list-alt"></i><a href="#">在线考核</a></li>
+                        <li><i class="fa fa-indent"></i>开始考核</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div th:include="student/top4 :: top4">
+            </div>
             <div class="alert alert-success" role="alert" th:text="${success}" th:if="${success!=null}"></div>
             <div class="alert alert-danger" role="alert" th:text="${fail}" th:if="${fail!=null}"></div>
             <div class="alert alert-info" role="alert" th:text="${info}" th:if="${info!=null}"></div>
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>考试编号</th>
-                        <th>考试名称</th>
-                        <th>考试开始时间</th>
-                        <th>考试结束时间</th>
-                        <th>操作</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="each : ${examList}">
-                        <td th:text="${each.id}">null</td>
-                        <td th:text="${each.ename}">null</td>
-                        <td th:text="${each.stime}">null</td>
-                        <td th:text="${each.etime}">null</td>
-                        <td><a th:href="'/student/startExam?eid='+${each.id}+'&ename='+${each.ename}"><button type="button" class="btn btn-success">开始考试</button></a></td>
-                    </tr>
-                    </tbody>
-                </table>
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <div class="white-bg col-md-2" th:each="each : ${examList} " style="margin-right:10px">
+                        <a th:href="'/student/startExam?eid='+${each.id}+'&ename='+${each.ename}"><img style="width:100%;height:200px" th:src="${each.epic}" class="img-rounded"></a>
+                        <p style="color:black;font-size:20px;" class="text-center" th:text="${each.ename}"></p>
+                        <p style="color:grey" th:text="${each.edesc}"></p>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+        <!-- end: Content -->
+        <br><br><br>
+
+    </div><!--/container-->
+
+
 </div>
 
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="/js/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="/js/jquery.min.js"><\/script>')</script>
-<script src="/js/bootstrap.min.js"></script>
-<!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-<script src="/js/holder.min.js"></script>
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<div class="clearfix"></div>
+
+
+<!-- start: JavaScript-->
+<!--[if !IE]>-->
+
+<script src="/assets/js/jquery-2.1.1.min.js"></script>
+
+<!--<![endif]-->
+
+<!--[if IE]>
+
+<script src="/assets/js/jquery-1.11.1.min.js"></script>
+
+<![endif]-->
+
+<!--[if !IE]>-->
+
+<script type="text/javascript">
+    window.jQuery || document.write("<script src='/assets/js/jquery-2.1.1.min.js'>"+"<"+"/script>");
+</script>
+
+<!--<![endif]-->
+
+<!--[if IE]>
+
+<script type="text/javascript">
+    window.jQuery || document.write("<script src='/assets/js/jquery-1.11.1.min.js'>"+"<"+"/script>");
+</script>
+
+<![endif]-->
+<script src="/assets/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+
+
+<!-- page scripts -->
+<script src="/assets/plugins/jquery-ui/js/jquery-ui-1.10.4.min.js"></script>
+<script src="/assets/js/jquery.easy-pie-chart.min.js"></script>
+
+<!-- theme scripts -->
+<script src="/assets/js/SmoothScroll.js"></script>
+<script src="/assets/js/jquery.mmenu.min.js"></script>
+<script src="/assets/js/core.min.js"></script>
+
+<!-- inline scripts related to this page -->
+<script src="/assets/js/pages/page-profile.js"></script>
+
+<!-- end: JavaScript-->
+
 </body>
 </html>

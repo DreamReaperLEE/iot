@@ -51,13 +51,32 @@ public class ScoreController {
      * @Date: 2017/12/17 21:04
      */
     @RequestMapping("/score")
-    public String allScore(HttpSession httpSession, Model model, HttpServletRequest request) {
+    public String allScore(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
         Integer id = Integer.valueOf(session.getAttribute(WebSecurityConfig.ID).toString());
         //获取本人成绩列表
         List<Score_Exam_Paper> scoreList = scoreService.showAllExamByStudentId(id);
         model.addAttribute("scoreList", scoreList);
         return "student/allScore";
+    }
+
+    /**
+     * @Author: Sumail-Lee
+     * @Description: 获取本人成绩并以图表显示
+     * @param model
+     * @param request
+     * @Date: 2018/1/6 10:08
+     */
+    @RequestMapping("/scorepic")
+    public String scorePic(Model model, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        Integer id = Integer.valueOf(session.getAttribute(WebSecurityConfig.ID).toString());
+        //获取本人成绩列表
+        List<Score_Exam_Paper> scoreList = scoreService.showAllExamByStudentId(id);
+        String scoreJson=MyJson.toJson(scoreList);
+        model.addAttribute("scoreList", scoreList);
+        model.addAttribute("scoreJson",scoreJson);
+        return "student/ScorePic";
     }
 
     /**

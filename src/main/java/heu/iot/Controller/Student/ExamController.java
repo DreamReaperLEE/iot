@@ -80,6 +80,7 @@ public class ExamController {
         for (String each : info) {
             numinfo.add(Integer.valueOf(each));
         }
+        System.out.println(numinfo);
         //获取所有题目
         List<Question> questionList = questionService.showSelected(numinfo);
         //题目列表，即为试卷
