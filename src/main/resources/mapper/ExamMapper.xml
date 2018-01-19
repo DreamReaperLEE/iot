@@ -11,14 +11,36 @@
     <result column="etime" jdbcType="VARCHAR" property="etime" />
     <result column="stime" jdbcType="VARCHAR" property="stime" />
   </resultMap>
+  <resultMap id="ExamEmploeeMap" type="heu.iot.Model.ExamEmploee">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="ename" jdbcType="VARCHAR" property="ename" />
+    <result column="date" jdbcType="VARCHAR" property="date" />
+  </resultMap>
+
   <sql id="Base_Column_List">
     id, tid, edesc, epic, ename, date, etime, stime
   </sql>
+  <sql id="ExamEmploee_List">
+    exam.id,emploee.name,exam.ename,exam.date
+  </sql>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from exam
     where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectExamEmploeeRecent5" resultMap="ExamEmploeeMap">
+    select
+    <include refid="ExamEmploee_List" />
+    from exam,emploee
+    where exam.tid=emploee.id order by date desc limit 5
+  </select>
+  <select id="countExamNum" resultType="java.lang.Integer">
+    select
+    count(id)
+    from exam
   </select>
   <select id="showCurrentExam" parameterType="map" resultMap="BaseResultMap">
     select

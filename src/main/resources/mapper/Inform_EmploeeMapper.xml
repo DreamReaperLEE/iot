@@ -14,7 +14,13 @@
     <select id="showRecent5" resultMap="BaseResultMap">
     SELECT <include refid="Base_Column_List" />
     from inform,emploee
-    WHERE inform.iid=emploee.id and inform.active = 1
+    WHERE inform.iid=emploee.id and inform.active = 1 order by inform.id desc limit 5
+    </select>
+
+    <select id="showAll" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        from inform,emploee
+        WHERE inform.iid=emploee.id and inform.active = 1 order by inform.id desc
     </select>
 
 </mapper>

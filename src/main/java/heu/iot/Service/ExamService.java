@@ -2,6 +2,7 @@ package heu.iot.Service;
 
 import heu.iot.Dao.ExamMapper;
 import heu.iot.Model.Exam;
+import heu.iot.Model.ExamEmploee;
 import heu.iot.Util.TimeFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,14 @@ public class ExamService {
         String time=TimeFactory.getCurrentHour();
         List<Exam> examList=examMapper.showCurrentExam(date,time);
         return examList;
+    }
+
+    public int countExamNum(){
+        return examMapper.countExamNum();
+    }
+
+    public List<ExamEmploee> selectExamEmploeeRecent5(){
+        return examMapper.selectExamEmploeeRecent5();
     }
 
 

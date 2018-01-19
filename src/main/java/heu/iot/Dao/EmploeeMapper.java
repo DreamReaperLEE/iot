@@ -30,4 +30,8 @@ public interface EmploeeMapper {
 
     List<Emploee> selectByActive(Integer active);
 
+    int countTeacherNum();
+
+    int countStudentNum();
+
 }

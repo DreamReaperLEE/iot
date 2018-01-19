@@ -1,0 +1,40 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="top4">
+
+    <div class="row">
+
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            <div class="info-box red-bg">
+                <i class="fa fa-thumbs-o-up"></i>
+                <div class="count" th:text="${session.admintop4.get(0)}"></div>
+                <div class="title">课程资源</div>
+            </div><!--/.info-box-->
+        </div><!--/.col-->
+
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            <div class="info-box green-bg">
+                <i class="fa fa-cubes"></i>
+                <div class="count" th:text="${session.admintop4.get(1)}"></div>
+                <div class="title">考核库</div>
+            </div><!--/.info-box-->
+        </div><!--/.col-->
+
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            <div class="info-box blue-bg">
+                <i class="fa fa-user"></i>
+                <div class="count" th:text="${session.admintop4.get(2)}"></div>
+                <div class="title">学生人数</div>
+            </div><!--/.info-box-->
+        </div><!--/.col-->
+
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            <div class="info-box magenta-bg">
+                <i class="fa fa-user"></i>
+                <div class="count" th:text="${session.admintop4.get(3)}"></div>
+                <div class="title">教师资源</div>
+            </div><!--/.info-box-->
+        </div><!--/.col-->
+
+    </div>
+
+</div>

@@ -211,10 +211,28 @@ public class CourseController {
         }
         //标题等信息
         model.addAttribute("hierarchy", hierarchy);
+
         //具体课程等信息
         model.addAttribute("hierarchyDetailArrayList", hierarchyDetailArrayList);
         return "student/HierarchyDetail";
     }
+
+//    public static void main(String args[]){
+//        ArrayList<Integer> integers=new ArrayList<>();
+//        integers.add(1);
+//        integers.add(2);
+//        ArrayList<HierarchyDetail> hierarchyDetails=new ArrayList<>();
+//        HierarchyDetail hierarchyDetail=new HierarchyDetail();
+//        hierarchyDetail.setTopic("第一层");
+//        hierarchyDetail.setIntroduce("第一层介绍");
+//        hierarchyDetail.setIntList(integers);
+//        hierarchyDetails.add(hierarchyDetail);
+//        hierarchyDetail.setTopic("第二层");
+//        hierarchyDetail.setIntroduce("第二层介绍");
+//        hierarchyDetails.add(hierarchyDetail);
+//        System.out.println(MyJson.toJson(hierarchyDetails));
+//
+//    }
 }
 
 

@@ -17,16 +17,18 @@
     course.id,course.cname,course.cdetail,emploee.name,course.cintroduce,course.date,course.ctype,course.cdirect,course.cpic,course.cpoint
   </sql>
 
+  <select id="showNew5" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List" />
+    from course,emploee
+    where
+    course.tid=emploee.id order by date desc limit 5
+  </select>
+
   <select id="showAllCourse" resultMap="BaseResultMap">
     SELECT <include refid="Base_Column_List" />
     from course,emploee
     where
-
        course.tid=emploee.id
-
-
-
-
   </select>
 
   <select id="selectCourseListByName" resultMap="BaseResultMap" parameterType="java.lang.String">

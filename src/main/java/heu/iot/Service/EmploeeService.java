@@ -23,9 +23,13 @@ public class EmploeeService {
     public int deleteEmploee(Integer id){
         return emploeeMapper.deleteByPrimaryKey(id);
     }
-    public int insertEmploee(Emploee emploee){return emploeeMapper.insert(emploee);}
+
+    public int insertSelective(Emploee emploee){return emploeeMapper.insertSelective(emploee);}
+
     public Emploee selectByPrimaryKey(Integer id){return emploeeMapper.selectByPrimaryKey(id);}
+
     public int updateByPrimaryKey(Emploee emploee){return emploeeMapper.updateByPrimaryKey(emploee);}
+
     public List<Emploee> selectByEmploeePriv(Integer priv){
         return  emploeeMapper.selectByEmploeePriv(priv);
 
@@ -35,5 +39,17 @@ public class EmploeeService {
 
     public List<Emploee> selectEmploeeByName(String name){
         return emploeeMapper.selectEmploeeByName(name);
+    }
+
+    public int updateByPrimaryKeySelective(Emploee emploee){
+        return emploeeMapper.updateByPrimaryKeySelective(emploee);
+    }
+
+    public int countStudentNum(){
+        return emploeeMapper.countStudentNum();
+    }
+
+    public int countTeacherNum(){
+        return emploeeMapper.countTeacherNum();
     }
 }

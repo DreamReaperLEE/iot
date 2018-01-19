@@ -6,13 +6,14 @@
     <result column="iid" jdbcType="INTEGER" property="iid" />
     <result column="topic" jdbcType="VARCHAR" property="topic" />
     <result column="detail" jdbcType="VARCHAR" property="detail" />
+    <result column="pic" jdbcType="VARCHAR" property="pic" />
     <result column="date" jdbcType="VARCHAR" property="date" />
     <result column="file" jdbcType="VARCHAR" property="file" />
     <result column="type" jdbcType="INTEGER" property="type" />
     <result column="active" jdbcType="INTEGER" property="active" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, iid, topic, detail, date, file, type, active
+    id, iid, topic, detail , pic , date, file, type, active
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -20,16 +21,21 @@
     from inform
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from inform
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from inform
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="heu.iot.Model.Inform">
     insert into inform (id, iid, topic, 
-      detail, date, file, 
+      detail,pic, date, file,
       type, active)
     values (#{id,jdbcType=INTEGER}, #{iid,jdbcType=INTEGER}, #{topic,jdbcType=VARCHAR}, 
-      #{detail,jdbcType=VARCHAR}, #{date,jdbcType=VARCHAR}, #{file,jdbcType=VARCHAR}, 
+      #{detail,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR}, #{date,jdbcType=VARCHAR}, #{file,jdbcType=VARCHAR},
       #{type,jdbcType=INTEGER}, #{active,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="heu.iot.Model.Inform">
@@ -46,6 +52,9 @@
       </if>
       <if test="detail != null">
         detail,
+      </if>
+      <if test="pic != null">
+        pic,
       </if>
       <if test="date != null">
         date,
@@ -73,6 +82,9 @@
       <if test="detail != null">
         #{detail,jdbcType=VARCHAR},
       </if>
+      <if test="pic != null">
+        #{pic,jdbcType=VARCHAR},
+      </if>
       <if test="date != null">
         #{date,jdbcType=VARCHAR},
       </if>
@@ -99,6 +111,9 @@
       <if test="detail != null">
         detail = #{detail,jdbcType=VARCHAR},
       </if>
+      <if test="pic != null">
+        pic = #{pic,jdbcType=VARCHAR},
+      </if>
       <if test="date != null">
         date = #{date,jdbcType=VARCHAR},
       </if>
@@ -119,6 +134,7 @@
     set iid = #{iid,jdbcType=INTEGER},
       topic = #{topic,jdbcType=VARCHAR},
       detail = #{detail,jdbcType=VARCHAR},
+      pic = #{pic,jdbcType=VARCHAR},
       date = #{date,jdbcType=VARCHAR},
       file = #{file,jdbcType=VARCHAR},
       type = #{type,jdbcType=INTEGER},

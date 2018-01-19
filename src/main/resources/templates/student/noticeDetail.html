@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
@@ -23,86 +26,74 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-    <!-- JS 函数 -->
-    <script>
-        function del() {
-            var msg = "您真的确定要删除吗？\n\n请确认！";
-            if (confirm(msg)==true){
-                return true;
-            }else{
-                return false;
-            }
-        }
-        function excel() {
-            var msg = "是否确认导出信息？\n\n请确认！";
-            if (confirm(msg) == true) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-    </script>
-
 </head>
 
 <body>
-<div th:include="admin/top :: top">
+
+<div th:include="student/top :: top">
 </div>
 
 <div class="container-fluid content">
 
     <div class="row">
 
-        <div th:include="admin/left :: left">
+        <div th:include="student/left :: left">
         </div>
 
         <!-- start: Content -->
-        <div class="main ">
+        <div class="main">
 
             <div class="row">
                 <div class="col-lg-12">
-                    <h3 class="page-header"><i class="fa fa-user"></i>成绩单</h3>
+                    <h3 class="page-header"><i class="fa fa-table"></i><div th:text="${inform.topic}"></div></h3>
                     <ol class="breadcrumb">
-                        <li><i class="fa fa-home"></i><a href="/admin/index">主页</a></li>
-                        <li><i class="fa fa-group"></i><a href="#">人员管理</a></li>
-                        <li><i class="fa fa-user"></i>学生</li>
+                        <li><i class="fa fa-home"></i><a href="/student/index">主页</a></li>
+                        <li><i class="fa fa-table"></i><a href="/student/notice">消息管理</a></li>
+                        <li><i class="fa fa-file-text-o"></i><a href="#" th:text="${inform.topic}"></a></li>
                     </ol>
                 </div>
             </div>
 
-            <div th:include="admin/top4 :: top4">
+            <div th:include="student/top4 :: top4">
             </div>
 
-            <div class="row">
-                <div class="panel panel-default">
+            <div class="row inbox">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h2><i class="fa fa-table red"></i><span class="break"></span><strong>学生列表</strong></h2>
+                            <h2><i class="fa fa-list red"></i><span class="break"></span><strong th:text="${inform.topic}">Tabs</strong></h2>
                         </div>
                         <div class="panel-body">
-                            <table class="table table-bordered table-striped table-condensed table-hover">
-                                <thead>
-                                <tr>
-                                    <th>学号</th>
-                                    <th>姓名</th>
-                                    <th>手机号</th>
-                                    <th>邮箱</th>
-                                    <th>操作</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:each="each : ${adminList}">
-                                    <td th:text="${each.id}"></td>
-                                    <td th:text="${each.name}"></td>
-                                    <td th:text="${each.tel}"></td>
-                                    <td th:text="${each.email}"></td>
-                                    <td><a th:href="'/admin/emploee/delete?url=student&id=' + ${each.id}" onclick="javascript:return del();" ><button type="button" class="btn btn-success">删除</button></a>
-                                    <a th:href="'/admin/emploee/detail?url=student&id='+${each.id}" ><button type="button" class="btn btn-success">更改</button></a></td>
-                                </tr>
-                                </tbody>
-                            </table>
+                            <p th:text="${inform.detail}">null</p>
+                            <div class="row" th:each="each : ${picList}">
+                                <img th:src="${each}" class="img-thumbnail center-block">
+                            </div>
 
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <p class="text-center" th:text="'发布人：'+${emploee.name}"></p>
+                                </div>
+                                <div class="col-lg-6">
+                                    <p class="text-center" th:text="'发布时间：'+${inform.date}"></p>
+                                </div>
+                            </div>
                         </div>
+                        <div class="panel-footer">
+                            <div class="attachments">
+                                <ul>
+                                    <a href="page-inbox-message.html#">
+                                        <li>
+                                            <span class="label label-success">附件</span> <b>File.pdf</b>
+                                            <span class="quickMenu">
+                                                <i class="fa fa-cloud-download"></i>
+                                            </span>
+                                        </li>
+                                    </a>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 

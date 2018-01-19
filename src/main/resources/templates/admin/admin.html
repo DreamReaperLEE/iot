@@ -1,93 +1,79 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
+<html  xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>保密教育在线培训考核系统</title>
+    <div th:include="admin/head :: head"></div>
 
-
-    <!-- Fav and touch icons -->
-    <link rel="shortcut icon" href="/assets/ico/favicon.ico" type="image/x-icon" />
-
-    <!-- Css files -->
-    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/assets/css/jquery.mmenu.css" rel="stylesheet">
-    <link href="/assets/css/font-awesome.min.css" rel="stylesheet">
-    <link href="/assets/css/climacons-font.css" rel="stylesheet">
-    <link href="/assets/plugins/xcharts/css/xcharts.min.css" rel=" stylesheet">
-    <link href="/assets/plugins/fullcalendar/css/fullcalendar.css" rel="stylesheet">
-    <link href="/assets/plugins/morris/css/morris.css" rel="stylesheet">
-    <link href="/assets/plugins/jquery-ui/css/jquery-ui-1.10.4.min.css" rel="stylesheet">
-    <link href="/assets/plugins/jvectormap/css/jquery-jvectormap-1.2.2.css" rel="stylesheet">
-    <link href="/assets/css/style.min.css" rel="stylesheet">
-    <link href="/assets/css/add-ons.min.css" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-</head>
 </head>
 
 <body>
+<div th:include="admin/top :: top"></div>
 
-<div th:include="student/top :: top">
-</div>
+
 <div class="container-fluid content">
 
-    <div class="row">
 
-
-        <div th:include="student/left :: left">
-        </div>
+        <div th:include="admin/left :: left"></div>
 
         <!-- start: Content -->
         <div class="main">
 
             <div class="row">
                 <div class="col-lg-12">
-                    <h3 class="page-header" th:text="'欢迎您，'+${session.name}+'同学'"><i class="fa fa-laptop"></i> </h3>
+                    <h3 class="page-header" th:text="'欢迎您，'+${session.name}"><i class="fa fa-laptop"></i></h3>
                     <ol class="breadcrumb">
-                        <li><i class="fa fa-home"></i><a href="#">主页</a></li>
-                        <li><i class="fa fa-laptop"></i>学生端</li>
+                        <li><i class="fa fa-home"></i>主页</li>
+                        <li><i class="fa fa-laptop"></i>管理端</li>
                     </ol>
                 </div>
             </div>
 
-            <div class="row">
+            <div th:include="admin/top4 :: top4">
+            </div>
 
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                    <div class="info-box red-bg">
-                        <i class="fa fa-thumbs-o-up"></i>
-                        <div class="count" th:text="${course_num}">0</div>
-                        <div class="title">我学习的课程</div>
-                    </div><!--/.info-box-->
-                </div><!--/.col-->
+            <div class="row" >
+                <div class="row">
+                    <div class="col-lg-6 col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h2><i class="fa fa-table red"></i><span class="break"></span><strong>近期考试</strong></h2>
+                            </div>
+                            <div class="panel-body">
+                                <table class="table table-condensed">
+                                    <thead>
+                                    <tr>
+                                        <th>考试编号</th>
+                                        <th>考试名称</th>
+                                        <th>主管教师</th>
+                                        <th>考试时间</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="each : ${examEmploeeList}">
+                                        <td th:text="${each.id}"></td>
+                                        <td th:text="${each.ename}"></td>
+                                        <td th:text="${each.name}"></td>
+                                        <td th:text="${each.date}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
 
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                    <div class="info-box green-bg">
-                        <i class="fa fa-cubes"></i>
-                        <div class="count" th:text="${exam_num}">0</div>
-                        <div class="title">我参加的考试</div>
-                    </div><!--/.info-box-->
-                </div><!--/.col-->
+                            </div>
+                        </div>
+                    </div>
 
-
-
-
-            </div><!--/.row-->
-
-            <div class="row" hidden="hidden">
-
+                    <div hidden="hidden">
                 <div class="col-lg-9 col-md-12">
 
                     <div class="panel panel-default">
 
                         <div class="panel-heading">
                             <i class="fa fa-refresh red"></i><h2><strong>在线人数分布</strong></h2>
+
+                            <div class="panel-actions">
+                                <a href="index.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
+                                <a href="index.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
+                                <a href="index.html#" class="btn-close"><i class="fa fa-times"></i></a>
+                            </div>
                         </div>
 
                         <div class="panel-body">
@@ -98,7 +84,7 @@
                 </div><!--/col-->
                 <div class="col-lg-3 col-md-12">
                     <div class="panel panel-default">
-                        <div class="panel-body white-bg">
+                        <div class="table.html white-bg">
                             </br/>
                             <div class="graph-container text-center">
                                 <div id="hero-donut" class="graph" style="height:236px;"></div>
@@ -114,30 +100,24 @@
                 <div class="col-lg-6 col-md-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h2><i class="fa fa-table red"></i><span class="break"></span><strong>成绩单（近五门）</strong></h2>
+                            <h2><i class="fa fa-table red"></i><span class="break"></span><strong>新增课程</strong></h2>
                         </div>
                         <div class="panel-body">
                             <table class="table table-condensed">
                                 <thead>
                                 <tr>
-                                    <th>考试编号</th>
-                                    <th>考试名称</th>
-                                    <th>成绩</th>
-                                    <th>状态</th>
+                                    <th>课程编号</th>
+                                    <th>课程名称</th>
+                                    <th>讲师</th>
+                                    <th>发布日期</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="each : ${scoreList}">
-                                <td th:text="${each.pid}"></td>
-                                <td th:text="${each.ename}"></td>
-                                <td th:text="${each.score}"></td>
-                                <td>
-                                    <span class="label label-danger" th:if="${each.score lt 60}">未通过</span>
-                                    <span class="label label-default" th:if="${each.score ge 60 && each.score lt 70}">及格</span>
-                                    <span class="label label-warning" th:if="${each.score ge 70 && each.score lt 80}">中等</span>
-                                    <span class="label label-info" th:if="${each.score ge 80 && each.score lt 90}">良好</span>
-                                    <span class="label label-success" th:if="${each.score ge 90 }">优秀</span>
-                                </td>
+                                <tr th:each="each : ${emploee_courseList}">
+                                    <td th:text="${each.id}"></td>
+                                    <td th:text="${each.cname}"></td>
+                                    <td th:text="${each.tname}"></td>
+                                    <td th:text="${each.date}"></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -148,34 +128,37 @@
 
 
 
-                <div class="col-lg-3 col-md-6">
+
+                <div class="col-lg-3 col-md-6" hidden="hidden">
 
                     <div class="panel panel-default">
 
                         <div class="panel-body text-center" style="height:230px">
-                            <h2 class="lime">课程完成率</h2>
+                            <h2 class="lime">售出课程</h2>
                             <div style="width:300px;left:50%;position:absolute;margin-left:-150px;">
                                 <canvas id="gauge1"></canvas>
                             </div>
-                            <input hidden="hidden" id="pic1" th:value="${course_rates}">
-                            <span class="pull-right"><i class="fa fa-arrow-circle-o-up text-success"></i><div th:text="${course_rates}+'%'"></div></span>
+                            <span class="pull-left"><strong class="blue">$256.256,25</strong></span>
+                            <span class="pull-right"><i class="fa fa-arrow-circle-o-up text-success"></i> 52%</span>
                         </div>
 
                     </div>
 
                 </div><!--/.col-->
 
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-3 col-md-6" hidden="hidden">
 
                     <div class="panel panel-default">
+
                         <div class="panel-body text-center" style="height:230px">
-                            <h2 class="lime">平均成绩</h2>
+                            <h2 class="lime">课程好评率</h2>
                             <div style="width:300px;left:50%;position:absolute;margin-left:-150px;">
                                 <canvas id="gauge2"></canvas>
                             </div>
-                            <input hidden="hidden" id="pic2" th:value="${exam_rates}">
-                            <span class="pull-right"><i class="fa fa-arrow-circle-o-up text-success"></i><div th:text="${exam_rates}+'分'"></div></span>
+                            <span class="pull-left"><strong class="blue"></strong></span>
+                            <span class="pull-right"><i class="fa fa-arrow-circle-o-up text-success"></i> 70%</span>
                         </div>
+
                     </div>
 
                 </div><!--/.col-->
@@ -202,43 +185,59 @@
                 </div><!--/col-->
 
             </div><!--/row-->
+                    <div class="row">
 
-
-
-
-            <div class="row">
-
-                <div class="col-md-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h2><i class="fa fa-life-bouy red"></i><strong>消息通知</strong></h2>
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h2><i class="fa fa-life-bouy red"></i><strong>消息通知</strong></h2>
+                                </div>
+                                <div class="panel-body no-padding">
+                                    <ul class="comments-list">
+                                        <li th:each="each : ${inform_emploeeList}">
+                                            <a href="widgets.html#">
+                                                <img class="avatar" alt="Lucas" th:src="${each.pic}">
+                                            </a>
+                                            <div>
+                                                <strong th:text="${each.name}"></strong><p th:text="${each.topic}"></p>
+                                            </div>
+                                            <div class="date" th:text="${each.date}"></div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                        <div class="panel-body no-padding">
-                            <ul class="comments-list">
-                                <li th:each="each : ${inform_emploeeList}">
-                                    <a href="widgets.html#">
-                                    <img class="avatar" alt="Lucas" th:src="${each.pic}">
-                                    </a>
-                                    <div>
-                                        <strong th:text="${each.name}"></strong><p th:text="${each.topic}"></p>
-                                    </div>
-                                    <div class="date" th:text="${each.date}"></div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+
+                    </div><!--/row-->
                 </div>
-
-            </div><!--/row-->
-
         </div>
         <!-- end: Content -->
         <br><br><br>
 
 
+
     </div><!--/container-->
 
-</div>
+
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Warning Title</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Here settings can be configured...</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div class="clearfix"></div>
 
 
     <!-- start: JavaScript-->
@@ -257,7 +256,7 @@
     <!--[if !IE]>-->
 
     <script type="text/javascript">
-        window.jQuery || document.write("<script src='/assets/js/jquery-2.1.1.min.js'>"+"<"+"/script>");
+        window.jQuery || document.write("<script src='assets/js/jquery-2.1.1.min.js'>"+"<"+"/script>");
     </script>
 
     <!--<![endif]-->
@@ -265,7 +264,7 @@
     <!--[if IE]>
 
     <script type="text/javascript">
-        window.jQuery || document.write("<script src='/assets/js/jquery-1.11.1.min.js'>"+"<"+"/script>");
+        window.jQuery || document.write("<script src='assets/js/jquery-1.11.1.min.js'>"+"<"+"/script>");
     </script>
 
     <![endif]-->
@@ -279,7 +278,7 @@
     <script src="/assets/plugins/moment/moment.min.js"></script>
     <script src="/assets/plugins/fullcalendar/js/fullcalendar.min.js"></script>
     <!--[if lte IE 8]>
-    <script language="javascript" type="text/javascript" src="/assets/plugins/excanvas/excanvas.min.js"></script>
+    <script language="javascript" type="text/javascript" src="assets/plugins/excanvas/excanvas.min.js"></script>
     <![endif]-->
     <script src="/assets/plugins/flot/jquery.flot.min.js"></script>
     <script src="/assets/plugins/flot/jquery.flot.pie.min.js"></script>
@@ -308,6 +307,7 @@
 
     <!-- inline scripts related to this page -->
     <script src="/assets/js/pages/index.js"></script>
+
 
     <!-- end: JavaScript-->
 

@@ -26,6 +26,10 @@ public class MyJson {
         return gson.fromJson(json,new TypeToken<ArrayList<ArrayList<Integer>>>(){}.getType());
     }
 
+    public static ArrayList<String> JsonToStringList(String json){
+        return gson.fromJson(json,new TypeToken<ArrayList<String>>(){}.getType());
+    }
+
     public static String ExamToJson(ArrayList<String> info, String level){
         Exam_Json exam_json=new Exam_Json();
         exam_json.setInfo(info);

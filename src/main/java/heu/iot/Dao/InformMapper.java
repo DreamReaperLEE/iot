@@ -2,6 +2,8 @@ package heu.iot.Dao;
 
 import heu.iot.Model.Inform;
 
+import java.util.List;
+
 public interface InformMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface InformMapper {
     int updateByPrimaryKeySelective(Inform record);
 
     int updateByPrimaryKey(Inform record);
+
+    List<Inform> selectAll();
 }

@@ -26,51 +26,18 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-    <script type="text/javascript">
-
-        function validate_required(field,alerttxt)
-        {
-            with (field)
-            {
-                if (value==null||value=="")
-                {alert(alerttxt);return false}
-                else {return true}
-            }
-        }
-
-        function check_form(thisform)
-        {
-            with (thisform)
-            {
-                if (validate_required(id,"用户账号为必填项")==false)
-                {id.focus();return false}
-                else if(validate_required(name,"名称为必填项")==false)
-                {name.focus();return false}
-                else if(validate_required(email,"邮箱为必填项")==false)
-                {email.focus();return false}
-                else if(validate_required(tel,"电话为必填项")==false)
-                {tel.focus();return false}
-                else if(validate_required(imgfile,"头像为必填项")==false)
-                {imgfile.focus();return false}
-                else if(validate_required(introduce,"介绍为必填项")==false)
-                {introduce.focus();return false}
-            }
-        }
-    </script>
-
 </head>
 
 <body>
 
-<div th:include="admin/top :: top">
+<div th:include="student/top :: top">
 </div>
 
 <div class="container-fluid content">
 
     <div class="row">
 
-        <div th:include="admin/left :: left">
+        <div th:include="student/left :: left">
         </div>
 
         <!-- start: Content -->
@@ -78,62 +45,53 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <h3 class="page-header"><i class="fa fa-user"></i>新增人员</h3>
+                    <h3 class="page-header"><i class="fa fa-user"></i>编辑个人信息</h3>
                     <ol class="breadcrumb">
-                        <li><i class="fa fa-home"></i><a href="/admin/index">主页</a></li>
-                        <li><i class="fa fa-group"></i><a href="#">人员管理</a></li>
-                        <li><i class="fa fa-user"></i><a href="#">新增人员</a></li>
+                        <li><i class="fa fa-home"></i><a href="/student/index">主页</a></li>
+                        <li><i class="fa fa-bolt"></i><a href="#">个人信息管理</a></li>
+                        <li><i class="fa fa-user"></i>编辑个人信息</li>
                     </ol>
                 </div>
             </div>
 
-            <div th:include="admin/top4 :: top4">
+            <div th:include="student/top4 :: top4">
             </div>
 
             <div class="row profile">
 
                 <div class="col-md-offset-1 col-md-10">
-                    <div class="alert alert-danger text-center" role="alert" th:text="${fail}" th:if="${fail!=null}"></div>
-                    <div class="alert alert-success text-center" role="alert" th:text="${success}" th:if="${success!=null}"></div>
-                    <div class="alert alert-success text-center" role="alert" th:text="${pisuccess+'新建：'+addi+'条；重复：'+existi+'条；失败：'+faili+'条'}" th:if="${pisuccess!=null}"></div>
-                    <button class="btn btn-success"  data-toggle="modal" data-target="#myModal">批量上传</button>
+
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="panel-title">人员信息</h3>
+                            <h3 class="panel-title">个人信息</h3>
                         </div>
                         <div class="panel-body">
-                            <form class="form-horizontal" onsubmit="return check_form(this)" th:action="@{/admin/emploee/add}" method="post" enctype="multipart/form-data">
+                            <div class="alert alert-success" role="alert" th:text="${success}" th:if="${success!=null}"></div>
+                            <div class="alert alert-danger" role="alert" th:text="${fail}" th:if="${fail!=null}"></div>
+                            <div class="text-center">
+                                <img class="img-circle" style="width:200px;height:200px" th:src="${emploee.pic}" data-toggle="modal" data-target="#myModal">
+                            </div>
+                            <hr>
+                            <form class="form-horizontal" action="/student/changeDetailInfo" method="post">
                                 <div class="form-group">
-                                    <label class="control-label">头像（只能是jpeg/jpg格式）</label>
-                                    <input class="form-control" name="imgfile" type="file" accept="image/jpg, image/jpeg">
-                                </div>
-                                <hr>
-                                <div class="form-group">
-                                    <label class="control-label">用户账号（工号/学号）</label>
-                                    <input type="number" class="form-control" name="id" >
+                                    <label class="control-label">工号/学号</label>
+                                    <input type="text" class="form-control" name="id" th:value="${emploee.id}" disabled>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">用户名</label>
-                                    <input type="text" class="form-control" name="name">
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">用户类型</label>
-                                    <select class="form-control" name="priv">
-                                        <option value=1>教师</option>
-                                        <option value=2>学员</option>
-                                    </select>
+                                    <input type="text" class="form-control" name="name" th:value="${emploee.name}">
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">邮箱</label>
-                                    <input type="email" class="form-control" name="email">
+                                    <input type="text" class="form-control" name="email" th:value="${emploee.email}">
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">手机号</label>
-                                    <input type="number" class="form-control" name="tel">
+                                    <input type="text" class="form-control" name="tel" th:value="${emploee.tel}">
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">个人简介</label>
-                                    <textarea class="form-control" rows="5" name="introduce"></textarea>
+                                    <textarea class="form-control" rows="5" name="introduce" th:inline="text">[[${emploee.introduce}]]</textarea>
                                 </div>
                                 <hr>
                                 <div class="form-group">
@@ -161,17 +119,17 @@
 
 <div class="clearfix"></div>
 
-<!-- 批量提交 -->
+<!-- 更新头像 -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">上传文件（XLS/XLSX格式）</h4>
+                <h4 class="modal-title" id="myModalLabel">上传新头像(只允许jpg/jpeg格式)</h4>
             </div>
-            <form class="form-horizontal" action="/admin/addemploee/uploadExcel" method="post" enctype="multipart/form-data">
+            <form class="form-horizontal" action="/student/changePic" method="post">
                 <div class="modal-body">
-                    <input class="form-control" name="file" type="file" accept="application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+                    <input class="form-control" name="imgfile" type="file" accept="image/jpg, image/jpeg">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -181,8 +139,6 @@
         </div>
     </div>
 </div>
-
-
 
 
 <!-- start: JavaScript-->

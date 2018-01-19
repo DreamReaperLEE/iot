@@ -1,98 +1,193 @@
+
+
+
 <!DOCTYPE html>
-<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="http://v3.bootcss.com/favicon.ico">
+    <title>保密教育在线培训考核系统</title>
 
-    <title>保密教育培训考核系统</title>
+    <!-- Favicon and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico" type="image/x-icon" />
 
-    <!-- Bootstrap core CSS -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Css files -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/css/jquery.mmenu.css" rel="stylesheet">
+    <link href="/assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/assets/plugins/jquery-ui/css/jquery-ui-1.10.4.min.css" rel="stylesheet">
+    <link href="/assets/css/style.min.css" rel="stylesheet">
+    <link href="/assets/css/add-ons.min.css" rel="stylesheet">
 
-
-    <!-- Custom styles for this template -->
-    <link href="/css/dashboard.css" rel="stylesheet">
-    <meta http-equiv="Content-Type" content="multipart/form-data; charset=utf-8" />
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 
 <body>
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">保密教育在线培训考核系统</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">登出</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<div th:include="admin/top :: top">
+</div>
 
-<div class="container-fluid">
+<div class="container-fluid content">
+
     <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-            <ul class="nav nav-sidebar">
-                <li class="active"><a href="question"><span class="glyphicon glyphicon-book" ></span>  更改管理员</a></li>
-            </ul>
+
+        <div th:include="admin/left :: left">
         </div>
-        <div class="col-sm-7 col-sm-offset-3 col-md-7 col-md-offset-2 main">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">更改用户</h3>
+
+        <!-- start: Content -->
+        <div class="main">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header"><i class="fa fa-user"></i>编辑个人信息</h3>
+                    <ol class="breadcrumb">
+                        <li><i class="fa fa-home"></i><a href="/admin/index">主页</a></li>
+                        <li><i class="fa fa-group"></i><a href="#">人员管理</a></li>
+                        <li><i class="fa fa-user"></i><a href="/admin/student">学生</a></li>
+                    </ol>
                 </div>
-                <div class="panel-body">
+            </div>
 
-                    <form th:action="@{/admin/emploee/update}" method="post" onsubmit="return check(this);" enctype="multipart/form-data">
-                        <input type="text" name="id" th:value="${emploee.id}" placeholder="账号" readonly  /><br>
-                        <input type="text" name="name" th:value="${emploee.name}" placeholder="名字" /><br>
-                        <input type="text" name="password" th:value="${emploee.password}" placeholder="密码"><br>
-                        <input type="text" name="priv" th:value="${emploee.priv}" placeholder="权限"><br>
-                        <input type="text" name="email" th:value="${emploee.email}" placeholder="邮箱"><br>
-                        <input type="text" name="tel" th:value="${emploee.tel}" placeholder="手机号" /><br>
-                        <input type="file" name="fileupload" placeholder="头像"><br>
-                        <input type="text" name="introduce" th:value="${emploee.introduce}" placeholder="简介"><br>
-                        <input type="text" name="active" th:value="${emploee.active}" placeholder="状态" /><br>
-                        <!--<input th:value="${emploee.id}" name="id" hidden readonly />-->
+            <div th:include="admin/top4 :: top4">
+            </div>
 
-                        <td><a th:href="'/admin/emploee/delete/?id='+${emploee.id}"  ><button type="button" class="btn btn-success">删除</button></a></td>
+            <div class="row profile">
 
-                        <input type="submit" value="更改" class="button">
-                        <!--<input type="button" name="Submit" value="删除" th:href="'/admin/emploee/delete?id='+${emploee.id}"/>-->
-                        <!--<p th:text="${sign}"></p>-->
-                        <!--<a href="./showLessons/0">返回</a>-->
-                    </form>
+                <div class="col-md-offset-1 col-md-10">
 
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">个人信息</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="text-center">
+                                <img class="img-circle" style="width:200px;height:200px" th:src="${emploee.pic}" data-toggle="modal" data-target="#myModal">
+                            </div>
+                            <hr>
+                            <form class="form-horizontal" action="/admin/emploee/update" method="post">
+                                <div class="form-group">
+                                    <label class="control-label">工号/学号</label>
+                                    <input type="text" class="form-control" th:value="${emploee.id}" disabled>
+                                    <input type="hidden" class="form-control" name="url" th:value="${url}">
+                                    <input type="hidden" class="form-control" name="id" th:value="${emploee.id}">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">用户名</label>
+                                    <input type="text" class="form-control" name="name" th:value="${emploee.name}">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">邮箱</label>
+                                    <input type="text" class="form-control" name="email" th:value="${emploee.email}">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">手机号</label>
+                                    <input type="text" class="form-control" name="tel" th:value="${emploee.tel}">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">个人简介</label>
+                                    <textarea class="form-control" rows="5" name="introduce" th:inline="text">[[${emploee.introduce}]]</textarea>
+                                </div>
+                                <hr>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="btn btn-success">提交</button>
+                                    </div>
+                                </div>
+                            </form>
 
-                    <!--<td><a th:href="'/admin/emploee/delete/?id='+${emploee.id}"  ><button type="button" class="btn btn-success">删除</button></a></td>-->
-                </div>
+                        </div>
 
+                    </div>
+
+                </div><!--/.col-->
 
             </div>
+        </div>
+        <!-- end: Content -->
+        <br><br><br>
+
+    </div><!--/container-->
+
+
+</div>
+
+<div class="clearfix"></div>
+
+<!-- 更新头像 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">上传新头像(只允许jpg/jpeg格式)</h4>
+            </div>
+            <form class="form-horizontal" action="/admin/emploee/changePic" method="post">
+                <div class="modal-body">
+                    <input class="form-control" name="imgfile" type="file" accept="image/jpg, image/jpeg">
+                    <input type="hidden" class="form-control" name="id" th:value="${emploee.id}">
+                    <input type="hidden" class="form-control" name="url" th:value="${url}">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="submit" class="btn btn-success">提交</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="/js/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')</script>
-<script src="/js/bootstrap.min.js"></script>
-<!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-<script src="/js/holder.min.js"></script>
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+
+<!-- start: JavaScript-->
+<!--[if !IE]>-->
+
+<script src="/assets/js/jquery-2.1.1.min.js"></script>
+
+<!--<![endif]-->
+
+<!--[if IE]>
+
+<script src="/assets/js/jquery-1.11.1.min.js"></script>
+
+<![endif]-->
+
+<!--[if !IE]>-->
+
+<script type="text/javascript">
+    window.jQuery || document.write("<script src='/assets/js/jquery-2.1.1.min.js'>"+"<"+"/script>");
+</script>
+
+<!--<![endif]-->
+
+<!--[if IE]>
+
+<script type="text/javascript">
+    window.jQuery || document.write("<script src='/assets/js/jquery-1.11.1.min.js'>"+"<"+"/script>");
+</script>
+
+<![endif]-->
+<script src="/assets/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+
+
+<!-- page scripts -->
+<script src="/assets/plugins/jquery-ui/js/jquery-ui-1.10.4.min.js"></script>
+<script src="/assets/js/jquery.easy-pie-chart.min.js"></script>
+
+<!-- theme scripts -->
+<script src="/assets/js/SmoothScroll.js"></script>
+<script src="/assets/js/jquery.mmenu.min.js"></script>
+<script src="/assets/js/core.min.js"></script>
+
+<!-- inline scripts related to this page -->
+<script src="/assets/js/pages/page-profile.js"></script>
+
+<!-- end: JavaScript-->
+
 </body>
 </html>

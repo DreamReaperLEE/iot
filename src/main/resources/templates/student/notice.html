@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
@@ -23,87 +26,67 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-    <!-- JS 函数 -->
-    <script>
-        function del() {
-            var msg = "您真的确定要删除吗？\n\n请确认！";
-            if (confirm(msg)==true){
-                return true;
-            }else{
-                return false;
-            }
-        }
-        function excel() {
-            var msg = "是否确认导出信息？\n\n请确认！";
-            if (confirm(msg) == true) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-    </script>
-
 </head>
 
 <body>
-<div th:include="admin/top :: top">
+
+<div th:include="student/top :: top">
 </div>
 
 <div class="container-fluid content">
 
     <div class="row">
 
-        <div th:include="admin/left :: left">
+        <div th:include="student/left :: left">
         </div>
 
         <!-- start: Content -->
-        <div class="main ">
+        <div class="main">
 
             <div class="row">
                 <div class="col-lg-12">
-                    <h3 class="page-header"><i class="fa fa-user"></i>成绩单</h3>
+                    <h3 class="page-header"><i class="fa fa-table"></i>消息管理</h3>
                     <ol class="breadcrumb">
-                        <li><i class="fa fa-home"></i><a href="/admin/index">主页</a></li>
-                        <li><i class="fa fa-group"></i><a href="#">人员管理</a></li>
-                        <li><i class="fa fa-user"></i>学生</li>
+                        <li><i class="fa fa-home"></i><a href="/student/index">主页</a></li>
+                        <li><i class="fa fa-table"></i>消息管理</li>
                     </ol>
                 </div>
             </div>
 
-            <div th:include="admin/top4 :: top4">
+            <div th:include="student/top4 :: top4">
             </div>
 
-            <div class="row">
-                <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h2><i class="fa fa-table red"></i><span class="break"></span><strong>学生列表</strong></h2>
-                        </div>
+            <div class="row inbox">
+
+                <div class="col-md-12">
+
+                    <div class="panel panel-default">
+
                         <div class="panel-body">
-                            <table class="table table-bordered table-striped table-condensed table-hover">
-                                <thead>
-                                <tr>
-                                    <th>学号</th>
-                                    <th>姓名</th>
-                                    <th>手机号</th>
-                                    <th>邮箱</th>
-                                    <th>操作</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:each="each : ${adminList}">
-                                    <td th:text="${each.id}"></td>
-                                    <td th:text="${each.name}"></td>
-                                    <td th:text="${each.tel}"></td>
-                                    <td th:text="${each.email}"></td>
-                                    <td><a th:href="'/admin/emploee/delete?url=student&id=' + ${each.id}" onclick="javascript:return del();" ><button type="button" class="btn btn-success">删除</button></a>
-                                    <a th:href="'/admin/emploee/detail?url=student&id='+${each.id}" ><button type="button" class="btn btn-success">更改</button></a></td>
-                                </tr>
-                                </tbody>
-                            </table>
+                            <h3 style="color:red" class="text-center">通知</h3>
+                            <ul class="messages-list">
+
+                                <li class="unread" th:each="each : ${inform_emploeeList}">
+                                    <a th:href="'/student/noticeDetail?id='+${each.id}">
+                                        <div class="header">
+                                            <span class="action"><i class="fa fa-square-o"></i></span>
+                                            <span class="from" th:text="${each.name}">匿名</span>
+                                            <span class="date" th:text="${each.date}">未知</span>
+                                        </div>
+                                        <div class="description" th:text="${each.topic}"></div>
+                                    </a>
+                                </li>
+
+                                <div class="divider"></div>
+
+                            </ul>
 
                         </div>
-                </div>
+
+                    </div>
+
+                </div><!--/.col-->
+
             </div>
 
         </div>

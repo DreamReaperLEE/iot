@@ -111,6 +111,13 @@ public class ScoreController {
         return "student/CheckPaper";
     }
 
+    /**
+     * @Author: Sumail-Lee
+     * @Description: 导出学生成绩
+     * @param response
+     * @param request
+     * @Date: 2018/1/15 16:16
+     */
     @RequestMapping("/excel")
     public String excle(HttpServletResponse response,HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession();

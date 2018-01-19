@@ -8,4 +8,5 @@ public interface Emploee_CourseMapper {
     List<Emploee_Course> showAllCourse();
     List<Emploee_Course> selectCourseListByName(String cname);
     Emploee_Course selectByID(Integer id);
+    List<Emploee_Course> showNew5();
 }

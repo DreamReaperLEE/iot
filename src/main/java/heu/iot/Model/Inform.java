@@ -9,6 +9,8 @@ public class Inform {
 
     private String detail;
 
+    private String pic;
+
     private String date;
 
     private String file;
@@ -79,5 +81,13 @@ public class Inform {
 
     public void setActive(Integer active) {
         this.active = active;
+    }
+
+    public String getPic() {
+        return pic;
+    }
+
+    public void setPic(String pic) {
+        this.pic = pic;
     }
 }

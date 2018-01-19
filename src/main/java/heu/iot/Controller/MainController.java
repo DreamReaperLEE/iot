@@ -57,6 +57,9 @@ public class MainController {
         if (emploee.getPriv() == 2) {
             return "redirect:/student/index";
         }
+        if (emploee.getPriv() == 0) {
+            return "redirect:/admin/index";
+        }
         else
             return "student/allScore";
     }

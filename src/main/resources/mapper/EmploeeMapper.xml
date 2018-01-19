@@ -21,6 +21,16 @@
     from emploee
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="countTeacherNum" resultType="java.lang.Integer">
+    select
+    count(id)
+    from emploee where priv=2 and active=1
+  </select>
+  <select id="countStudentNum" resultType="java.lang.Integer">
+    select
+    count(id)
+    from emploee where priv=1 and active=1
+  </select>
   <select id="checkPassword" parameterType="map" resultMap="BaseResultMap">
     SELECT
     <include refid="Base_Column_List"/>

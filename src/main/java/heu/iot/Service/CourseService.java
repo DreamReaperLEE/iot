@@ -69,4 +69,8 @@ public class CourseService {
     public List<Course> showSelected(ArrayList<Integer> info){
         return courseMapper.showSelected(info);
     }
+
+    public List<Emploee_Course> showNew5(){
+        return emploee_courseMapper.showNew5();
+    }
 }
