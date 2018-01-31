@@ -56,7 +56,7 @@ public class dealFile {
         res.setContentType("application/octet-stream");
         res.setHeader("Content-Disposition", "attachment;filename="+filename);
 
-        String filePath="D:\\java_workplace\\iot\\src\\main\\resources\\static\\"+filename;
+        String filePath=ProjectPath.filepath+filename;
 
         byte[] buff = new byte[1024];
         BufferedInputStream bis = null;

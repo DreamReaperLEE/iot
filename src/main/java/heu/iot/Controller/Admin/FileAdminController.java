@@ -28,7 +28,6 @@ public class FileAdminController {
     @RequestMapping("/download")
     @ResponseBody
     public String download(HttpServletResponse response,@RequestParam(value = "filename") String filename) throws Exception {
-
         return dealFile.downloadFile(response,filename);
     }
 

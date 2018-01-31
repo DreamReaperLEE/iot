@@ -132,8 +132,16 @@ public class NoticeAdminController {
         return "redirect:/admin/notice/allnotice";
     }
 
+    /**
+     * @Author: Sumail-Lee
+     * @Description:通知审核
+     * @param id 被审核通知ID
+     * @param active 激活状态
+     * @Date: 2018/1/31 11:26
+     */
     @RequestMapping("/checkActice")
     public String checkActive(@RequestParam(value = "id", defaultValue = "0") Integer id,@RequestParam(value = "active", defaultValue = "0") Integer active){
+
         Inform inform=new Inform();
         inform.setId(id);
         inform.setActive(active);

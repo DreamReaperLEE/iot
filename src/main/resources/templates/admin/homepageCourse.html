@@ -90,7 +90,7 @@
                             </thead>
                             <tbody>
                             <tr th:each="each : ${courseList}">
-                                <td><img class="img-circle" style="width:80px;height:80px" th:src="${each.cpic}"></td>
+                                <td><img class="img-rounded" style="width:80px;height:80px" th:src="${each.cpic}"></td>
                                 <td th:text="${each.cname}"></td>
                                 <td th:text="${each.cdetail}"></td>
                                 <td>
