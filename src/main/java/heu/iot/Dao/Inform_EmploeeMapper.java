@@ -14,4 +14,7 @@ public interface Inform_EmploeeMapper {
     List<Inform_Emploee> showRecent5();
 
     List<Inform_Emploee> showAll();
+
+
+    List<Inform_Emploee> showAdminAll();
 }

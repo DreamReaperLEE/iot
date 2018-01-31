@@ -2,6 +2,8 @@ package heu.iot.Dao;
 
 import heu.iot.Model.Homepage;
 
+import java.util.List;
+
 public interface HomepageMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface HomepageMapper {
     int updateByPrimaryKeySelective(Homepage record);
 
     int updateByPrimaryKey(Homepage record);
+
+    List<Homepage> selectByType(Integer htype);
 }

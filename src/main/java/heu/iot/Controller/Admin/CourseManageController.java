@@ -1,372 +1,257 @@
 package heu.iot.Controller.Admin;
 
-import heu.iot.Model.Course;
-import heu.iot.Model.Emploee;
-import heu.iot.Model.Emploee_Course;
+import heu.iot.Model.*;
+import heu.iot.Service.Co_directService;
+import heu.iot.Service.Co_typeService;
 import heu.iot.Service.CourseService;
 import heu.iot.Service.EmploeeService;
-import heu.iot.Util.DateDealwith;
-import org.apache.poi.hssf.usermodel.*;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import heu.iot.Util.CourseExcel;
+import heu.iot.Util.Excel;
+import heu.iot.Util.TimeFactory;
+import heu.iot.Util.dealFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
 public class CourseManageController {
-    private static final Logger logger = LoggerFactory.getLogger(FileController.class);
     @Autowired
     private EmploeeService employeeService;
     @Autowired
     private CourseService courseService;
+    @Autowired
+    private Co_typeService co_typeService;
+    @Autowired
+    private Co_directService co_directService;
 
+
+    /**
+     * @Author: Sumail-Lee
+     * @Description:所有课程展示
+     * @param model
+     * @Date: 2018/1/23 10:12
+     */
     @RequestMapping("/allcourse")
     public String showemploee_course(Model model){
         List<Emploee_Course> list = courseService.showAllEmploeeCourse();
         model.addAttribute("course",list);
-        return "admin/allcourse";
+        return "admin/allCourse";
     }
+
+    /**
+     * @Author: Sumail-Lee
+     * @Description:删除课程
+     * @param id
+     * @Date: 2018/1/23 10:20
+     */
+    @RequestMapping("/course/delete")
+    public String deleteEmploee(@RequestParam(value = "id") Integer id,Model model) {
+        int state=courseService.deleteCourse(id);
+        return "redirect:/admin/allcourse";
+    }
+
+    /**
+     * @Author: Sumail-Lee
+     * @Description:课程详细信息（用于修改课程）
+     * @param id 课程ID
+     * @param model
+     * @Date: 2018/1/23 10:23
+     */
     @RequestMapping("/course/coursedetail")
     public String showcoursedetail(@RequestParam(value = "id") Integer id,Model model){
-        Course coursel =courseService.selectByPrimaryKey(id);
-        Emploee emploee = employeeService.selectByPrimaryKey(coursel.getTid());
-        model.addAttribute("emploee",emploee);
-        model.addAttribute("course",coursel);
-//        try{
-//        String str = coursel.getDate();
-//        Date d = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(str);
-//            System.out.println(d);
-//            model.addAttribute("cdate",d);}
-//        catch (ParseException e) {
-//// TODO Auto-generated catch block
-//            e.printStackTrace();
-//        }
-        String cdate = coursel.getDate();
-        System.out.println(cdate);
-        model.addAttribute("cdate",cdate);
+        Emploee_Course emploee_course=courseService.selectByID(id);
         List<Emploee> emploeeList = employeeService.selectByEmploeePriv(1);
+        List<Co_direct> co_directList=co_directService.showAllDirect();
+        List<Co_type> co_typeList=co_typeService.showAllType();
+        Integer direct=Integer.valueOf(emploee_course.getCdirect());
+        Integer type=Integer.valueOf(emploee_course.getCtype());
+
+        //课程信息
+        model.addAttribute("emploee_course",emploee_course);
+        //所有教师
         model.addAttribute("emploeeList",emploeeList);
+        //所有方向
+        model.addAttribute("co_directList",co_directList);
+        //所有类型
+        model.addAttribute("co_typeList",co_typeList);
+        //类型
+        model.addAttribute("direct",direct);
+        //方向
+        model.addAttribute("type",type);
+
         return "admin/courseDetail";
 
     }
+
+
+    /**
+     * @Author: Sumail-Lee
+     * @Description:更新课程
+     * @param course 更新的资源
+     * @param model
+     * @Date: 2018/1/23 14:22
+     */
     @PostMapping("/course/updatecourse")
-    public String updatecourse(Course course, @RequestParam("fileupload") MultipartFile file, @RequestParam(value = "id") Integer id, Model model) {
-        if (!file.isEmpty()) {
-            if (courseService.selectByPrimaryKey(id).getCpic()!=null){
-                Course course1= courseService.selectByPrimaryKey(id);
-                File oranfile = new File(course1.getCpic());
-                oranfile.delete();}
-            String fileName = file.getOriginalFilename();
-            logger.info("上传的文件名为：" + fileName);
-            // 获取文件的后缀名
-            String suffixName = fileName.substring(fileName.lastIndexOf("."));
-            logger.info("上传的后缀名为：" + suffixName);
-            // 文件上传后的文件夹
-            String filePath = "D://file//";
-
-            String filefull = filePath + DateDealwith.getSHC()+ fileName;
-
-            course.setCpic(filefull);
-
-
-
-            File dest = new File(filePath +DateDealwith.getSHC()+ fileName);
-
-            if (!dest.getParentFile().exists()) {
-                dest.getParentFile().mkdirs();
-            }
-
-            try {
-                file.transferTo(dest);
-
-
-
-            }
-
-
-            catch (IllegalStateException e) {
-
-                e.printStackTrace();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }
-        System.out.println("********");
-        System.out.println(course.getDate());
-        course.setDate(String.valueOf(course.getDate()));
-        System.out.println(course.getDate());
-        courseService.updateCourses(course);
-
+    public String updatecourse(Course course, Model model) {
+        courseService.updateByPrimaryKeySelective(course);
         return "redirect:/admin/allcourse";
     }
+
+    /**
+     * @Author: Sumail-Lee
+     * @Description:更新课程封面
+     * @param file 新课程封面
+     * @param id 课程ID
+     * @Date: 2018/1/23 15:31
+     */
+    @RequestMapping("/course/updatePic")
+    public String updatePic(@RequestParam("imgfile") MultipartFile file,@RequestParam("id") Integer id){
+        Course course=new Course();
+        course.setId(id);
+        //存头像
+        if(!file.isEmpty()) {
+            String filename = dealFile.saveFile("pic",file);
+            course.setCpic("/pic/"+filename);
+        }
+        courseService.updateByPrimaryKeySelective(course);
+        return "redirect:/admin/course/coursedetail?id="+String.valueOf(id);
+    }
+
+
+    /**
+     * @Author: Sumail-Lee
+     * @Description:跳转到添加课程页面
+     * @param model
+     * @Date: 2018/1/23 14:24
+     */
     @RequestMapping("/addcourse")
     public String goadd(Model model) {
-        List<Emploee> list = employeeService.selectByEmploeePriv(1);
-        model.addAttribute("emploeeList",list);
-        return "/admin/addcourse";
+
+        List<Emploee> emploeeList = employeeService.selectByEmploeePriv(1);
+        List<Co_direct> co_directList=co_directService.showAllDirect();
+        List<Co_type> co_typeList=co_typeService.showAllType();
+
+        //所有教师
+        model.addAttribute("emploeeList",emploeeList);
+        //所有方向
+        model.addAttribute("co_directList",co_directList);
+        //所有类型
+        model.addAttribute("co_typeList",co_typeList);
+
+        return "admin/addCourse";
     }
+
+    /**
+     * @Author: Sumail-Lee
+     * @Description:添加课程（单个）
+     * @param course 课程信息
+     * @param file 课程封面
+     * @param model
+     * @Date: 2018/1/23 15:32
+     */
     @PostMapping("/course/addcour")
-    public String addcourse(Course course, @RequestParam("fileupload") MultipartFile file, Model model) {
-        if (courseService.selectByID( course.getId())!=null){model.addAttribute("a","该课程号已经存在");}
-        if (!file.isEmpty()) {
-            String fileName = file.getOriginalFilename();
-            logger.info("上传的文件名为：" + fileName);
-            // 获取文件的后缀名
-            String suffixName = fileName.substring(fileName.lastIndexOf("."));
-            logger.info("上传的后缀名为：" + suffixName);
-            // 文件上传后的文件夹
-            String filePath = "D://file//";
-
-            String filefull = filePath + DateDealwith.getSHC()+ fileName;
-
-            course.setCpic(filefull);
-
-
-
-            File dest = new File(filePath +DateDealwith.getSHC()+ fileName);
-
-            if (!dest.getParentFile().exists()) {
-                dest.getParentFile().mkdirs();
-            }
-
-            try {
-                file.transferTo(dest);
-
-
-
-            }
-
-
-            catch (IllegalStateException e) {
-
-                e.printStackTrace();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
+    public String addcourse(Course course, @RequestParam("imgfile") MultipartFile file, Model model) {
+        //寸课程封面
+        if(!file.isEmpty()) {
+            String filename = dealFile.saveFile("pic",file);
+            course.setCpic("/pic/"+filename);
         }
-        course.setDate(String.valueOf(course.getDate()));
-        courseService.insertCourse(course);
+        //创建时间
+        course.setDate(TimeFactory.getCurrentDate());
+        //存课程信息
+        if(courseService.insertSelective(course)==1)
+            model.addAttribute("success", "课程创建成功！");
+        List<Emploee> emploeeList = employeeService.selectByEmploeePriv(1);
+        List<Co_direct> co_directList=co_directService.showAllDirect();
+        List<Co_type> co_typeList=co_typeService.showAllType();
 
-        return "redirect:/admin/allcourse";
+        //所有教师
+        model.addAttribute("emploeeList",emploeeList);
+        //所有方向
+        model.addAttribute("co_directList",co_directList);
+        //所有类型
+        model.addAttribute("co_typeList",co_typeList);
+
+        return "admin/addCourse";
     }
-    @PostMapping("/course/delete")
-    public String deleteEmploee(@RequestParam(value = "id") Integer id) {
-        Course course = courseService.selectByPrimaryKey(id);
-        if(course.getCpic()!=null){
-            File file = new File(course.getCpic());
-            if (file.exists() && file.isFile()) {
-//
-                file.delete();}
 
-            courseService.deleteCourse(id);}
-
-        else {
-            courseService.deleteCourse(id);}
-        return "redirect:/admin/allcourse";
-    }
-    @RequestMapping(value = "/selectcourse")
-    public String selectCourse(@RequestParam(value = "classid") int classid, @RequestParam(value = "keyboard") String cname, Model model) {
-        switch (classid) {
-            case 0:
-                Emploee_Course course = courseService.selectByID(Integer.valueOf(cname));
-                model.addAttribute("course", course);
-                break;
-            case 1:
-                List<Emploee_Course> courseList = courseService.selectByName(cname);
-                model.addAttribute("course", courseList);
-        }
-        return "admin/allcourse";
-    }
-    @RequestMapping(value = "/course/excel")
-    public String sexcel(HttpServletResponse response) throws Exception {
-        HSSFWorkbook wb = new HSSFWorkbook();
-        //声明一个单子并命名
-        HSSFSheet sheet = wb.createSheet("课程信息");
-        //给单子名称一个长度
-        sheet.setDefaultColumnWidth((short) 15);
-        // 生成一个样式
-        HSSFCellStyle style = wb.createCellStyle();
-        //创建第一行（也可以称为表头）
-        HSSFRow row = sheet.createRow(0);
-        //样式字体居中
-        style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
-        //给表头第一行一次创建单元格
-        HSSFCell cell = row.createCell((short) 0);
-        cell = row.createCell((short) 0);
-        cell.setCellValue("课程编号");
-        cell.setCellStyle(style);
-        cell = row.createCell((short) 1);
-        cell.setCellValue("课程名称");
-        cell.setCellStyle(style);
-        cell = row.createCell((short) 2);
-        cell.setCellValue("课程简介");
-        cell.setCellStyle(style);
-        cell = row.createCell((short) 3);
-        cell.setCellValue("任课教师");
-        cell.setCellStyle(style);
-        cell = row.createCell((short) 4);
-        cell.setCellValue("发布时间");
-        cell.setCellStyle(style);
-        cell = row.createCell((short) 5);
-        cell.setCellValue("课程类型");
-        cell.setCellStyle(style);
-        cell = row.createCell((short) 6);
-        cell.setCellValue("课程方向");
-        cell.setCellStyle(style);
-
-        List<Emploee_Course> list = courseService.showAllEmploeeCourse();
-        //向单元格里填充数据
-        for (short i = 0; i < list.size(); i++) {
-            row = sheet.createRow(i + 1);
-            Emploee_Course man = list.get(i);
-            String str = null;
-
-
-            row.createCell(0).setCellValue(man.getId());
-            row.createCell(1).setCellValue(man.getCname());
-            row.createCell(2).setCellValue(man.getCdetail());
-            row.createCell(3).setCellValue(man.getTname());
-            row.createCell(4).setCellValue(man.getDate());
-            row.createCell(5).setCellValue(man.getCtype());
-            row.createCell(6).setCellValue(man.getCdirect());
-        }
-        // 输出Excel文件
-        OutputStream output = response.getOutputStream();
-        response.reset();
-        response.setHeader("Content-disposition", "attachment; filename=课程.xls");
-        response.setContentType("application/msexcel");
-        wb.write(output);
-        output.close();
-        return "admin/allcourse";
-    }
-    @PostMapping(value = "/course/uploadExcel")
-    public String addccourse(Model model, @RequestParam("file") MultipartFile file) throws Exception
-
-    {
-
-        if (file.isEmpty()) {
-            return "文件为空";
-        }
-        // 获取文件名
-        String fileName = file.getOriginalFilename();
-        logger.info("上传的文件名为：" + fileName);
-        // 获取文件的后缀名
-        String suffixName = fileName.substring(fileName.lastIndexOf("."));
-        logger.info("上传的后缀名为：" + suffixName);
-        // 文件上传后的文件夹
-        String filePath = "D://file//";
-//        文件的绝对路径
-        String filefull = filePath + fileName;
-//        将绝对路径添加到表单中
-
-        File dest = new File(filePath + fileName);
-        // 检测是否存在目录，如果不存在路径，创建一个文件夹
-        if (!dest.getParentFile().exists()) {
-            dest.getParentFile().mkdirs();
-        }
-        //这个才是上传文件
-        try {
-            file.transferTo(dest);
-
-        }
-//        当try出现问题时执行catch语句，并初始化IllegalStateException函数
-        catch (IllegalStateException e) {
-            //打印问题
-            e.printStackTrace();
-//            抛出的是io异常
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        InputStream is = new FileInputStream(dest);
-        Workbook hssfWorkbook = null;
-        if (dest.getName().endsWith("xlsx")) {
-            hssfWorkbook = new XSSFWorkbook(is);//Excel 2007
-        } else if (dest.getName().endsWith("xls")) {
-            hssfWorkbook = new HSSFWorkbook(is);//Excel 2003
-
-        }
-        // HSSFWorkbook hssfWorkbook = new HSSFWorkbook(is);
-        // XSSFWorkbook hssfWorkbook = new XSSFWorkbook(is);
-        Course course = null;
-        List<Course> list = new ArrayList<Course>();
-        // 循环工作表Sheet
-        for (int numSheet = 0; numSheet < hssfWorkbook.getNumberOfSheets(); numSheet++) {
-            //HSSFSheet hssfSheet = hssfWorkbook.getSheetAt(numSheet);
-            Sheet hssfSheet = hssfWorkbook.getSheetAt(numSheet);
-            if (hssfSheet == null) {
-                continue;
+    /**
+     * @Author: Sumail-Lee
+     * @Description:批量上传课程
+     * @param model
+     * @param file 上传课程的Excel
+     * @Date: 2018/1/18 18:05
+     */
+    @PostMapping("/course/uploadExcel")
+    public String addSourceExcel(Model model, @RequestParam("file") MultipartFile file) throws Exception {
+        int addi=0,faili=0;
+        String filename=dealFile.saveFile("excel",file);
+        String filePath="D:\\java_workplace\\iot\\src\\main\\resources\\static\\excel\\"+filename;
+        File dest = new File(filePath);
+        List<Course> courseList= CourseExcel.addCourse(dest);
+        for(Course each:courseList){
+            if(employeeService.selectByPrimaryKey(each.getTid())!=null){
+                if(courseService.insertSelective(each)==1)
+                    addi++;
+                else
+                    faili++;
             }
-            // 循环行Row
-            for (int rowNum = 1; rowNum <= hssfSheet.getLastRowNum(); rowNum++) {
-                //HSSFRow hssfRow = hssfSheet.getRow(rowNum);
-                Row hssfRow = hssfSheet.getRow(rowNum);
-                if (hssfRow != null) {
-                    course = new Course();
-                    //HSSFCell name = hssfRow.getCell(0);
-                    //HSSFCell pwd = hssfRow.getCell(1);
-                    Cell id = hssfRow.getCell(0);
-                    Cell cname = hssfRow.getCell(1);
-                    Cell cdetail = hssfRow.getCell(2);
-                    Cell tid = hssfRow.getCell(3);
-                    Cell date = hssfRow.getCell(4);
-                    Cell ctype = hssfRow.getCell(5);
-                    Cell cdirect = hssfRow.getCell(6);
-
-
-//这里是自己的逻辑
-//                    int a = Integer.parseInt();
-                    System.out.println("********1**********");
-                    String strNum = id.toString();
-                    if(strNum.indexOf(".")!=-1){
-                    strNum = strNum.substring(0, strNum.indexOf("."));}
-                    Integer num = new Integer(strNum);
-                    System.out.println(num);
-
-                    String strTid = tid.toString();
-                    System.out.println("*"+strTid);
-                    if(strTid.indexOf(".")!=-1){
-                    strTid = strTid.substring(0,strTid.indexOf("."));}
-                    Integer sTid = new Integer(strTid);
-
-                    course.setId(num);
-                    course.setCname(cname.toString());
-                    if(cdetail!=null){
-                    course.setCdetail(cdetail.toString());}
-                    course.setTid(sTid);
-                    if(date!=null){
-                    course.setDate(date.toString());}
-                    if(ctype!=null){
-                    course.setCtype(ctype.toString());}
-                    if(cdirect!=null){
-                    course.setCdirect(cdirect.toString());}
-
-                    courseService.insertCourse(course);
-                }
-            }
+            else
+                faili++;
         }
+        model.addAttribute("pisuccess", "批量上传成功！");
+        model.addAttribute("addi", addi);
+        model.addAttribute("faili", faili);
 
-        return "admin/allcourse";
+
+        List<Emploee> emploeeList = employeeService.selectByEmploeePriv(1);
+        List<Co_direct> co_directList=co_directService.showAllDirect();
+        List<Co_type> co_typeList=co_typeService.showAllType();
+
+        //所有教师
+        model.addAttribute("emploeeList",emploeeList);
+        //所有方向
+        model.addAttribute("co_directList",co_directList);
+        //所有类型
+        model.addAttribute("co_typeList",co_typeList);
+
+        return "admin/addCourse";
+    }
+
+    /**
+     * @Author: Sumail-Lee
+     * @Description:课程导出到Excel
+     * @param response
+     * @param request
+     * @Date: 2018/1/24 9:01
+     */
+    @RequestMapping("/course/excel")
+    @ResponseBody
+    public String courseExcle(HttpServletResponse response,HttpServletRequest request) throws Exception {
+
+        HttpSession session = request.getSession();
+        List<Emploee_Course> emploee_courseList = courseService.showAllEmploeeCourse();
+        List<Co_direct> co_directList=co_directService.showAllDirect();
+        List<Co_type> co_typeList=co_typeService.showAllType();
+
+        String fineName="CourseList";
+        ArrayList<String> title= CourseExcel.getTitle();
+        ArrayList<ArrayList<String>> data=CourseExcel.getData(emploee_courseList,co_directList,co_typeList);
+        return Excel.createExcel(fineName,title,data,response);
+
     }
 
 

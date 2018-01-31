@@ -1,6 +1,7 @@
 package heu.iot.Util;
 
 
+import heu.iot.Model.Course;
 import heu.iot.Model.Emploee;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -61,55 +62,16 @@ public class Excel {
         return "";
     }
 
-    public static List<Emploee> addEmploee(File dest) throws IOException {
-        //添加的人员列表
-        ArrayList<Emploee> emploeeList=new ArrayList<>();
-        Emploee emploee;
-        //打开文件
-        InputStream is = new FileInputStream(dest);
-        Workbook hssfWorkbook = null;
-        if (dest.getName().endsWith("xlsx")) {
-            hssfWorkbook = new XSSFWorkbook(is);//Excel 2007
-        } else if (dest.getName().endsWith("xls")) {
-            hssfWorkbook = new HSSFWorkbook(is);//Excel 2003
-        }
-        Sheet hssfSheet = hssfWorkbook.getSheetAt(0);
-            // 循环行Row
-        for (int rowNum = 1; rowNum <= hssfSheet.getLastRowNum(); rowNum++) {
-            try {
-                Row hssfRow = hssfSheet.getRow(rowNum);
-                if (hssfRow != null) {
-                    emploee = new Emploee();
-                    Cell id = hssfRow.getCell(0);
-                    Cell name = hssfRow.getCell(1);
-                    Cell pwd = hssfRow.getCell(2);
-                    Cell eml = hssfRow.getCell(3);
-                    Cell tel = hssfRow.getCell(4);
-                    Cell priv=hssfRow.getCell(5);
 
-                    emploee.setId(Integer.valueOf(dealCell(id)));
-                    emploee.setName(dealCell(name));
-                    emploee.setPassword(dealCell(pwd));
-                    if(dealCell(priv).startsWith("学生"))
-                        emploee.setPriv(2);
-                    else
-                        emploee.setPriv(1);
-                    if(eml!=null){
-                        emploee.setEmail(dealCell(eml));}
-                    if(tel!=null){
-                        emploee.setTel(dealCell(tel));}
-                    emploee.setActive(1);
-                    emploeeList.add(emploee);
-                    }
-                }catch (Exception e){
 
-                }
 
-            }
 
-        return emploeeList;
-    }
-
+    /**
+     * @Author: Sumail-Lee
+     * @Description: 判断单元格中数据格式并处理成string返回
+     * @param cell
+     * @Date: 2018/1/23 15:42
+     */
     public static String dealCell(Cell cell){
         String cellValue;
         switch (cell.getCellType()) {

@@ -26,10 +26,15 @@ public class MainController {
 
     @Autowired
     private InfoService infoService;
-
+    //登陆
     @GetMapping("/login")
     public String login() {
         return "login";
+    }
+    //主页
+    @GetMapping("/index")
+    public String index() {
+        return "index";
     }
 
     /**

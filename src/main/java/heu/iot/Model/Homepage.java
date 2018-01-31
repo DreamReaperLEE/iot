@@ -5,7 +5,9 @@ public class Homepage {
 
     private Integer sid;
 
-    private String detail;
+    private Integer type;
+
+    private String other;
 
     public Integer getId() {
         return id;
@@ -23,11 +25,19 @@ public class Homepage {
         this.sid = sid;
     }
 
-    public String getDetail() {
-        return detail;
+    public Integer getType() {
+        return type;
     }
 
-    public void setDetail(String detail) {
-        this.detail = detail == null ? null : detail.trim();
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public String getOther() {
+        return other;
+    }
+
+    public void setOther(String other) {
+        this.other = other == null ? null : other.trim();
     }
 }

@@ -52,4 +52,8 @@ public class EmploeeService {
     public int countTeacherNum(){
         return emploeeMapper.countTeacherNum();
     }
+
+    public List<Emploee> showSelected(List<Integer> record){
+        return emploeeMapper.showSelected(record);
+    }
 }

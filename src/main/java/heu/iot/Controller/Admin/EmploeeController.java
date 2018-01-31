@@ -2,30 +2,23 @@ package heu.iot.Controller.Admin;
 
 import heu.iot.Model.Emploee;
 import heu.iot.Service.EmploeeService;
-import heu.iot.Util.DateDealwith;
+import heu.iot.Util.EmploeeExcel;
 import heu.iot.Util.Excel;
 import heu.iot.Util.MD5;
 import heu.iot.Util.dealFile;
-import org.apache.poi.hssf.usermodel.*;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +26,6 @@ import java.util.List;
 @RequestMapping("/admin")
 public class EmploeeController {
 
-    private static final Logger logger = LoggerFactory.getLogger(FileController.class);
 
     @Autowired
     private EmploeeService employeeService;
@@ -150,7 +142,7 @@ public class EmploeeController {
         String filename=dealFile.saveFile("excel",file);
         String filePath="D:\\java_workplace\\iot\\src\\main\\resources\\static\\excel\\"+filename;
         File dest = new File(filePath);
-        List<Emploee> emploeeList= Excel.addEmploee(dest);
+        List<Emploee> emploeeList= EmploeeExcel.addEmploee(dest);
         for(Emploee each:emploeeList){
             Emploee exist=employeeService.selectByPrimaryKey(each.getId());
             if(exist!=null){
@@ -216,11 +208,20 @@ public class EmploeeController {
         return "/admin/addemploee";
     }
 
-    @RequestMapping("/checkteacher")
-    public String checklist(Model model) {
-        List<Emploee> list = employeeService.selectByActive(0);
-        model.addAttribute("adminList", list);
-        return "admin/allTeacher";
+    @RequestMapping("/emploee/excel")
+    @ResponseBody
+    public String emploeeExcle(HttpServletResponse response,@RequestParam("type") String type,HttpServletRequest request) throws Exception {
+        HttpSession session = request.getSession();
+        List<Emploee> emploeeList;
+        if(type.equals("teacher"))
+            emploeeList= employeeService.selectByEmploeePriv(1);
+        else
+            emploeeList = employeeService.selectByEmploeePriv(2);
+
+        String fineName="emploeeList";
+        ArrayList<String> title= EmploeeExcel.getTitle();
+        ArrayList<ArrayList<String>> data=EmploeeExcel.getData(emploeeList);
+        return Excel.createExcel(fineName,title,data,response);
 
     }
 

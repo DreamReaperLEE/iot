@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,7 +44,6 @@ public class ScoreController {
     private QuestionService questionService;
 
     /**
-     * @param httpSession
      * @param model
      * @param request
      * @Author: Sumail-Lee
@@ -119,6 +119,7 @@ public class ScoreController {
      * @Date: 2018/1/15 16:16
      */
     @RequestMapping("/excel")
+    @ResponseBody
     public String excle(HttpServletResponse response,HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession();
         Integer id = Integer.valueOf(session.getAttribute(WebSecurityConfig.ID).toString());

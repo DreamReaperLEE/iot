@@ -39,5 +39,29 @@ public class ExamService {
         return examMapper.selectExamEmploeeRecent5();
     }
 
+    public List<ExamEmploee> selectAllExamEmploee(){
+        return examMapper.selectAllExamEmploee();
+    }
+
+    public int deleteByPrimaryKey(Integer id){
+        return examMapper.deleteByPrimaryKey(id);
+    }
+
+    public Exam selectByPrimaryKey(Integer id){
+        return examMapper.selectByPrimaryKey(id);
+    }
+
+    public int updateByPrimaryKeySelective(Exam exam){
+        return examMapper.updateByPrimaryKeySelective(exam);
+    }
+
+    public int insertSelective(Exam exam){
+        return examMapper.insertSelective(exam);
+    }
+
+    public List<Exam> selectAllExam(){
+        return examMapper.selectAllExam();
+    }
+
 
 }

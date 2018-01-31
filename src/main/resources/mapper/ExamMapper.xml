@@ -31,11 +31,23 @@
     from exam
     where id = #{id,jdbcType=INTEGER}
   </select>
+
+  <select id="selectAllExam" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from exam
+  </select>
   <select id="selectExamEmploeeRecent5" resultMap="ExamEmploeeMap">
     select
     <include refid="ExamEmploee_List" />
     from exam,emploee
     where exam.tid=emploee.id order by date desc limit 5
+  </select>
+  <select id="selectAllExamEmploee" resultMap="ExamEmploeeMap">
+    select
+    <include refid="ExamEmploee_List" />
+    from exam,emploee
+    where exam.tid=emploee.id order by date desc
   </select>
   <select id="countExamNum" resultType="java.lang.Integer">
     select

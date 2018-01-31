@@ -7,9 +7,11 @@
         <result column="name" jdbcType="VARCHAR" property="name" />
         <result column="topic" jdbcType="VARCHAR" property="topic" />
         <result column="date" jdbcType="VARCHAR" property="date" />
+        <result column="type" jdbcType="INTEGER" property="type" />
+        <result column="active" jdbcType="INTEGER" property="active" />
     </resultMap>
     <sql id="Base_Column_List">
-        inform.id,emploee.pic,emploee.name,inform.topic,inform.date
+        inform.id,emploee.pic,emploee.name,inform.topic,inform.date,inform.type,inform.active
     </sql>
     <select id="showRecent5" resultMap="BaseResultMap">
     SELECT <include refid="Base_Column_List" />
@@ -21,6 +23,12 @@
         SELECT <include refid="Base_Column_List" />
         from inform,emploee
         WHERE inform.iid=emploee.id and inform.active = 1 order by inform.id desc
+    </select>
+
+    <select id="showAdminAll" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        from inform,emploee
+        WHERE inform.iid=emploee.id order by inform.id desc
     </select>
 
 </mapper>

@@ -12,6 +12,24 @@ public class Inform_Emploee {
     private String name;
     private String topic;
     private String date;
+    private int type;
+    private int active;
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public int getActive() {
+        return active;
+    }
+
+    public void setActive(int active) {
+        this.active = active;
+    }
 
     public int getId() {
         return id;

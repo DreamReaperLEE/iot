@@ -25,4 +25,8 @@ public interface ExamMapper {
     int countExamNum();
 
     List<ExamEmploee> selectExamEmploeeRecent5();
+
+    List<ExamEmploee> selectAllExamEmploee();
+
+    List<Exam> selectAllExam();
 }

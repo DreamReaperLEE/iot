@@ -127,9 +127,10 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">上传新头像(只允许jpg/jpeg格式)</h4>
             </div>
-            <form class="form-horizontal" action="/student/changePic" method="post">
+            <form class="form-horizontal" action="/student/changePic" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
                     <input class="form-control" name="imgfile" type="file" accept="image/jpg, image/jpeg">
+                    <input type="hidden" class="form-control" name="id" th:value="${emploee.id}">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>

@@ -1,6 +1,7 @@
 package heu.iot.Dao;
 
 import heu.iot.Model.Emploee;
+import heu.iot.Model.Question;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -33,5 +34,7 @@ public interface EmploeeMapper {
     int countTeacherNum();
 
     int countStudentNum();
+
+    List<Emploee> showSelected(List<Integer> info);
 
 }

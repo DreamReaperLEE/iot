@@ -97,7 +97,7 @@ public class OtherController {
 
     @RequestMapping("/downloadFile")
     public String downloadFile(HttpServletResponse response,@RequestParam(value = "fileName", defaultValue = "") String fileName) throws IOException {
-        return dealFile.downloadFile(response);
+        return dealFile.downloadFile(response,fileName);
     }
 
 

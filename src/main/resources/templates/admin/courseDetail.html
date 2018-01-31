@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>保密教育在线培训考核系统</title>
+
+    <!-- Favicon and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico" type="image/x-icon" />
+
+    <!-- Css files -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/css/jquery.mmenu.css" rel="stylesheet">
+    <link href="/assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/assets/plugins/jquery-ui/css/jquery-ui-1.10.4.min.css" rel="stylesheet">
+    <link href="/assets/css/style.min.css" rel="stylesheet">
+    <link href="/assets/css/add-ons.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- JS 函数 -->
+
+
+</head>
+
+<body>
+<div th:include="admin/top :: top">
+</div>
+
+<div class="container-fluid content">
+
+    <div class="row">
+
+        <div th:include="admin/left :: left">
+        </div>
+
+        <!-- start: Content -->
+        <div class="main">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header"><i class="fa fa-indent"></i><div th:text="${emploee_course.cname}"></div></h3>
+                    <ol class="breadcrumb">
+                        <li><i class="fa fa-home"></i><a href="/admin/index">主页</a></li>
+                        <li><i class="fa fa-group"></i><a href="#">课程管理</a></li>
+                        <li><i class="fa fa-indent"></i><a href="/admin/allCourse">已有课程</a></li>
+                    </ol>
+                </div>
+            </div>
+
+            <div th:include="admin/top4 :: top4">
+            </div>
+
+            <div class="row profile">
+
+                <div class="col-md-offset-1 col-md-10">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title" th:text="${emploee_course.cname}"></h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="text-center">
+                                <img class="img-circle" style="width:200px;height:200px" th:src="${emploee_course.cpic}" data-toggle="modal" data-target="#myModal">
+                            </div>
+                            <hr>
+                            <form class="form-horizontal" th:action="@{/admin/course/updatecourse}" method="post">
+                                <div class="form-group">
+                                    <label class="control-label">课程编号</label>
+                                    <input type="text" class="form-control" th:value="${emploee_course.id}" disabled>
+                                    <input type="hidden" class="form-control" name="id" th:value="${emploee_course.id}">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">课程名称</label>
+                                    <input type="text" class="form-control" name="cname" th:value="${emploee_course.cname}">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">任课教师</label>
+                                    <select class="form-control" name="tid">
+                                        <option th:each="each : ${emploeeList}" th:value="${each.id}" th:text="${each.name}" th:selected="${each.name eq emploee_course.tname}? 'selected'">教师</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">所属方向</label>
+                                    <select class="form-control" name="cdirect">
+                                        <option th:each="each : ${co_directList}" th:value="${each.id}" th:text="${each.directName}" th:selected="${each.id eq direct}? 'selected'">教师</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">所属分类</label>
+                                    <select class="form-control" name="ctype">
+                                        <option th:each="each : ${co_typeList}" th:value="${each.id}" th:text="${each.typeName}" th:selected="${each.id eq type}? 'selected'">教师</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">简介</label>
+                                    <textarea class="form-control" rows="5" name="cdetail" th:inline="text">[[${emploee_course.cdetail}]]</textarea>
+                                </div>
+                                <hr>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="btn btn-success">提交</button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </div><!--/.col-->
+
+            </div>
+        </div>
+        <!-- end: Content -->
+        <br><br><br>
+
+    </div><!--/container-->
+
+
+</div>
+
+<div class="clearfix"></div>
+<!-- 更新头像 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">上传课程封面(只允许jpg/jpeg格式)</h4>
+            </div>
+            <form class="form-horizontal" action="/admin/course/updatePic" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <input class="form-control" name="imgfile" type="file" accept="image/jpg, image/jpeg">
+                    <input type="hidden" class="form-control" name="id" th:value="${emploee_course.id}">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="submit" class="btn btn-success">提交</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- start: JavaScript-->
+<!--[if !IE]>-->
+
+<script src="/assets/js/jquery-2.1.1.min.js"></script>
+
+<!--<![endif]-->
+
+<!--[if IE]>
+
+<script src="/assets/js/jquery-1.11.1.min.js"></script>
+
+<![endif]-->
+
+<!--[if !IE]>-->
+
+<script type="text/javascript">
+    window.jQuery || document.write("<script src='/assets/js/jquery-2.1.1.min.js'>"+"<"+"/script>");
+</script>
+
+<!--<![endif]-->
+
+<!--[if IE]>
+
+<script type="text/javascript">
+    window.jQuery || document.write("<script src='/assets/js/jquery-1.11.1.min.js'>"+"<"+"/script>");
+</script>
+
+<![endif]-->
+<script src="/assets/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+
+
+<!-- page scripts -->
+<script src="/assets/plugins/jquery-ui/js/jquery-ui-1.10.4.min.js"></script>
+<script src="/assets/js/jquery.easy-pie-chart.min.js"></script>
+
+<!-- theme scripts -->
+<script src="/assets/js/SmoothScroll.js"></script>
+<script src="/assets/js/jquery.mmenu.min.js"></script>
+<script src="/assets/js/core.min.js"></script>
+
+<!-- inline scripts related to this page -->
+<script src="/assets/js/pages/page-profile.js"></script>
+
+<!-- end: JavaScript-->
+
+</body>
+</html>

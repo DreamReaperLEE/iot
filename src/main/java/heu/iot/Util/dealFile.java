@@ -51,16 +51,38 @@ public class dealFile {
      * @param res
      * @Date: 2018/1/18 16:05
      */
-    public static String downloadFile(HttpServletResponse res) throws IOException {
+    public static String downloadFile(HttpServletResponse res,String filename) throws IOException {
         res.setHeader("content-type", "application/octet-stream");
         res.setContentType("application/octet-stream");
-        res.setHeader("Content-Disposition", "attachment;filename=CourseResource.jpg");
-        File file=new File("/pic/1.jpg");
+        res.setHeader("Content-Disposition", "attachment;filename="+filename);
 
-        FileOutputStream fos=new FileOutputStream(file);
+        String filePath="D:\\java_workplace\\iot\\src\\main\\resources\\static\\"+filename;
 
-        res.setContentLengthLong(file.length());
-        fos.close();
+        byte[] buff = new byte[1024];
+        BufferedInputStream bis = null;
+        OutputStream os = null;
+        try {
+            os = res.getOutputStream();
+            bis = new BufferedInputStream(new FileInputStream(new File(filePath)));
+            int i = bis.read(buff);
+            while (i != -1) {
+                os.write(buff, 0, buff.length);
+                os.flush();
+                i = bis.read(buff);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (bis != null) {
+                try {
+                    bis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+
         return "";
     }
 }

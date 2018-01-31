@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>保密教育在线培训考核系统</title>
+
+    <!-- Favicon and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico" type="image/x-icon" />
+
+    <!-- Css files -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/css/jquery.mmenu.css" rel="stylesheet">
+    <link href="/assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/assets/plugins/jquery-ui/css/jquery-ui-1.10.4.min.css" rel="stylesheet">
+    <link href="/assets/css/style.min.css" rel="stylesheet">
+    <link href="/assets/css/add-ons.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- JS 函数 -->
+    <script type="text/javascript">
+
+        function validate_required(field,alerttxt)
+        {
+            with (field)
+            {
+                if (value==null||value=="")
+                {alert(alerttxt);return false}
+                else {return true}
+            }
+        }
+
+        function check_form(thisform)
+        {
+            with (thisform)
+            {
+                if (validate_required(cname,"课程名称未填写")==false)
+                {cname.focus();return false}
+                else if(validate_required(tid,"任课教师未填写")==false)
+                {tid.focus();return false}
+                else if(validate_required(cdirect,"课程方向未选择")==false)
+                {cdirect.focus();return false}
+                else if(validate_required(ctype,"课程类型未选择")==false)
+                {ctype.focus();return false}
+                else if(validate_required(imgfile,"课程封面未选择")==false)
+                {imgfile.focus();return false}
+                else if(validate_required(cdetail,"课程介绍未选择")==false)
+                {cdetail.focus();return false}
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+<div th:include="admin/top :: top">
+</div>
+
+<div class="container-fluid content">
+
+    <div class="row">
+
+        <div th:include="admin/left :: left">
+        </div>
+
+        <!-- start: Content -->
+        <div class="main">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header"><i class="fa fa-tags"></i>新增课程</h3>
+                    <ol class="breadcrumb">
+                        <li><i class="fa fa-home"></i><a href="/admin/index">主页</a></li>
+                        <li><i class="fa fa-group"></i><a href="#">课程管理</a></li>
+                        <li><i class="fa fa-indent"></i><a href="#">新增课程</a></li>
+                    </ol>
+                </div>
+            </div>
+
+            <div th:include="admin/top4 :: top4">
+            </div>
+
+            <div class="row profile">
+
+                <div class="col-md-offset-1 col-md-10">
+                    <div class="alert alert-danger text-center" role="alert" th:text="${fail}" th:if="${fail!=null}"></div>
+                    <div class="alert alert-success text-center" role="alert" th:text="${success}" th:if="${success!=null}"></div>
+                    <div class="alert alert-success text-center" role="alert" th:text="${pisuccess+'新建：'+addi+'条;失败：'+faili+'条'}" th:if="${pisuccess!=null}"></div>
+                    <button class="btn btn-success"  data-toggle="modal" data-target="#myModal">批量上传</button>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">课程信息</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-horizontal" onsubmit="return check_form(this)" th:action="@{/admin/course/addcour}" method="post" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label class="control-label">课程封面（只能是jpeg/jpg格式）</label>
+                                    <input class="form-control" name="imgfile" type="file" accept="image/jpg, image/jpeg">
+                                </div>
+                                <hr>
+                                <div class="form-group">
+                                    <label class="control-label">课程名称</label>
+                                    <input type="text" class="form-control" name="cname">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">任课教师</label>
+                                    <select class="form-control" name="tid">
+                                        <option th:each="each : ${emploeeList}" th:value="${each.id}" th:text="${each.name}">教师</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">所属方向</label>
+                                    <select class="form-control" name="cdirect">
+                                        <option th:each="each : ${co_directList}" th:value="${each.id}" th:text="${each.directName}">未知</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">所属分类</label>
+                                    <select class="form-control" name="ctype">
+                                        <option th:each="each : ${co_typeList}" th:value="${each.id}" th:text="${each.typeName}">未知</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">简介</label>
+                                    <textarea class="form-control" rows="5" name="cdetail"></textarea>
+                                </div>
+                                <hr>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="btn btn-success">提交</button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </div><!--/.col-->
+
+            </div>
+        </div>
+        <!-- end: Content -->
+        <br><br><br>
+
+    </div><!--/container-->
+
+
+</div>
+
+<div class="clearfix"></div>
+<!-- 批量提交 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">上传文件（XLS/XLSX格式）</h4>
+            </div>
+            <form class="form-horizontal" action="/admin/course/uploadExcel" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <input class="form-control" name="file" type="file" accept="application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="submit" class="btn btn-success">提交</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- start: JavaScript-->
+<!--[if !IE]>-->
+
+<script src="/assets/js/jquery-2.1.1.min.js"></script>
+
+<!--<![endif]-->
+
+<!--[if IE]>
+
+<script src="/assets/js/jquery-1.11.1.min.js"></script>
+
+<![endif]-->
+
+<!--[if !IE]>-->
+
+<script type="text/javascript">
+    window.jQuery || document.write("<script src='/assets/js/jquery-2.1.1.min.js'>"+"<"+"/script>");
+</script>
+
+<!--<![endif]-->
+
+<!--[if IE]>
+
+<script type="text/javascript">
+    window.jQuery || document.write("<script src='/assets/js/jquery-1.11.1.min.js'>"+"<"+"/script>");
+</script>
+
+<![endif]-->
+<script src="/assets/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+
+
+<!-- page scripts -->
+<script src="/assets/plugins/jquery-ui/js/jquery-ui-1.10.4.min.js"></script>
+<script src="/assets/js/jquery.easy-pie-chart.min.js"></script>
+
+<!-- theme scripts -->
+<script src="/assets/js/SmoothScroll.js"></script>
+<script src="/assets/js/jquery.mmenu.min.js"></script>
+<script src="/assets/js/core.min.js"></script>
+
+<!-- inline scripts related to this page -->
+<script src="/assets/js/pages/page-profile.js"></script>
+
+<!-- end: JavaScript-->
+
+</body>
+</html>

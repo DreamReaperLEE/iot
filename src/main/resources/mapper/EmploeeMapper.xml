@@ -21,6 +21,17 @@
     from emploee
     where id = #{id,jdbcType=INTEGER}
   </select>
+
+  <select id="showSelected" parameterType="java.util.List" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from emploee <where> id in
+    <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </where>
+  </select>
+
   <select id="countTeacherNum" resultType="java.lang.Integer">
     select
     count(id)

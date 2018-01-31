@@ -48,21 +48,18 @@ public class CourseService {
     public List<Emploee_Course> selectByName(String cname ){
         return emploee_courseMapper.selectCourseListByName(cname);
     }
-    public int insertCourse(Course course){
+    public int insertSelective(Course course){
         return  courseMapper.insertSelective(course);
     }
 
-    public int updateCourse(Course course){
-        return courseMapper.updateByPrimaryKey(course);
+    public int updateByPrimaryKeySelective(Course course){
+        return courseMapper.updateByPrimaryKeySelective(course);
     }
 
     public Emploee_Course selectByID(Integer id){
         return emploee_courseMapper.selectByID(id);
     }
 
-    public int updateCourses(Course course){
-        return courseMapper.updateByPrimaryKeySelective(course);
-    }
 
     public int deleteCourse(Integer id){return courseMapper.deleteByPrimaryKey(id);}
 

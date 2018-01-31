@@ -5,11 +5,13 @@ import heu.iot.Model.Emploee;
 import heu.iot.Service.EmploeeService;
 import heu.iot.Service.InfoService;
 import heu.iot.Util.MD5;
+import heu.iot.Util.dealFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -75,6 +77,19 @@ public class InfoController {
         model.addAttribute("emploee", emploeeService.selectByPrimaryKey(id));
 
         return "student/DetailInfo";
+    }
+
+    @RequestMapping("/changePic")
+    public String changePic(@RequestParam("imgfile") MultipartFile file,@RequestParam("id") Integer id){
+        Emploee emploee=new Emploee();
+        emploee.setId(id);
+        //存头像
+        if(!file.isEmpty()) {
+            String filename = dealFile.saveFile("pic",file);
+            emploee.setPic("/pic/"+filename);
+        }
+        emploeeService.updateByPrimaryKeySelective(emploee);
+        return "redirect:/student/Detailinfo";
     }
 
     /**

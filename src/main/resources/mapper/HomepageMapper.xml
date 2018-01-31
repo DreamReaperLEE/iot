@@ -4,10 +4,11 @@
   <resultMap id="BaseResultMap" type="heu.iot.Model.Homepage">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="sid" jdbcType="INTEGER" property="sid" />
-    <result column="detail" jdbcType="VARCHAR" property="detail" />
+    <result column="homepage.type" jdbcType="INTEGER" property="type" />
+    <result column="other" jdbcType="VARCHAR" property="other" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, sid, detail
+    id, sid, homepage.type, other
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -15,15 +16,21 @@
     from homepage
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectByType" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from homepage
+    where homepage.type = #{htype,jdbcType=INTEGER}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from homepage
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="heu.iot.Model.Homepage">
-    insert into homepage (id, sid, detail
-      )
-    values (#{id,jdbcType=INTEGER}, #{sid,jdbcType=INTEGER}, #{detail,jdbcType=VARCHAR}
-      )
+    insert into homepage (id, sid, type, 
+      other)
+    values (#{id,jdbcType=INTEGER}, #{sid,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
+      #{other,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="heu.iot.Model.Homepage">
     insert into homepage
@@ -34,8 +41,11 @@
       <if test="sid != null">
         sid,
       </if>
-      <if test="detail != null">
-        detail,
+      <if test="type != null">
+        type,
+      </if>
+      <if test="other != null">
+        other,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -45,8 +55,11 @@
       <if test="sid != null">
         #{sid,jdbcType=INTEGER},
       </if>
-      <if test="detail != null">
-        #{detail,jdbcType=VARCHAR},
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="other != null">
+        #{other,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -56,8 +69,11 @@
       <if test="sid != null">
         sid = #{sid,jdbcType=INTEGER},
       </if>
-      <if test="detail != null">
-        detail = #{detail,jdbcType=VARCHAR},
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="other != null">
+        other = #{other,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -65,7 +81,8 @@
   <update id="updateByPrimaryKey" parameterType="heu.iot.Model.Homepage">
     update homepage
     set sid = #{sid,jdbcType=INTEGER},
-      detail = #{detail,jdbcType=VARCHAR}
+      type = #{type,jdbcType=INTEGER},
+      other = #{other,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

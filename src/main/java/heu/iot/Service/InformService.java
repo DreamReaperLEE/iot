@@ -4,6 +4,7 @@ import heu.iot.Dao.InformMapper;
 import heu.iot.Dao.Inform_EmploeeMapper;
 import heu.iot.Model.Inform;
 import heu.iot.Model.Inform_Emploee;
+import org.apache.poi.hssf.record.formula.functions.Int;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,8 +30,20 @@ public class InformService {
 
     public List<Inform_Emploee> showAll(){return inform_emploeeMapper.showAll();}
 
+    public List<Inform_Emploee> showAdminAll(){return inform_emploeeMapper.showAdminAll();}
+
     public Inform selectByPrimaryKey(Integer id){
         return informMapper.selectByPrimaryKey(id);
+    }
+
+    public int deleteByPrimaryKey(Integer id){ return informMapper.deleteByPrimaryKey(id);}
+
+    public int insertSelective(Inform inform){
+        return informMapper.insertSelective(inform);
+    }
+
+    public int updateByPrimaryKeySelective(Inform inform){
+        return informMapper.updateByPrimaryKeySelective(inform);
     }
 
 }
