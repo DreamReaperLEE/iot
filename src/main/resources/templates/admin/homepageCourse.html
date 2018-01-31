@@ -58,7 +58,7 @@
                     <ol class="breadcrumb">
                         <li><i class="fa fa-home"></i><a href="/admin/index">主页</a></li>
                         <li><i class="fa fa-laptop"></i>前台管理</li>
-                        <li><i class="fa fa-retweet"></i>教师展示</li>
+                        <li><i class="fa fa-retweet"></i>课程展示</li>
                     </ol>
                 </div>
             </div>
@@ -71,10 +71,10 @@
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-sm-3">
-                                <h2><i class="fa fa-table red"></i><span class="break"></span><strong>展示教师列表</strong></h2>
+                                <h2><i class="fa fa-table red"></i><span class="break"></span><strong>展示课程列表</strong></h2>
                             </div>
                             <div class="col-sm-3">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">添加展示教师</button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">添加展示课程</button>
                             </div>
                         </div>
                     </div>
@@ -82,19 +82,19 @@
                         <table class="table table-bordered table-striped table-condensed table-hover">
                             <thead>
                             <tr>
-                                <th>头像</th>
-                                <th>姓名</th>
+                                <th>课程封面</th>
+                                <th>课程名称</th>
                                 <th>简介</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="each : ${emploeeList}">
-                                <td><img class="img-circle" style="width:80px;height:80px" th:src="${each.pic}"></td>
-                                <td th:text="${each.name}"></td>
-                                <td th:text="${each.introduce}"></td>
+                            <tr th:each="each : ${courseList}">
+                                <td><img class="img-circle" style="width:80px;height:80px" th:src="${each.cpic}"></td>
+                                <td th:text="${each.cname}"></td>
+                                <td th:text="${each.cdetail}"></td>
                                 <td>
-                                    <a th:href="'/admin/homepage/deleteEmploee?id=' + ${each.id}" onclick="javascript:return del();" ><button type="button" class="btn btn-success">删除</button></a>
+                                    <a th:href="'/admin/homepage/deleteCourse?id=' + ${each.id}" onclick="javascript:return del();" ><button type="button" class="btn btn-success">删除</button></a>
                                 </td>
                             </tr>
                             </tbody>
@@ -120,14 +120,15 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">添加展示教师</h4>
+                <h4 class="modal-title" id="myModalLabel">添加展示课程</h4>
+                <p class="modal-title">为保证界面美观，展示课程最好为3的倍数</p>
             </div>
-            <form class="form-horizontal" action="/admin/homepage/addEmploee" method="post">
+            <form class="form-horizontal" action="/admin/homepage/addCourse" method="post">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="control-label">选择教师</label>
-                        <select class="form-control" name="tid">
-                            <option th:each="each : ${teacherList}" th:value="${each.id}" th:text="${each.name}">教师</option>
+                        <label class="control-label">选择课程</label>
+                        <select class="form-control" name="id">
+                            <option th:each="each : ${steadyList}" th:value="${each.id}" th:text="${each.cname}">课程</option>
                         </select>
                     </div>
                 </div>
