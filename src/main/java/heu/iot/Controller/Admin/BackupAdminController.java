@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -57,6 +58,8 @@ public class BackupAdminController {
     @RequestMapping("/showRestore")
     public String showRestore(Model model){
         ArrayList<String> result=BackupData.getFileName();
+        Collections.sort(result);
+        Collections.reverse(result);
         model.addAttribute("result",result);
         return "admin/restore";
     }

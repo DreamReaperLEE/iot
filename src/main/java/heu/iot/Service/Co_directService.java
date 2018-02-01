@@ -21,4 +21,8 @@ public class Co_directService {
     public List<Co_direct> showAllDirect(){
         return co_directMapper.showAll();
     }
+
+    public int insertSelective(Co_direct co_direct){return co_directMapper.insertSelective(co_direct);}
+
+    public int deleteByPrimaryKey(Integer id){return co_directMapper.deleteByPrimaryKey(id);}
 }

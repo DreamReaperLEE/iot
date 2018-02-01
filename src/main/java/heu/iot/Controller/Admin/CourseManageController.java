@@ -170,7 +170,7 @@ public class CourseManageController {
      */
     @PostMapping("/course/addcour")
     public String addcourse(Course course, @RequestParam("imgfile") MultipartFile file, Model model) {
-        //寸课程封面
+        //存课程封面
         if(!file.isEmpty()) {
             String filename = dealFile.saveFile("pic",file);
             course.setCpic("/pic/"+filename);
@@ -257,7 +257,76 @@ public class CourseManageController {
         ArrayList<String> title= CourseExcel.getTitle();
         ArrayList<ArrayList<String>> data=CourseExcel.getData(emploee_courseList,co_directList,co_typeList);
         return Excel.createExcel(fineName,title,data,response);
+    }
 
+
+    /**
+     * @Author: Sumail-Lee
+     * @Description:展示所有课程方向和类别
+     * @param model
+     * @Date: 2018/2/1 14:09
+     */
+    @RequestMapping("/course/directtype")
+    public String showDirectType(Model model){
+
+        List<Co_direct> co_directList=co_directService.showAllDirect();
+        List<Co_type> co_typeList=co_typeService.showAllType();
+
+        model.addAttribute("co_directList",co_directList);
+        model.addAttribute("co_typeList",co_typeList);
+        return "admin/allDirectType";
+    }
+
+    /**
+     * @Author: Sumail-Lee
+     * @Description:添加方向
+     * @param name 方向名称
+     * @Date: 2018/2/1 14:32
+     */
+    @PostMapping("/course/addDirect")
+    public String addDirect(@RequestParam("name") String name){
+        Co_direct co_direct=new Co_direct();
+        co_direct.setDirectName(name);
+        co_directService.insertSelective(co_direct);
+        return "redirect:/admin/course/directtype";
+    }
+
+    /**
+     * @Author: Sumail-Lee
+     * @Description:添加类别
+     * @param name 类别名称
+     * @Date: 2018/2/1 14:32
+     */
+    @PostMapping("/course/addType")
+    public String addType(@RequestParam("name") String name){
+        Co_type co_type= new Co_type();
+        co_type.setTypeName(name);
+        co_typeService.insertSelective(co_type);
+        return "redirect:/admin/course/directtype";
+    }
+
+    /**
+     * @Author: Sumail-Lee
+     * @Description:删除方向
+     * @param id 删除的方向ID
+     * @Date: 2018/2/1 14:32
+     */
+    @RequestMapping("/course/deleteDirect")
+    public String deleteDirect(@RequestParam("id") Integer id){
+        co_directService.deleteByPrimaryKey(id);
+        return "redirect:/admin/course/directtype";
+    }
+
+    /**
+     * @Author: Sumail-Lee
+     * @Description:删除类别
+     * @param id 删除的类别ID
+     * @Date: 2018/2/1 14:32
+     */
+    @RequestMapping("/course/deleteType")
+    public String deleteType(@RequestParam("id") Integer id){
+        co_typeService.deleteByPrimaryKey(id);
+        return "redirect:/admin/course/directtype";
     }
 
 

@@ -21,4 +21,8 @@ public class Co_typeService {
     public List<Co_type> showAllType(){
         return co_typeMapper.showAll();
     }
+
+    public int insertSelective(Co_type co_type){return co_typeMapper.insertSelective(co_type);}
+
+    public int deleteByPrimaryKey(Integer id){return co_typeMapper.deleteByPrimaryKey(id);}
 }
