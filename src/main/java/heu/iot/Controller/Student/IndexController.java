@@ -39,8 +39,16 @@ public class IndexController {
     @Autowired
     private InformService informService;
 
+    /**
+     * @Author: Sumail-Lee
+     * @Description:显示主页
+     * @param request
+     * @param model
+     * @Date: 2018/2/1 13:48
+     */
     @RequestMapping("/index")
     public String IndexPage(HttpServletRequest request, Model model) throws Exception {
+
         HttpSession session = request.getSession();
         Integer id = Integer.valueOf(session.getAttribute(WebSecurityConfig.ID).toString());
         //获取最近五科成绩

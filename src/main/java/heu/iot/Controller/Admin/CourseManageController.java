@@ -25,6 +25,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @Author: Sumail-Lee
+ * @Version: V1.0.0
+ * @Description:课程管理
+ * @Date: 2018/2/1 8:57
+ */
 @Controller
 @RequestMapping("/admin")
 public class CourseManageController {

@@ -22,6 +22,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @Author: Sumail-Lee
+ * @Version: V1.0.0
+ * @Description:人员管理
+ * @Since: 2018/1/31 11:24
+ */
 @Controller
 @RequestMapping("/admin")
 public class EmploeeController {
@@ -208,6 +214,14 @@ public class EmploeeController {
         return "/admin/addemploee";
     }
 
+    /**
+     * @Author: Sumail-Lee
+     * @Description:批量导出人员数据
+     * @param response
+     * @param type 导出学生/老师
+     * @param request
+     * @Date: 2018/2/1 13:44
+     */
     @RequestMapping("/emploee/excel")
     @ResponseBody
     public String emploeeExcle(HttpServletResponse response,@RequestParam("type") String type,HttpServletRequest request) throws Exception {

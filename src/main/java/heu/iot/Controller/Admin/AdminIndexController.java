@@ -40,9 +40,16 @@ public class AdminIndexController {
     private InformService informService;
 
 
-
+    /**
+     * @Author: Sumail-Lee
+     * @Description:显示管理员主页信息
+     * @param session
+     * @param model
+     * @Date: 2018/2/1 8:56
+     */
     @RequestMapping("/index")
     public String IndexPage(HttpSession session, Model model){
+
         //获取近五条通知
         List<Inform_Emploee> inform_emploeeList=informService.showRecent5();
         //获取最近五门考试

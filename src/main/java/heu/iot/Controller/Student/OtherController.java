@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * @Author: Sumail-Lee
  * @Version: V1.0.0
- * @Description:
+ * @Description:其他功能类
  * @Since: 2018/1/15 9:51
  */
 @Controller
@@ -43,6 +43,12 @@ public class OtherController {
     @Autowired
     private FeedbackService feedbackService;
 
+    /**
+     * @Author: Sumail-Lee
+     * @Description:查看通知公告
+     * @param model
+     * @Date: 2018/2/1 13:50
+     */
     @RequestMapping("/notice")
     public String showNotice(Model model) {
         List<Inform_Emploee> inform_emploeeList=informService.showAll();
@@ -50,8 +56,16 @@ public class OtherController {
         return "student/notice";
     }
 
+    /**
+     * @Author: Sumail-Lee
+     * @Description:通知公告详细信息
+     * @param model
+     * @param id 通知ID
+     * @Date: 2018/2/1 13:50
+     */
     @RequestMapping("/noticeDetail")
     public String noticeDetail(Model model,@RequestParam(value = "id", defaultValue = "0") Integer id) {
+
         Inform inform=informService.selectByPrimaryKey(id);
         Emploee emploee=emploeeService.selectByPrimaryKey(inform.getIid());
         ArrayList<String> picList= MyJson.JsonToStringList(inform.getPic());
@@ -63,13 +77,32 @@ public class OtherController {
         return "student/noticeDetail";
     }
 
+    /**
+     * @Author: Sumail-Lee
+     * @Description:显示意见反馈界面
+     * @param
+     * @Date: 2018/2/1 13:50
+     */
     @RequestMapping("/feedback")
     public String feedback(){
+
         return "student/feedback";
     }
 
+    /**
+     * @Author: Sumail-Lee
+     * @Description:提交反馈
+     * @param model
+     * @param request
+     * @param session
+     * @param feedback 反馈详细信息
+     * @param anymous 是否匿名
+     * @param file 附件
+     * @Date: 2018/2/1 13:51
+     */
     @RequestMapping("/submitFeedback")
     public String submitFeedback(Model model,HttpServletRequest request,HttpSession session, @RequestParam(value = "feedback", defaultValue = "") String feedback, @RequestParam(value = "anymous", defaultValue = "") String anymous, @RequestParam("file") MultipartFile file){
+
         Feedback item=new Feedback();
 
         if(!file.isEmpty()) {
@@ -95,8 +128,16 @@ public class OtherController {
         return "student/feedback";
     }
 
+    /**
+     * @Author: Sumail-Lee
+     * @Description:下载文件
+     * @param response
+     * @param fileName 下载文件的名称
+     * @Date: 2018/2/1 13:51
+     */
     @RequestMapping("/downloadFile")
     public String downloadFile(HttpServletResponse response,@RequestParam(value = "fileName", defaultValue = "") String fileName) throws IOException {
+
         return dealFile.downloadFile(response,fileName);
     }
 

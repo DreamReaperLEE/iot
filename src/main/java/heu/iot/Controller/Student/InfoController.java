@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
- * 学生修改密码
+ * 学生个人信息管理
  *
  * @Author: Sumail-Lee
  * @Date: 9:45 2017/11/29
@@ -58,8 +58,20 @@ public class InfoController {
         return "student/DetailInfo";
     }
 
+    /**
+     * @Author: Sumail-Lee
+     * @Description:修改个人详细信息
+     * @param model
+     * @param session
+     * @param name 姓名
+     * @param email 邮箱
+     * @param tel 电话
+     * @param introduce 个人简介
+     * @Date: 2018/2/1 13:48
+     */
     @RequestMapping("/changeDetailInfo")
     public String changeDetailInfo(Model model,HttpSession session,@RequestParam(value = "name", defaultValue = "") String name,@RequestParam(value = "email", defaultValue = "") String email,@RequestParam(value = "tel", defaultValue = "") String tel,@RequestParam(value = "introduce", defaultValue = "") String introduce) {
+
         Integer id=Integer.valueOf(session.getAttribute(WebSecurityConfig.ID).toString());
         Emploee emploee=new Emploee();
         emploee.setId(id);
@@ -79,8 +91,16 @@ public class InfoController {
         return "student/DetailInfo";
     }
 
+    /**
+     * @Author: Sumail-Lee
+     * @Description:更换头像
+     * @param file 新头像文件
+     * @param id 更新人ID
+     * @Date: 2018/2/1 13:49
+     */
     @RequestMapping("/changePic")
     public String changePic(@RequestParam("imgfile") MultipartFile file,@RequestParam("id") Integer id){
+
         Emploee emploee=new Emploee();
         emploee.setId(id);
         //存头像

@@ -72,8 +72,19 @@ public class CourseController {
         return "student/allCourse";
     }
 
+    /**
+     * @Author: Sumail-Lee
+     * @Description:选择课程展示
+     * @param cname 根据输入名称选择课程
+     * @param type 根据课程类型选择
+     * @param direct 根据课程方向选择
+     * @param session
+     * @param model
+     * @Date: 2018/2/1 13:47
+     */
     @RequestMapping("/course_select")
     public String showSelected(@RequestParam(value = "cname",defaultValue = "no") String cname,@RequestParam(value = "type",defaultValue = "0") Integer type,@RequestParam(value = "direct",defaultValue = "0") Integer direct,HttpSession session, Model model) {
+
         //获取所有课程列表
         List<Course> courseList =new ArrayList<>();
         if(!cname.equals("no")) {
@@ -217,22 +228,7 @@ public class CourseController {
         return "student/HierarchyDetail";
     }
 
-//    public static void main(String args[]){
-//        ArrayList<Integer> integers=new ArrayList<>();
-//        integers.add(1);
-//        integers.add(2);
-//        ArrayList<HierarchyDetail> hierarchyDetails=new ArrayList<>();
-//        HierarchyDetail hierarchyDetail=new HierarchyDetail();
-//        hierarchyDetail.setTopic("第一层");
-//        hierarchyDetail.setIntroduce("第一层介绍");
-//        hierarchyDetail.setIntList(integers);
-//        hierarchyDetails.add(hierarchyDetail);
-//        hierarchyDetail.setTopic("第二层");
-//        hierarchyDetail.setIntroduce("第二层介绍");
-//        hierarchyDetails.add(hierarchyDetail);
-//        System.out.println(MyJson.toJson(hierarchyDetails));
-//
-//    }
+
 }
 
 
