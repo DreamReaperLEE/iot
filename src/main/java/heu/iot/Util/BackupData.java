@@ -31,21 +31,21 @@ public class BackupData {
         sb.append("mysqldump ");
         sb.append("--opt ");
         sb.append("-h ");
-        sb.append("localhost");
+        sb.append(SomeConfig.dbaddress);
         sb.append(" ");
         sb.append("--user=");
-        sb.append("root");
+        sb.append(SomeConfig.username);
         sb.append(" ");
         sb.append("--password=");
-        sb.append("root");
+        sb.append(SomeConfig.password);
         sb.append(" ");
         sb.append("--lock-all-tables=true ");
         sb.append("--result-file=");
-        sb.append(ProjectPath.filepath+"backup\\");
+        sb.append(SomeConfig.filepath+"backup\\");
         sb.append(filename);
         sb.append(" ");
         sb.append("--default-character-set=utf8 ");
-        sb.append("ceats");
+        sb.append(SomeConfig.database);
         Runtime.getRuntime().exec(sb.toString());
         return filename;
     }
@@ -59,29 +59,28 @@ public class BackupData {
     public static void load(String filename) {
 
         // 备份的路径地址
-        String filepath = ProjectPath.filepath+"backup\\"+filename;
+        String filepath = SomeConfig.filepath+"backup\\"+filename;
 
         StringBuffer sb = new StringBuffer();
         sb.append("D:\\phpStudy\\MySQL\\bin\\");
         sb.append("mysqladmin -u ");
-        sb.append("root");
+        sb.append(SomeConfig.username);
         sb.append(" -p");
-        sb.append("root");
-        sb.append(" create ceats");
+        sb.append(SomeConfig.password);
+        sb.append(" create "+SomeConfig.database);
 
         StringBuffer stmt2 = new StringBuffer();
         stmt2.append("D:\\phpStudy\\MySQL\\bin\\");
         stmt2.append("mysql -u ");
-        stmt2.append("root");
+        stmt2.append(SomeConfig.username);
         stmt2.append(" -p");
-        stmt2.append("root");
-        stmt2.append(" ceats < ");
+        stmt2.append(SomeConfig.password);
+        stmt2.append(" "+SomeConfig.database+" < ");
         stmt2.append(filepath);
         String[] cmd = {"cmd", "/c", stmt2.toString()};
         try {
             Runtime.getRuntime().exec(sb.toString());
             Runtime.getRuntime().exec(cmd);
-            System.out.println("数据已从 " + filepath + " 导入到数据库中");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -89,7 +88,7 @@ public class BackupData {
 
     public static ArrayList<String> getFileName(){
         ArrayList<String> result=new ArrayList<String>();
-        File file = new File(ProjectPath.filepath+"backup\\");
+        File file = new File(SomeConfig.filepath+"backup\\");
         File[] array = file.listFiles();
         for(int i=0;i<array.length;i++) {
             if (array[i].isFile())//如果是文件

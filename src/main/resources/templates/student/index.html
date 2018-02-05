@@ -216,13 +216,14 @@
                         <div class="panel-body no-padding">
                             <ul class="comments-list">
                                 <li th:each="each : ${inform_emploeeList}">
-                                    <a href="widgets.html#">
+                                    <a th:href="${'/student/noticeDetail?id='+each.id}">
                                     <img class="avatar" alt="Lucas" th:src="${each.pic}">
                                     </a>
                                     <div>
                                         <strong th:text="${each.name}"></strong><p th:text="${each.topic}"></p>
                                     </div>
                                     <div class="date" th:text="${each.date}"></div>
+
                                 </li>
                             </ul>
                         </div>

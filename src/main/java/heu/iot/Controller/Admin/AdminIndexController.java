@@ -58,18 +58,20 @@ public class AdminIndexController {
         List<Emploee_Course> emploee_courseList=courseService.showNew5();
 
         List<String> admintop4=new ArrayList<String>();
+        if(session.getAttribute(WebSecurityConfig.AdminTop4)==null) {
+            int coursenum = courseService.countCourseNum();
+            int examnum = examService.countExamNum();
+            int teachernum = emploeeService.countTeacherNum();
+            int studentnum = emploeeService.countStudentNum();
 
-        int coursenum=courseService.countCourseNum();
-        int examnum=examService.countExamNum();
-        int teachernum=emploeeService.countTeacherNum();
-        int studentnum=emploeeService.countStudentNum();
+            admintop4.add(String.valueOf(coursenum));
+            admintop4.add(String.valueOf(examnum));
+            admintop4.add(String.valueOf(studentnum));
+            admintop4.add(String.valueOf(teachernum));
 
-        admintop4.add(String.valueOf(coursenum));
-        admintop4.add(String.valueOf(examnum));
-        admintop4.add(String.valueOf(studentnum));
-        admintop4.add(String.valueOf(teachernum));
+            session.setAttribute(WebSecurityConfig.AdminTop4, admintop4);
+        }
 
-        session.setAttribute(WebSecurityConfig.AdminTop4, admintop4);
         //最近五条通知
         model.addAttribute("inform_emploeeList", inform_emploeeList);
         //最近五门考试

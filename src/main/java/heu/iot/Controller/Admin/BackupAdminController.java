@@ -71,8 +71,9 @@ public class BackupAdminController {
      * @Date: 2018/1/31 16:02
      */
     @RequestMapping("/restore")
-    public String restore(@RequestParam(value = "filename") String filename){
+    public String restore(Model model,@RequestParam(value = "filename") String filename){
         BackupData.load(filename);
+        model.addAttribute("success","数据库已恢复到：，"+filename);
         return "admin/backup";
     }
 
