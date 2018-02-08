@@ -1,8 +1,10 @@
 package heu.iot.Service;
 
 import heu.iot.Dao.ScoreMapper;
+import heu.iot.Dao.Score_EmploeeMapper;
 import heu.iot.Dao.Score_Exam_PaperMapper;
 import heu.iot.Model.Score;
+import heu.iot.Model.Score_Emploee;
 import heu.iot.Model.Score_Exam_Paper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,8 @@ public class ScoreService {
     private Score_Exam_PaperMapper score_exam_paperMapper;
     @Autowired
     private ScoreMapper scoreMapper;
+    @Autowired
+    private Score_EmploeeMapper score_emploeeMapper;
 
     public List<Score_Exam_Paper> showAllExamByStudentId(Integer id) {
         return score_exam_paperMapper.showAllExamByStudentId(id);
@@ -57,6 +61,9 @@ public class ScoreService {
 
     public int countExamNum(Integer sid){
         return scoreMapper.countExamNum(sid);
+    }
+    public List<Score_Emploee> showAllExamById() {
+        return score_emploeeMapper.showAllExamById();
     }
 
 

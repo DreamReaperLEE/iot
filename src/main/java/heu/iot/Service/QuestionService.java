@@ -23,4 +23,7 @@ public class QuestionService {
         return questionMapper.showSelected(info);
     }
 
+    public int countQuestionNum() {
+        return questionMapper.countQuestionNum();
+    }
 }

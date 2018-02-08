@@ -21,7 +21,7 @@ public class QuestionLibraryController {
     public String showAllQuestionList(HttpSession session, Model model)
     {
         List<Question> questionList = questionService.showAllQuestion();
-        model.addAttribute("questionList",questionList);
+        model.addAttribute("questionsList",questionList);
         return "teacher/QuestionList";
     }
 }

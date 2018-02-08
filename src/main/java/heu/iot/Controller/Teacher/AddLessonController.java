@@ -1,8 +1,6 @@
 package heu.iot.Controller.Teacher;
 
-import heu.iot.Model.Course;
 import heu.iot.Model.Source;
-import heu.iot.Service.CourseService;
 import heu.iot.Service.SourceService;
 import heu.iot.Util.Judge;
 import org.slf4j.Logger;
@@ -18,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @Author:hupengyu
@@ -34,37 +33,21 @@ public class AddLessonController {
     @Autowired
     private SourceService sourceService;
 
-    @Autowired
-    private CourseService courseService;
-
-//   添加某一章节内的资源，cid;lesson已经传过去了，准备当成默认值
-    @RequestMapping("/add_lesson_page")
-    public String showAddSourcePage(@RequestParam(value = "cid") Integer cid, @RequestParam(value = "lesson") Integer lesson, HttpSession session, Model model)
-    {
-        model.addAttribute("source_cid",cid);
-        model.addAttribute("source_lesson",lesson);
-//      List<Source> sourceList = sourceService.showSourceByPage(page);
-//        List<Source> sourceList = sourceService.showAllSource();
-//        model.addAttribute("sourcelist",sourceList);
-        return "teacher/AddLessonPage";
-    }
-
-//    添加新的章节，id已经传进去了
+    //增加新习题
     @RequestMapping("/add_new_lesson")
-    public String AddNewLesson(@RequestParam(value = "id") Integer id, HttpSession session, Model model)
-    {
-        Course course = courseService.selectByPrimaryKey(id);
-        model.addAttribute("course_name",course.getCname());
-        model.addAttribute("source_cid",course.getId());
-//      List<Source> sourceList = sourceService.showSourceByPage(page);
-//        List<Source> sourceList = sourceService.showAllSource();
-//        model.addAttribute("sourcelist",sourceList);
+    public String addnewlesson() {
         return "teacher/AddNewLesson";
     }
 
-//    public String showAddLesson
+    @RequestMapping("/add_lesson_page")
+    public String showAddLesson(HttpSession session, Model model) {
 
-//    向某一章的某一节上传资源
+//      List<Source> sourceList = sourceService.showSourceByPage(page);
+        List<Source> sourceList = sourceService.showAllSource();
+        model.addAttribute("sourcelist", sourceList);
+        return "teacher/AddLessonPage";
+    }
+
     @PostMapping("addSource")
     //只能传"detail"不能传source，难道有 @RequestParam("detail")时就不能传对象了吗？
 //    这个file是必须有的，否则没法把文件传到数据库上！但是这样的话就不能把其他值传到数据库中了
@@ -73,9 +56,13 @@ public class AddLessonController {
 //    public String addSource(Source source, Model model) throws Exception
     {
 
+//      Source source = new Source();
+//        sourceService.addSource(source);
+//        model.addAttribute("sign", "添加" + source.getTopic() + "成功！");
+
         if (file.isEmpty()) {
-        return "文件为空";
-    }
+            return "文件为空";
+        }
         // 获取文件名
         String fileName = file.getOriginalFilename();
         logger.info("上传的文件名为：" + fileName);
@@ -83,7 +70,7 @@ public class AddLessonController {
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
         logger.info("上传的后缀名为：" + suffixName);
         // 文件上传后的文件夹
-        String filePath = "/pic";
+        String filePath = "E://file//";
 //        文件的绝对路径
         String filefull = filePath + fileName;
 //        将绝对路径添加到表单中
@@ -92,8 +79,6 @@ public class AddLessonController {
 //        把该source实体对象加入到数据库表单中
         sourceService.addSource(source);
         model.addAttribute("sign", "添加" + source.getTopic() + "成功！");
-        model.addAttribute("id",source.getCid());
-        model.addAttribute("lesson",source.getLesson());
 //        source.setDetail(filefull);
 //        source.aetDetail(filefull);
         // 解决中文问题，liunx下中文路径，图片显示问题
@@ -117,18 +102,10 @@ public class AddLessonController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-            judge.flag = false;
+        judge.flag = false;
 //        重定向到加课的页面上
-        return "redirect:./lesson_detail_list?id="+source.getCid()+"&"+"lesson="+source.getLesson();
+        return "redirect:./add_lesson_page";
     }
 
-    @PostMapping("addLesson")
-    public String addLesson(Source source, Model model)throws Exception
-    {
-        sourceService.addSource(source);
-        model.addAttribute("sign", "添加第" +source.getLesson()+"章"+source.getTopic() + "成功！");
-//        重定向到显示章节的界面,并把新添加的章节显示出来
-        return "redirect:/teacher/onlyLesson_list?id="+source.getCid();
-    }
 
 }

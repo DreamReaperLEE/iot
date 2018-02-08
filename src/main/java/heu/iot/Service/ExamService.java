@@ -24,6 +24,11 @@ public class ExamService {
     @Autowired
     private ExamMapper examMapper;
 
+    public int insert(Exam record) {
+        return examMapper.insert(record);
+    }
+
+
     public List<Exam> showCurrentExam() {
         String date= TimeFactory.getCurrentDate();
         String time=TimeFactory.getCurrentHour();

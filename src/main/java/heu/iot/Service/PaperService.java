@@ -22,11 +22,15 @@ public class PaperService {
     private PaperMapper paperMapper;
 
     public Paper showPaper(Integer id) {
-        return  paperMapper.selectByEid(id);
+        return paperMapper.selectByEid(id);
     }
 
-    public Paper selectByPrimaryKey(Integer pid){
+    public Paper selectByPrimaryKey(Integer pid) {
         return paperMapper.selectByPrimaryKey(pid);
+    }
+
+    public int countPaperNum() {
+        return paperMapper.countPaperNum();
     }
 
 }

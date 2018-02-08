@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>保密教育在线培训考核系统</title>
+
+
+    <!-- Fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico" type="image/x-icon" />
+
+    <!-- Css files -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/css/jquery.mmenu.css" rel="stylesheet">
+    <link href="/assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/assets/css/climacons-font.css" rel="stylesheet">
+    <link href="/assets/plugins/xcharts/css/xcharts.min.css" rel=" stylesheet">
+    <link href="/assets/plugins/fullcalendar/css/fullcalendar.css" rel="stylesheet">
+    <link href="/assets/plugins/morris/css/morris.css" rel="stylesheet">
+    <link href="/assets/plugins/jquery-ui/css/jquery-ui-1.10.4.min.css" rel="stylesheet">
+    <link href="/assets/plugins/jvectormap/css/jquery-jvectormap-1.2.2.css" rel="stylesheet">
+    <link href="/assets/css/style.min.css" rel="stylesheet">
+    <link href="/assets/css/add-ons.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+</head>
+
+<body>
+
+<div th:include="teacher/TeacherTop :: top">
+</div>
+
+<div class="container-fluid content">
+
+    <div class="row">
+
+
+        <div th:include="teacher/TeacherLeft :: left">
+        </div>
+
+        <!-- start: Content -->
+        <div class="main">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header" th:text="'欢迎您，'+${session.name}+'同学'"><i class="fa fa-laptop"></i> </h3>
+                    <ol class="breadcrumb">
+                        <li><i class="fa fa-home"></i><a href="#">主页</a></li>
+                        <li><i class="fa fa-laptop"></i>学生端</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div th:include="teacher/top4 :: top4">
+            </div>
+
+
+            <div class="row" hidden="hidden">
+
+                <div class="col-lg-9 col-md-12">
+
+                    <div class="panel panel-default">
+
+                        <div class="panel-heading">
+                            <i class="fa fa-refresh red"></i><h2><strong>在线人数分布</strong></h2>
+                        </div>
+
+                        <div class="panel-body">
+                            </br/>
+                            <div id="realtime-update" style="height:200px;color:#484848;"></div>
+                        </div>
+                    </div>
+                </div><!--/col-->
+                <div class="col-lg-3 col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body white-bg">
+                            </br/>
+                            <div class="graph-container text-center">
+                                <div id="hero-donut" class="graph" style="height:236px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--/.col-->
+
+            </div><!--/.row-->
+
+            <div class="row">
+
+                <div class="col-lg-6 col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2><i class="fa fa-table red"></i><span class="break"></span><strong>成绩单（近五门）</strong></h2>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table table-condensed">
+                                <thead>
+                                <tr>
+                                    <th>考试编号</th>
+                                    <th>考试名称</th>
+                                    <th>成绩</th>
+                                    <th>状态</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="each : ${scoreList}">
+                                <td th:text="${each.pid}"></td>
+                                <td th:text="${each.ename}"></td>
+                                <td th:text="${each.score}"></td>
+                                <td>
+                                    <span class="label label-danger" th:if="${each.score lt 60}">未通过</span>
+                                    <span class="label label-default" th:if="${each.score ge 60 && each.score lt 70}">及格</span>
+                                    <span class="label label-warning" th:if="${each.score ge 70 && each.score lt 80}">中等</span>
+                                    <span class="label label-info" th:if="${each.score ge 80 && each.score lt 90}">良好</span>
+                                    <span class="label label-success" th:if="${each.score ge 90 }">优秀</span>
+                                </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="panel panel-default">
+
+                        <div class="panel-body text-center" style="height:230px">
+                            <h2 class="lime">课程完成率</h2>
+                            <div style="width:300px;left:50%;position:absolute;margin-left:-150px;">
+                                <canvas id="gauge1"></canvas>
+                            </div>
+                            <input hidden="hidden" id="pic1" th:value="${course_rates}">
+                            <span class="pull-right"><i class="fa fa-arrow-circle-o-up text-success"></i><div th:text="${course_rates}+'%'"></div></span>
+                        </div>
+
+                    </div>
+
+                </div><!--/.col-->
+
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="panel panel-default">
+                        <div class="panel-body text-center" style="height:230px">
+                            <h2 class="lime">平均成绩</h2>
+                            <div style="width:300px;left:50%;position:absolute;margin-left:-150px;">
+                                <canvas id="gauge2"></canvas>
+                            </div>
+                            <input hidden="hidden" id="pic2" th:value="${exam_rates}">
+                            <span class="pull-right"><i class="fa fa-arrow-circle-o-up text-success"></i><div th:text="${exam_rates}+'分'"></div></span>
+                        </div>
+                    </div>
+
+                </div><!--/.col-->
+            </div><!--/row-->
+
+            <div class="row" hidden="hidden">
+
+                <div class="col-sm-12">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2><i class="fa fa-bar-chart-o red"></i><strong>统计表</strong></h2>
+                            <div class="panel-actions">
+                                <a href="charts-xcharts.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
+                                <a href="charts-xcharts.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
+                                <a href="charts-xcharts.html#" class="btn-close"><i class="fa fa-times"></i></a>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <figure class="demo" id="chart" style="height: 300px"></figure>
+                        </div>
+                    </div>
+
+                </div><!--/col-->
+
+            </div><!--/row-->
+
+
+
+
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2><i class="fa fa-life-bouy red"></i><strong>消息通知</strong></h2>
+                        </div>
+                        <div class="panel-body no-padding">
+                            <ul class="comments-list">
+                                <li th:each="each : ${inform_emploeeList}">
+                                    <a th:href="${'/student/noticeDetail?id='+each.id}">
+                                    <img class="avatar" alt="Lucas" th:src="${each.pic}">
+                                    </a>
+                                    <div>
+                                        <strong th:text="${each.name}"></strong><p th:text="${each.topic}"></p>
+                                    </div>
+                                    <div class="date" th:text="${each.date}"></div>
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!--/row-->
+
+        </div>
+        <!-- end: Content -->
+        <br><br><br>
+
+
+    </div><!--/container-->
+
+</div>
+
+
+    <!-- start: JavaScript-->
+    <!--[if !IE]>-->
+
+    <script src="/assets/js/jquery-2.1.1.min.js"></script>
+
+    <!--<![endif]-->
+
+    <!--[if IE]>
+
+    <script src="/assets/js/jquery-1.11.1.min.js"></script>
+
+    <![endif]-->
+
+    <!--[if !IE]>-->
+
+    <script type="text/javascript">
+        window.jQuery || document.write("<script src='/assets/js/jquery-2.1.1.min.js'>"+"<"+"/script>");
+    </script>
+
+    <!--<![endif]-->
+
+    <!--[if IE]>
+
+    <script type="text/javascript">
+        window.jQuery || document.write("<script src='/assets/js/jquery-1.11.1.min.js'>"+"<"+"/script>");
+    </script>
+
+    <![endif]-->
+    <script src="/assets/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+
+
+    <!-- page scripts -->
+    <script src="/assets/plugins/jquery-ui/js/jquery-ui-1.10.4.min.js"></script>
+    <script src="/assets/plugins/touchpunch/jquery.ui.touch-punch.min.js"></script>
+    <script src="/assets/plugins/moment/moment.min.js"></script>
+    <script src="/assets/plugins/fullcalendar/js/fullcalendar.min.js"></script>
+    <!--[if lte IE 8]>
+    <script language="javascript" type="text/javascript" src="/assets/plugins/excanvas/excanvas.min.js"></script>
+    <![endif]-->
+    <script src="/assets/plugins/flot/jquery.flot.min.js"></script>
+    <script src="/assets/plugins/flot/jquery.flot.pie.min.js"></script>
+    <script src="/assets/plugins/flot/jquery.flot.stack.min.js"></script>
+    <script src="/assets/plugins/flot/jquery.flot.resize.min.js"></script>
+    <script src="/assets/plugins/flot/jquery.flot.time.min.js"></script>
+    <script src="/assets/plugins/flot/jquery.flot.spline.min.js"></script>
+    <script src="/assets/plugins/xcharts/js/xcharts.min.js"></script>
+    <script src="/assets/plugins/autosize/jquery.autosize.min.js"></script>
+    <script src="/assets/plugins/placeholder/jquery.placeholder.min.js"></script>
+    <script src="/assets/plugins/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="/assets/plugins/datatables/js/dataTables.bootstrap.min.js"></script>
+    <script src="/assets/plugins/raphael/raphael.min.js"></script>
+    <script src="/assets/plugins/morris/js/morris.min.js"></script>
+    <script src="/assets/plugins/jvectormap/js/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="/assets/plugins/jvectormap/js/jquery-jvectormap-world-mill-en.js"></script>
+    <script src="/assets/plugins/jvectormap/js/gdp-data.js"></script>
+    <script src="/assets/plugins/gauge/gauge.min.js"></script>
+
+
+    <!-- theme scripts -->
+    <script src="/assets/js/SmoothScroll.js"></script>
+    <script src="/assets/js/jquery.mmenu.min.js"></script>
+    <script src="/assets/js/core.min.js"></script>
+    <script src="/assets/plugins/d3/d3.min.js"></script>
+
+    <!-- inline scripts related to this page -->
+    <script src="/assets/js/pages/index.js"></script>
+
+    <!-- end: JavaScript-->
+
+</body>
+</html>

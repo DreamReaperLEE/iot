@@ -1,127 +1,262 @@
 <!DOCTYPE html>
-<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="http://v3.bootcss.com/favicon.ico">
+    <title>保密教育在线培训考核系统</title>
 
-    <title>保密教育培训考核系统</title>
+    <!-- Import google fonts - Heading first/ text second -->
+    <link rel='stylesheet' type='text/css'
+          href='http://fonts.useso.com/css?family=Open+Sans:400,700|Droid+Sans:400,700'/>
+    <!--[if lt IE 9]>
+    <link href="http://fonts.useso.com/css?family=Open+Sans:400" rel="stylesheet" type="text/css"/>
+    <link href="http://fonts.useso.com/css?family=Open+Sans:700" rel="stylesheet" type="text/css"/>
+    <link href="http://fonts.useso.com/css?family=Droid+Sans:400" rel="stylesheet" type="text/css"/>
+    <link href="http://fonts.useso.com/css?family=Droid+Sans:700" rel="stylesheet" type="text/css"/>
+    <![endif]-->
 
-    <!-- Bootstrap core CSS -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Fav and touch icons -->
+    <link rel="shortcut icon" href="assets/ico/favicon.ico" type="image/x-icon"/>
 
+    <!-- Css files -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/css/jquery.mmenu.css" rel="stylesheet">
+    <link href="/assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/assets/css/climacons-font.css" rel="stylesheet">
+    <link href="/assets/plugins/xcharts/css/xcharts.min.css" rel=" stylesheet">
+    <link href="/assets/plugins/fullcalendar/css/fullcalendar.css" rel="stylesheet">
+    <link href="/assets/plugins/morris/css/morris.css" rel="stylesheet">
+    <link href="/assets/plugins/jquery-ui/css/jquery-ui-1.10.4.min.css" rel="stylesheet">
+    <link href="/assets/plugins/jvectormap/css/jquery-jvectormap-1.2.2.css" rel="stylesheet">
+    <link href="/assets/css/style.min.css" rel="stylesheet">
+    <link href="/assets/css/add-ons.min.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="/css/dashboard.css" rel="stylesheet">
-
-
-    <!--script功能很强大，可以做很多事-->
-    <!--<script type="text/javascript" src="file.js"></script>-->
-    <!--<script type="text/javascript">-->
-    <!--function showPath(obj) {-->
-    <!--var fileInfo = getPath(obj);-->
-    <!--if(fileInfo)-->
-    <!--{-->
-    <!--alert(fileInfo.path + ":" + fileInfo.size);-->
-    <!--}-->
-    <!--}-->
-    <!--</script>-->
-
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript">
+        <!--点击提交,出现提示框-->
+        function judgeUpload() {
+            document.getElementById('addSource').submit();
+//            尝试把java类引入html
+            var flag = JavaClassProto
+            if (flag == true)
+                alert("--------7--------");
+//            else alert("--------9-------")
+        }
+    </script>
+</head>
 </head>
 
 <body>
-
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">保密教育在线培训考核系统</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">登出</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-            <ul class="nav nav-sidebar">
-                <li class="active"><a href="question"><span class="glyphicon glyphicon-book" ></span>  课程管理</a></li>
-            </ul>
-        </div>
-        <div class="col-sm-7 col-sm-offset-3 col-md-7 col-md-offset-2 main">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">添加新的章节</h3>
-                </div>
-                <div class="panel-body">
-                    <!--添加课程最重要的步骤：封装成Source对象，传入数据库，正好把数据契合到数据库上-->
-                    <!--@{/teacher/addSource}是寻找对应Source的路径-->
-                    <!--<form th:action="@{/teacher/addSource}" method="post" enctype="multipart/form-data" onsubmit="return check(this);">-->
-                    <form th:action="@{/teacher/addLesson}" method="post" id="addSource" enctype="multipart/form-data"  onsubmit="return check(this);">
-                        <!--我想让这个cid直接等于添加课程界面的course.id的值，即最好直接给他设置默认为课程名-->
-                        <input type="text" name="cid" th:value="${source_cid}" placeholder="课程编号" readonly hidden /><br>
-                        <!--需要手动添加的-->
-                        <input type="number" name="lesson" placeholder="新添加的章节号"><br>
-                        <!--value的类型不是随便用的，如果没有特殊原因，用正常的value-->
-                        <input type="number" name="type" value=0 placeholder="资源类型" readonly hidden><br>
-                        <!--需要手动添加的-->
-                        <input type="text" name="topic" placeholder="章节名称" /><br>
-                        <input type="text" name="detail" placeholder="资源内容" value="" readonly hidden /><br>
-                        <!--只能上传文件，不能上传名字-->
-                        <!--<input type="file" name="detail" placeholder="上传文件"><br>-->
-                        <!--只能上传表单不能上传文件-->
-                        <!--<input type="file" name="detail" placeholder="课程题目" onchange="showPath(this)"><br>-->
-                        <!--<input type="file" name="detail" placeholder="上传文件"><br>-->
-                        <!--用来上传文件并把文件所在服务器上的URL存到Source.detail上-->
-                        <!--<form th:action="@{/file/upload}" method="POST" enctype="multipart/form-data">-->
-                        <!--<p><input type="file" name="detail" placeholder="请上传文件"></p>-->
-                        <!--<p><input type="submit" value="上传" class="button"></p>-->
-                        <!--</form>-->
-                        <!--文件下载-->
-                        <!--<form th:action="@{/file/download}" method="POST" enctype="multipart/form-data">-->
-                        <!--<p><input type="file" name="detail" placeholder="下载文件"></p>-->
-                        <!--<p><input type="submit" value="下载" class="button"></p>-->
-                        <!--</form>-->
-                        <!--<input type="text" name="detail" placeholder="上传内容" /><br>-->
-                        <!--下拉栏-->
-                        <!--<select name="teacherId" th:each="teacher: ${teachers}">-->
-                        <!--<option th:value="${teacher.id}"><p th:text="${teacher.name}">`</p></option>-->
-                        <!--</select><br>-->
-                        <input type="submit" value="添加" class="button" onclick="judgeUpload()">
-                        <p th:text="${sign}"></p>
-                        <!--<a href="./showLessons/0">返回</a>-->
-                    </form>
-                    <!--<form th:action="@{/up/upload}" method="POST" enctype="multipart/form-data">-->
-                    <!--<p><input type="file" name="test"/></p>-->
-                    <!--<p><input type="submit" value="上传" class="button"></p>-->
-                    <!--</form>-->
-                </div>
-            </div>
-        </div>
-    </div>
+<div th:include="teacher/TeacherTop :: top">
 </div>
 
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="/js/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')</script>
-<script src="js/bootstrap.min.js"></script>
-<!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-<script src="js/holder.min.js"></script>
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<div class="container-fluid content">
+
+    <div class="row">
+
+        <div th:include="teacher/TeacherLeft :: left">
+        </div>
+
+        <!-- start: Content -->
+        <div class="main">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header"><i class="fa fa-laptop"></i> 欢迎您，老师</h3>
+                    <ol class="breadcrumb">
+                        <li><i class="fa fa-home"></i><a href="index.html">主页</a></li>
+                        <li><i class="fa fa-laptop"></i>教师端</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div th:include="teacher/top4 :: top4">
+            </div>
+
+            <!--<div class="row">-->
+            <!--<div th:include="teacher/TeacherInfo :: info">-->
+            <!--</div>-->
+            <!--</div>-->
+            <div>
+
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h2><i class="fa fa-indent red"></i><strong>添加习题</strong></h2>
+                                    <div class="panel-actions">
+                                        <a href="#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
+                                        <a href="#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+
+
+                                    <form th:action="@{/teacher/addLesson}" method="post" id="addSource"
+                                          enctype="multipart/form-data" onsubmit="return check(this);">
+
+                                        <div class="form-group">
+                                            <label class="control-label" name="cid"
+                                                   th:value="${source_cid}">章节编号</label>
+                                            <div class="controls">
+                                                <div class="input-group col-sm-4">
+                                                    <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                                                    <input type="number" name="lesson" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label" name="lesson">章节名称</label>
+                                            <div class="controls">
+                                                <div class="input-group col-sm-4">
+                                                    <span class="input-group-addon"><i class="fa fa-male"></i></span>
+                                                    <input type="text" name="topic" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <input type="number" name="type" value=0 placeholder="资源类型" readonly hidden><br>
+                                        <!--需要手动添加的-->
+                                        <input type="text" name="detail" placeholder="资源内容" value="" readonly
+                                               hidden/><br>
+                                        <!--只能上传文件，不能上传名字-->
+                                        <!--<input type="file" name="detail" placeholder="上传文件"><br>-->
+                                        <!--只能上传表单不能上传文件-->
+                                        <!--<input type="file" name="detail" placeholder="课程题目" onchange="showPath(this)"><br>-->
+                                        <!--<input type="file" name="detail" placeholder="上传文件"><br>-->
+                                        <!--用来上传文件并把文件所在服务器上的URL存到Source.detail上-->
+                                        <!--<form th:action="@{/file/upload}" method="POST" enctype="multipart/form-data">-->
+                                        <!--<p><input type="file" name="detail" placeholder="请上传文件"></p>-->
+                                        <!--<p><input type="submit" value="上传" class="button"></p>-->
+                                        <!--</form>-->
+                                        <!--文件下载-->
+                                        <!--<form th:action="@{/file/download}" method="POST" enctype="multipart/form-data">-->
+                                        <!--<p><input type="file" name="detail" placeholder="下载文件"></p>-->
+                                        <!--<p><input type="submit" value="下载" class="button"></p>-->
+                                        <!--</form>-->
+                                        <!--<input type="text" name="detail" placeholder="上传内容" /><br>-->
+                                        <!--下拉栏-->
+                                        <!--<select name="teacherId" th:each="teacher: ${teachers}">-->
+                                        <!--<option th:value="${teacher.id}"><p th:text="${teacher.name}">`</p></option>-->
+                                        <!--</select><br>-->
+                                        <p th:text="${sign}"></p>
+
+
+                                        <div class="form-actions">
+                                            <!--<button type="submit" class="btn btn-primary">Save changes</button>-->
+                                            <input type="submit" value="添加新的章节" class="button" onclick="judgeUpload()">
+                                            <!--<button type="reset" class="btn btn-default">Cancel</button>-->
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div><!--/col-->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Warning Title</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Here settings can be configured...</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div class="clearfix"></div>
+
+
+    <!-- start: JavaScript-->
+    <!--[if !IE]>-->
+
+    <script src="/assets/js/jquery-2.1.1.min.js"></script>
+
+    <!--<![endif]-->
+
+    <!--[if IE]>
+
+    <script src="/assets/js/jquery-1.11.1.min.js"></script>
+
+    <![endif]-->
+
+    <!--[if !IE]>-->
+
+    <script type="text/javascript">
+        window.jQuery || document.write("<script src='assets/js/jquery-2.1.1.min.js'>" + "<" + "/script>");
+    </script>
+
+    <!--<![endif]-->
+
+    <!--[if IE]>
+
+    <script type="text/javascript">
+        window.jQuery || document.write("<script src='assets/js/jquery-1.11.1.min.js'>" + "<" + "/script>");
+    </script>
+
+    <![endif]-->
+    <script src="/assets/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+
+
+    <!-- page scripts -->
+    <script src="/assets/plugins/jquery-ui/js/jquery-ui-1.10.4.min.js"></script>
+    <script src="/assets/plugins/touchpunch/jquery.ui.touch-punch.min.js"></script>
+    <script src="/assets/plugins/moment/moment.min.js"></script>
+    <script src="/assets/plugins/fullcalendar/js/fullcalendar.min.js"></script>
+    <!--[if lte IE 8]>
+    <script language="javascript" type="text/javascript" src="assets/plugins/excanvas/excanvas.min.js"></script>
+    <![endif]-->
+    <script src="/assets/plugins/flot/jquery.flot.min.js"></script>
+    <script src="/assets/plugins/flot/jquery.flot.pie.min.js"></script>
+    <script src="/assets/plugins/flot/jquery.flot.stack.min.js"></script>
+    <script src="/assets/plugins/flot/jquery.flot.resize.min.js"></script>
+    <script src="/assets/plugins/flot/jquery.flot.time.min.js"></script>
+    <script src="/assets/plugins/flot/jquery.flot.spline.min.js"></script>
+    <script src="/assets/plugins/xcharts/js/xcharts.min.js"></script>
+    <script src="/assets/plugins/autosize/jquery.autosize.min.js"></script>
+    <script src="/assets/plugins/placeholder/jquery.placeholder.min.js"></script>
+    <script src="/assets/plugins/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="/assets/plugins/datatables/js/dataTables.bootstrap.min.js"></script>
+    <script src="/assets/plugins/raphael/raphael.min.js"></script>
+    <script src="/assets/plugins/morris/js/morris.min.js"></script>
+    <script src="/assets/plugins/jvectormap/js/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="/assets/plugins/jvectormap/js/jquery-jvectormap-world-mill-en.js"></script>
+    <script src="/assets/plugins/jvectormap/js/gdp-data.js"></script>
+    <script src="/assets/plugins/gauge/gauge.min.js"></script>
+
+
+    <!-- theme scripts -->
+    <script src="/assets/js/SmoothScroll.js"></script>
+    <script src="/assets/js/jquery.mmenu.min.js"></script>
+    <script src="/assets/js/core.min.js"></script>
+    <script src="/assets/plugins/d3/d3.min.js"></script>
+
+    <!-- inline scripts related to this page -->
+    <script src="/assets/js/pages/index.js"></script>
+
+    <!-- end: JavaScript-->
+</div>
+</div>
+F
 </body>
 </html>

@@ -17,4 +17,6 @@ public interface PaperMapper {
     int updateByPrimaryKey(Paper record);
 
     Paper selectByEid(Integer id);
+
+    int countPaperNum();
 }

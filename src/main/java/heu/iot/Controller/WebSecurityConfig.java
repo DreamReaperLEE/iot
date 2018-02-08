@@ -27,8 +27,9 @@ public class WebSecurityConfig extends WebMvcConfigurerAdapter {
     public final static String NAME = "name";
     public final static String LEVEL = "level";
     public final static String PIC = "pic";
-    public final static String StudentTop4="studenttop4";
-    public final static String AdminTop4="admintop4";
+    public final static String StudentTop4 = "studenttop4";
+    public final static String AdminTop4 = "admintop4";
+    public final static String TeacherTop4 = "teachertop4";
 
     @Bean
     public SecurityInterceptor getSecurityInterceptor() {
@@ -56,13 +57,15 @@ public class WebSecurityConfig extends WebMvcConfigurerAdapter {
             HttpSession session = request.getSession();
             //登陆控制
             if (session.getAttribute(ID) != null) {
-            //登陆域控制
+                //登陆域控制
                 if (session.getAttribute(LEVEL).toString().equals("2") && !url.matches("(.*)student(.*)")) {
                     response.sendRedirect("/login");
                     return false;
-                }
-                else if(session.getAttribute(LEVEL).toString().equals("0") && !url.matches("(.*)admin(.*)")){
+                } else if (session.getAttribute(LEVEL).toString().equals("0") && !url.matches("(.*)admin(.*)")) {
                     response.sendRedirect("/login");
+                    return false;
+                } else if (session.getAttribute(LEVEL).toString().equals("1") && !url.matches("(.*)teacher(.*)")) {
+                    response.sendRedirect("/teacher/info");
                     return false;
                 }
                 return true;

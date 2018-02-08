@@ -65,8 +65,11 @@ public class MainController {
         if (emploee.getPriv() == 0) {
             return "redirect:/admin/index";
         }
+        if (emploee.getPriv() == 1) {
+            return "redirect:/teacher/info";
+        }
         else
-            return "student/allScore";
+            return "teacher/info";
     }
 
     @GetMapping("/logout")

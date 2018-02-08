@@ -22,4 +22,6 @@ public interface QuestionMapper {
 
     List<Question> showSelected(List<Integer> info);
 
+    int countQuestionNum();
+
 }
