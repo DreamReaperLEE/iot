@@ -73,8 +73,12 @@ public class TeacherCourseController {
     public String lessonList(Model model, Integer id) {
         Course course=courseService.selectByPrimaryKey(id);
         List<Source> sourceList=sourceService.selectByCid(id);
-        Source source=sourceList.get(sourceList.size()-1);
-        model.addAttribute("newid",source.getLesson()+1);
+        if(sourceList.size()==0){
+            model.addAttribute("newid",1);
+        }else{
+            Source source=sourceList.get(sourceList.size()-1);
+            model.addAttribute("newid",source.getLesson()+1);
+        }
         model.addAttribute("course",course);
         model.addAttribute("sourceList",sourceList);
         return "teacher/Course/LessonList";
@@ -106,35 +110,26 @@ public class TeacherCourseController {
     public String addCourse(Integer id) {
         Source source=sourceService.selectByPrimaryKey(id);
         sourceService.deleteByPrimaryKey(id);
-        return "redirect:/teacher/course/lessondetail?cid="+source.getCid()+"&lesson="+id;
+        return "redirect:/teacher/course/lessondetail?cid="+source.getCid()+"&lesson="+source.getLesson();
     }
 
     @RequestMapping("/addsource")
-    public String addSource(Source source,@RequestParam("digitalfile") MultipartFile file) {
-        if(!file.isEmpty()){
-            String filepath;
-            if(source.getType()==2){
-                filepath= dealFile.saveFile("pic", file);
-            }else{
-                filepath= dealFile.saveFile("video", file);
+    public String addSource(Source source, MultipartFile digitalfile) {
+        if(digitalfile!=null){
+            if(!digitalfile.isEmpty()){
+                String filepath;
+                if(source.getType()==2){
+                    filepath= dealFile.saveFile("pic", digitalfile);
+                }else{
+                    filepath= dealFile.saveFile("video", digitalfile);
+                }
+                source.setDetail(filepath);
             }
-            source.setDetail(filepath);
         }
         sourceService.insertSelective(source);
 
-        return "redirect:/teacher/course/lessondetail?cid=";
+        return "redirect:/teacher/course/lessondetail?cid="+source.getCid()+"&lesson="+source.getLesson();
     }
 
-    @RequestMapping("/sourcedetail")
-    public String sourceDetail() {
-
-        return "redirect:/teacher/course/lessondetail?cid=";
-    }
-
-    @RequestMapping("/sourceupdate")
-    public String sourceUpdate() {
-
-        return "redirect:/teacher/course/lessondetail?cid=";
-    }
 
 }

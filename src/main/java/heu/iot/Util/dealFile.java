@@ -38,7 +38,7 @@ public class dealFile {
             out.write(file.getBytes());
             out.flush();
             out.close();
-            return Floder+"\\"+fileName;
+            return "/"+Floder+"/"+fileName;
         } catch (Exception e) {
             return "fail";
         }
