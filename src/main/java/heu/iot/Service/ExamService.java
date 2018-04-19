@@ -56,6 +56,8 @@ public class ExamService {
         return examMapper.selectByPrimaryKey(id);
     }
 
+    public List<Exam> selectByEmploeeId(Integer tid){return examMapper.selectByEmploeeId(tid);}
+
     public int updateByPrimaryKeySelective(Exam exam){
         return examMapper.updateByPrimaryKeySelective(exam);
     }

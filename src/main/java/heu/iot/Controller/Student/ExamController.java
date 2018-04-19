@@ -69,7 +69,7 @@ public class ExamController {
     @RequestMapping("/startExam")
     public String startExam(@RequestParam(value = "eid") Integer eid, @RequestParam(value = "ename") String ename, Model model, HttpSession session) {
         //获取试卷
-        Paper paper = paperService.showPaper(eid);
+        Paper paper = paperService.selectByEid(eid);
         //如果已经答题过，则返回已达题目
         Score score = scoreService.selectBySidPid(Integer.valueOf(session.getAttribute(WebSecurityConfig.ID).toString()), paper.getId());
 
@@ -107,7 +107,7 @@ public class ExamController {
     @PostMapping("/dealPaper")
     public String dealPaper(Model model, HttpServletRequest request, HttpSession session) {
         //获取试卷
-        Paper paper = paperService.showPaper(Integer.valueOf(request.getParameter("eid")));
+        Paper paper = paperService.selectByEid(Integer.valueOf(request.getParameter("eid")));
         Exam_Json exam_json = MyJson.JsonToExam(paper.getDetail());
         //题目数量
         List<String> info = exam_json.getInfo();

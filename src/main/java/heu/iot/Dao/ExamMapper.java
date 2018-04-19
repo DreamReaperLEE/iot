@@ -16,6 +16,8 @@ public interface ExamMapper {
 
     Exam selectByPrimaryKey(Integer id);
 
+    List<Exam> selectByEmploeeId(Integer tid);
+
     int updateByPrimaryKeySelective(Exam record);
 
     int updateByPrimaryKey(Exam record);

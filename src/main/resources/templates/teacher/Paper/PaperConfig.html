@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>保密教育在线培训考核系统</title>
+
+    <!-- Favicon and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico" type="image/x-icon" />
+
+    <!-- Css files -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/css/jquery.mmenu.css" rel="stylesheet">
+    <link href="/assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/assets/plugins/jquery-ui/css/jquery-ui-1.10.4.min.css" rel="stylesheet">
+    <link href="/assets/css/style.min.css" rel="stylesheet">
+    <link href="/assets/css/add-ons.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- JS 函数 -->
+    <script>
+        function del() {
+            var msg = "您真的确定要删除吗？\n\n请确认！";
+            if (confirm(msg)==true){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        function auto() {
+            var msg = "确定要自动分配考题吗？\n自动分配后现有题目将被替换\n请确认！";
+            if (confirm(msg)==true){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        function changetype(){
+
+            $.ajax({
+                type:"get",
+                url:"/teacher/paper/getQustion?id="+document.getElementById("type").value,
+                data:{},
+                async: false,
+                success:function (data) {
+                    $("#question").empty();
+                    for(var p in data){
+                        var str="";
+                        str=str+"<option value="+data[p].id+">"+data[p].desc+"</option>";
+                        $("#question").append(str); //为Select追加一个Option(下拉项)
+                    }
+                }
+            });
+        }
+    </script>
+
+</head>
+
+<body>
+<div th:include="teacher/top :: top">
+</div>
+
+<div class="container-fluid content">
+
+    <div class="row">
+
+        <div th:include="teacher/left :: left">
+        </div>
+
+        <!-- start: Content -->
+        <div class="main ">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header"><i class="fa fa-align-left"></i>试卷编辑</h3>
+                    <ol class="breadcrumb">
+                        <li><i class="fa fa-home"></i><a href="/teacher/index">主页</a></li>
+                        <li><i class="fa fa-align-left"></i><a href="/teacher/paper/showExamList">考试管理</a></li>
+                    </ol>
+                </div>
+            </div>
+
+            <div th:include="teacher/top4 :: top4">
+            </div>
+            <div class="row">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h2><i class="fa fa-table red"></i><span class="break"></span><strong th:text="${exam.ename}"></strong></h2>
+                            </div>
+                            <div class="col-sm-3">
+                                <button class="btn btn-success"  data-toggle="modal" data-target="#addquestion">添加题目</button>
+                            </div>
+                            <div class="col-sm-3">
+                                <button class="btn btn-success"  data-toggle="modal" data-target="#autoconfig">自动组卷</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-bordered table-striped table-condensed table-hover">
+                            <thead>
+                            <tr>
+                                <th>题目编号</th>
+                                <th>题目描述</th>
+                                <th>知识点</th>
+                                <th>题型</th>
+                                <th>难度</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="each : ${questionList}">
+                                <td th:text="${each.id}"></td>
+                                <td th:text="${each.desc}"></td>
+                                <td th:text="${each.label}"></td>
+                                <td th:if="${each.type eq 0}">判断</td>
+                                <td th:if="${each.type eq 1}">单选</td>
+                                <td th:if="${each.type eq 2}">多选</td>
+                                <td th:text="${each.level}"></td>
+                                <td>
+                                    <a th:href="'/teacher/paper/deletequestion?qid='+${each.id}+'&pid='+${pid}"><button type="button" class="btn btn-danger btn-xs">删除</button></a>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <!-- end: Content -->
+        <br><br><br>
+
+    </div><!--/container-->
+
+
+</div>
+
+<div class="clearfix"></div>
+
+<div class="modal fade" id="addquestion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel1">添加题目信息</h4>
+            </div>
+            <form class="form-horizontal" action="/teacher/paper/addquestion" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label">题库</label>
+                        <input type="hidden" class="form-control" name="pid" th:value="${pid}">
+                        <select class="form-control" id="type" onchange="changetype()">
+                            <option>请选择</option>
+                            <option th:each="each : ${courseList}" th:text="${each.cname}" th:value="${each.id}">无</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">题目</label>
+                        <select class="form-control" id="question" name="qid" >
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="submit" class="btn btn-success">提交</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="autoconfig" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel2">自动组卷</h4>
+            </div>
+            <form class="form-horizontal" action="/teacher/paper/autoconfig" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label">题库</label>
+                        <select class="form-control" name="eid" onchange="changetype()">
+                            <option>请选择</option>
+                            <option th:each="each : ${courseList}" th:text="${each.cname}" th:value="${each.id}">无</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">单选题个数</label>
+                        <input type="hidden" class="form-control" name="pid" th:value="${pid}">
+                        <input type="number" class="form-control" name="single">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">多选题个数</label>
+                        <input type="number" class="form-control" name="check">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">判断题个数</label>
+                        <input type="number" class="form-control" name="panduan">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="submit" class="btn btn-success" onclick="auto()">提交</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- start: JavaScript-->
+<!--[if !IE]>-->
+
+<script src="/assets/js/jquery-2.1.1.min.js"></script>
+
+<!--<![endif]-->
+
+<!--[if IE]>
+
+<script src="/assets/js/jquery-1.11.1.min.js"></script>
+
+<![endif]-->
+
+<!--[if !IE]>-->
+
+<script type="text/javascript">
+    window.jQuery || document.write("<script src='/assets/js/jquery-2.1.1.min.js'>"+"<"+"/script>");
+</script>
+
+<!--<![endif]-->
+
+<!--[if IE]>
+
+<script type="text/javascript">
+    window.jQuery || document.write("<script src='/assets/js/jquery-1.11.1.min.js'>"+"<"+"/script>");
+</script>
+
+<![endif]-->
+<script src="/assets/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+
+
+<!-- page scripts -->
+<script src="/assets/plugins/jquery-ui/js/jquery-ui-1.10.4.min.js"></script>
+<script src="/assets/js/jquery.easy-pie-chart.min.js"></script>
+
+<!-- theme scripts -->
+<script src="/assets/js/SmoothScroll.js"></script>
+<script src="/assets/js/jquery.mmenu.min.js"></script>
+<script src="/assets/js/core.min.js"></script>
+
+<!-- inline scripts related to this page -->
+<script src="/assets/js/pages/page-profile.js"></script>
+
+<!-- end: JavaScript-->
+
+</body>
+</html>

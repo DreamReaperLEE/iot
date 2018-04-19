@@ -19,7 +19,7 @@
   </resultMap>
 
   <sql id="Base_Column_List">
-    id, tid, edesc, epic, ename, date, etime, stime
+    id, tid, edesc, epic, ename, exam.date, etime, stime
   </sql>
   <sql id="ExamEmploee_List">
     exam.id,emploee.name,exam.ename,exam.date
@@ -32,6 +32,13 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
 
+  <select id="selectByEmploeeId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from exam
+    where tid = #{tid,jdbcType=INTEGER}
+  </select>
+
   <select id="selectAllExam" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
@@ -41,13 +48,13 @@
     select
     <include refid="ExamEmploee_List" />
     from exam,emploee
-    where exam.tid=emploee.id order by date desc limit 5
+    where exam.tid=emploee.id order by exam.date desc limit 5
   </select>
   <select id="selectAllExamEmploee" resultMap="ExamEmploeeMap">
     select
     <include refid="ExamEmploee_List" />
     from exam,emploee
-    where exam.tid=emploee.id order by date desc
+    where exam.tid=emploee.id order by exam.date desc
   </select>
   <select id="countExamNum" resultType="java.lang.Integer">
     select

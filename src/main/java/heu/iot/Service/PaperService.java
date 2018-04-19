@@ -21,16 +21,20 @@ public class PaperService {
     @Autowired
     private PaperMapper paperMapper;
 
-    public Paper showPaper(Integer id) {
+    public Paper selectByEid(Integer id) {
         return paperMapper.selectByEid(id);
     }
 
-    public Paper selectByPrimaryKey(Integer pid) {
-        return paperMapper.selectByPrimaryKey(pid);
+    public Paper selectByPrimaryKey(Integer id) {
+        return paperMapper.selectByPrimaryKey(id);
     }
 
     public int countPaperNum() {
         return paperMapper.countPaperNum();
     }
+
+    public int updateByPrimaryKeySelective(Paper paper){return paperMapper.updateByPrimaryKeySelective(paper);}
+
+    public int insertSelective(Paper paper){return paperMapper.insertSelective(paper);}
 
 }

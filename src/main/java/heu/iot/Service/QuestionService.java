@@ -20,6 +20,9 @@ public class QuestionService {
     }
 
     public List<Question> showSelected(List<Integer> info) {
+        if(info.size()==0){
+            info.add(0);
+        }
         return questionMapper.showSelected(info);
     }
 

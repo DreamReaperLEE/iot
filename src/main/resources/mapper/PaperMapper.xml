@@ -49,7 +49,7 @@
                 answer,
             </if>
             <if test="level != null">
-                level,
+                paper.level,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -83,7 +83,7 @@
                 answer = #{answer,jdbcType=VARCHAR},
             </if>
             <if test="level != null">
-                level = #{level,jdbcType=INTEGER},
+                paper.level = #{level,jdbcType=INTEGER},
             </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
