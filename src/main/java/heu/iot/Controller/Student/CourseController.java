@@ -199,7 +199,7 @@ public class CourseController {
     @RequestMapping("/course_list")
     public String showCourseDetail(@RequestParam(value = "id") Integer id, Model model) {
         //获取课程章节列表
-        List<Source> sourceList = sourceService.selectByCourse(id);
+        List<Source> sourceList = sourceService.selectByCid(id);
         //获取课程名称
         Course course = courseService.selectByPrimaryKey(id);
         //获取教师数据

@@ -42,6 +42,12 @@
     from course
     where cname LIKE concat(concat('%',#{cname},'%'))
   </select>
+  <select id="selectByTid" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from course
+    where tid =#{tid,jdbcType=INTEGER}
+  </select>
   <select id="selectByTypeDirect" parameterType="map"  resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />

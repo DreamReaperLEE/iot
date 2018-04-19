@@ -5,7 +5,7 @@ $(document).ready(function(){
 	randNum = function(){
 		//return Math.floor(Math.random()*101);
 		return (Math.floor( Math.random()* (1+40-20) ) ) + 20;
-	}
+	};
 
 	var chartColours = ['#2FABE9', '#FA5833', '#b9e672', '#bbdce3', '#9a3b1b', '#5a8022', '#2c7282'];
 

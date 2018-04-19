@@ -53,11 +53,12 @@ public class DateDealwith {
         long l = now.getTime() - date.getTime();
         return l;
     }
+
     //生成唯一文件名
     public static String getSHC() {
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-        String str = sdf.format(date) + (int)(1+Math.random()*(100-1+1));
+        String str = sdf.format(date) + (int) (1 + Math.random() * (100 - 1 + 1));
         return str;
     }
 

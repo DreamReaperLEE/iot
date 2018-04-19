@@ -110,7 +110,7 @@
                                 </div>
                                 <td>
                                     <a th:href="'/admin/notice/noticeDetail?id='+${each.id}" ><button type="button" class="btn btn-success">审核</button></a>
-                                    <a th:href="'/admin/notice/delete?id=' + ${each.id}" onclick="javascript:return del();" ><button type="button" class="btn btn-success">删除</button></a>
+                                    <a th:href="'/admin/notice/delete?id=' + ${each.id}" onclick="return del();" ><button type="button" class="btn btn-success">删除</button></a>
                                 </td>
                             </tr>
                             </tbody>

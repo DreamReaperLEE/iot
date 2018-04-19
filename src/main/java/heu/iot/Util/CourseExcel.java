@@ -1,6 +1,9 @@
 package heu.iot.Util;
 
-import heu.iot.Model.*;
+import heu.iot.Model.Co_direct;
+import heu.iot.Model.Co_type;
+import heu.iot.Model.Course;
+import heu.iot.Model.Emploee_Course;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -24,14 +27,14 @@ import java.util.List;
  */
 public class CourseExcel {
     /**
+     * @param
      * @Author: Sumail-Lee
      * @Description:标题
-     * @param
      * @Date: 2018/1/23 16:21
      */
-    public static ArrayList<String> getTitle(){
+    public static ArrayList<String> getTitle() {
 
-        ArrayList<String> title=new ArrayList<String>();
+        ArrayList<String> title = new ArrayList<String>();
         title.add("课程编号");
         title.add("课程名称");
         title.add("课程简介");
@@ -45,26 +48,26 @@ public class CourseExcel {
     }
 
     /**
+     * @param emploee_courseList 人员列表
      * @Author: Sumail-Lee
      * @Description:具体内容
-     * @param emploee_courseList 人员列表
      * @Date: 2018/1/23 16:21
      */
-    public static ArrayList<ArrayList<String>> getData(List<Emploee_Course> emploee_courseList,List<Co_direct> co_directList,List<Co_type> co_typeList){
-        ArrayList<ArrayList<String>> data=new ArrayList<ArrayList<String>>();
-        HashMap<String,String> Co_typeHash=new HashMap<String,String>();
-        HashMap<String,String> Co_directHash=new HashMap<String,String>();
+    public static ArrayList<ArrayList<String>> getData(List<Emploee_Course> emploee_courseList, List<Co_direct> co_directList, List<Co_type> co_typeList) {
+        ArrayList<ArrayList<String>> data = new ArrayList<ArrayList<String>>();
+        HashMap<String, String> Co_typeHash = new HashMap<String, String>();
+        HashMap<String, String> Co_directHash = new HashMap<String, String>();
 
-        for(Co_type each:co_typeList){
-            Co_typeHash.put(String.valueOf(each.getId()),each.getTypeName());
+        for (Co_type each : co_typeList) {
+            Co_typeHash.put(String.valueOf(each.getId()), each.getTypeName());
         }
-        for(Co_direct each:co_directList){
-            Co_directHash.put(String.valueOf(each.getId()),each.getDirectName());
+        for (Co_direct each : co_directList) {
+            Co_directHash.put(String.valueOf(each.getId()), each.getDirectName());
         }
 
 
-        for(Emploee_Course each:emploee_courseList){
-            ArrayList<String> every=new ArrayList<String>();
+        for (Emploee_Course each : emploee_courseList) {
+            ArrayList<String> every = new ArrayList<String>();
 
             every.add(String.valueOf(each.getId()));
             every.add(each.getCname());
@@ -78,19 +81,19 @@ public class CourseExcel {
 
             data.add(every);
         }
-        return  data;
+        return data;
     }
 
     /**
+     * @param dest 添加的课程的文件
      * @Author: Sumail-Lee
      * @Description: 批量添加课程
-     * @param dest 添加的课程的文件
      * @Date: 2018/1/23 15:42
      */
     public static List<Course> addCourse(File dest) throws IOException {
 
         //添加的课程列表
-        ArrayList<Course> courseList=new ArrayList<>();
+        ArrayList<Course> courseList = new ArrayList<>();
         Course course;
         //打开文件
         InputStream is = new FileInputStream(dest);
@@ -110,16 +113,16 @@ public class CourseExcel {
                     Cell name = hssfRow.getCell(0);
                     Cell tid = hssfRow.getCell(1);
                     Cell detail = hssfRow.getCell(2);
-                    if(name!=null)
+                    if (name != null)
                         course.setCname(Excel.dealCell(name));
-                    if(tid!=null)
+                    if (tid != null)
                         course.setTid(Integer.valueOf(Excel.dealCell(tid)));
-                    if(detail!=null)
+                    if (detail != null)
                         course.setCdetail(Excel.dealCell(detail));
                     course.setDate(TimeFactory.getCurrentDate());
                     courseList.add(course);
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
 
             }
 

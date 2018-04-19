@@ -26,6 +26,8 @@ public interface CourseMapper {
 
     List<Course> selectByCname(String cname);
 
+    List<Course> selectByTid(Integer tid);
+
     List<Course> selectByTypeDirect(@Param("type") Integer type, @Param("direct") Integer direct);
 
     List<Course> showSelected(ArrayList<Integer> info);

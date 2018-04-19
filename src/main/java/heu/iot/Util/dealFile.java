@@ -2,7 +2,6 @@ package heu.iot.Util;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.Random;
@@ -16,47 +15,47 @@ import java.util.Random;
 public class dealFile {
 
     /**
+     * @param Floder 上传的文件夹名称
+     * @param file   post过来的文件
      * @Author: Sumail-Lee
      * @Description: 文件上传类
-     * @param Floder 上传的文件夹名称
-     * @param file post过来的文件
      * @Date: 2018/1/18 16:04
      */
-    public static String saveFile(String Floder, MultipartFile file){
+    public static String saveFile(String Floder, MultipartFile file) {
         String fileName = file.getOriginalFilename();
-        Random random=new java.util.Random();
-        int result=random.nextInt(899)+100;
-        fileName=TimeFactory.getTimeWithoutFormat()+String.valueOf(result)+fileName;
+        Random random = new java.util.Random();
+        int result = random.nextInt(899) + 100;
+        fileName = TimeFactory.getTimeWithoutFormat() + String.valueOf(result) + fileName;
 //        String filePath = request.getSession().getServletContext().getRealPath("./upload/");
-        String filePath="D:\\java_workplace\\iot\\src\\main\\resources\\static\\"+Floder+"\\";
+        String filePath = "D:\\java_workplace\\iot\\src\\main\\resources\\static\\" + Floder + "\\";
         System.out.println(filePath);
         try {
             File targetFile = new File(filePath);
-            if(!targetFile.exists()){
+            if (!targetFile.exists()) {
                 targetFile.mkdirs();
             }
-            FileOutputStream out = new FileOutputStream(filePath+fileName);
+            FileOutputStream out = new FileOutputStream(filePath + fileName);
             out.write(file.getBytes());
             out.flush();
             out.close();
-            return fileName;
+            return Floder+"\\"+fileName;
         } catch (Exception e) {
             return "fail";
         }
     }
 
     /**
+     * @param res
      * @Author: Sumail-Lee
      * @Description: 文件下载 TODO
-     * @param res
      * @Date: 2018/1/18 16:05
      */
-    public static String downloadFile(HttpServletResponse res,String filename) throws IOException {
+    public static String downloadFile(HttpServletResponse res, String filename) throws IOException {
         res.setHeader("content-type", "application/octet-stream");
         res.setContentType("application/octet-stream");
-        res.setHeader("Content-Disposition", "attachment;filename="+filename);
+        res.setHeader("Content-Disposition", "attachment;filename=" + filename);
 
-        String filePath=SomeConfig.filepath+filename;
+        String filePath = SomeConfig.filepath + filename;
 
         byte[] buff = new byte[1024];
         BufferedInputStream bis = null;

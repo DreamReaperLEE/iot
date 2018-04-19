@@ -10,11 +10,9 @@ import java.util.Date;
 public class TimeFactory {
 
     public static boolean validateTimeStamp(Date TimeStamp) throws Exception {
-        System.out.println("-----------"+TimeStamp);
+        System.out.println("-----------" + TimeStamp);
         Date date = new Date();
-        if((date.getTime() - TimeStamp.getTime()) / 60000 > 5)
-            return false;
-        return true;
+        return (date.getTime() - TimeStamp.getTime()) / 60000 <= 5;
     }
 
     public static String getCurrentTime() {

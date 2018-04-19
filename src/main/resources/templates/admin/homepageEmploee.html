@@ -94,7 +94,7 @@
                                 <td th:text="${each.name}"></td>
                                 <td th:text="${each.introduce}"></td>
                                 <td>
-                                    <a th:href="'/admin/homepage/deleteEmploee?id=' + ${each.id}" onclick="javascript:return del();" ><button type="button" class="btn btn-success">删除</button></a>
+                                    <a th:href="'/admin/homepage/deleteEmploee?id=' + ${each.id}" onclick="return del();" ><button type="button" class="btn btn-success">删除</button></a>
                                 </td>
                             </tr>
                             </tbody>

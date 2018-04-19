@@ -36,8 +36,14 @@ public class SourceService {
         return sourceMapper.selectByPrimaryKey(id);
     }
 
-    public List<Source> selectByCourse(Integer cid){
-        return sourceMapper.selectByCourse(cid);
+    public List<Source> selectByCid(Integer cid){
+        return sourceMapper.selectByCid(cid);
+    }
+
+    public List<Source> selectByCourseLesson(Integer cid,Integer lesson){return sourceMapper.selectByCourseLesson(cid,lesson);}
+
+    public int insertSelective(Source source){
+        return sourceMapper.insertSelective(source);
     }
 
     //返回每一章，且每章只显示一行，唯一！
@@ -70,20 +76,21 @@ public class SourceService {
         return course_sourceMapper.showAllLessonSource(id);
     }
 
-    public int deleteClassSource(Integer id)
+    public int deleteByPrimaryKey(Integer id)
     {
-        sourceMapper.deleteByPrimaryKey(id);
-        return id;
+        return sourceMapper.deleteByPrimaryKey(id);
     }
 
-    public int deleteLessonSource(Integer id,Integer lesson)
-    {
+    public int deleteByPrimaryKeyAndLowKey(Integer id,Integer lesson){
         return sourceMapper.deleteByPrimaryKeyAndLowKey(id,lesson);
+
     }
     public int deleteSource(Integer id,Integer lesson,String topic)
     {
         return sourceMapper.deleteByPrimaryKeyAndLowKeyAndTopic(id,lesson,topic);
     }
+
+
 
     public List<Course_Source> showAllSourse()
     {

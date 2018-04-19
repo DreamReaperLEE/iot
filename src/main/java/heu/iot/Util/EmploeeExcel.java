@@ -24,14 +24,14 @@ import java.util.List;
 public class EmploeeExcel {
 
     /**
+     * @param
      * @Author: Sumail-Lee
      * @Description:标题
-     * @param
      * @Date: 2018/1/23 16:21
      */
-    public static ArrayList<String> getTitle(){
+    public static ArrayList<String> getTitle() {
 
-        ArrayList<String> title=new ArrayList<String>();
+        ArrayList<String> title = new ArrayList<String>();
         title.add("工号/学号");
         title.add("姓名");
         title.add("人员类型");
@@ -43,49 +43,49 @@ public class EmploeeExcel {
     }
 
     /**
+     * @param emploeeList 人员列表
      * @Author: Sumail-Lee
      * @Description:具体内容
-     * @param emploeeList 人员列表
      * @Date: 2018/1/23 16:21
      */
-    public static ArrayList<ArrayList<String>> getData(List<Emploee> emploeeList){
-        ArrayList<ArrayList<String>> data=new ArrayList<ArrayList<String>>();
-        for(Emploee each:emploeeList){
-            ArrayList<String> every=new ArrayList<String>();
+    public static ArrayList<ArrayList<String>> getData(List<Emploee> emploeeList) {
+        ArrayList<ArrayList<String>> data = new ArrayList<ArrayList<String>>();
+        for (Emploee each : emploeeList) {
+            ArrayList<String> every = new ArrayList<String>();
 
             every.add(String.valueOf(each.getId()));
             every.add(each.getName());
 
-            if(each.getPriv()==0)
+            if (each.getPriv() == 0)
                 every.add("管理员");
-            else if(each.getPriv()==1)
+            else if (each.getPriv() == 1)
                 every.add("教师");
             else
                 every.add("学员");
             every.add(each.getEmail());
             every.add(each.getTel());
             every.add(each.getIntroduce());
-            if(each.getActive()==0)
+            if (each.getActive() == 0)
                 every.add("未审核");
-            else if(each.getActive()==1)
+            else if (each.getActive() == 1)
                 every.add("正常");
             else
                 every.add("审核未通过");
             data.add(every);
         }
-        return  data;
+        return data;
     }
 
     /**
+     * @param dest 上传的文件
      * @Author: Sumail-Lee
      * @Description: 批量添加人员
-     * @param dest 上传的文件
      * @Date: 2018/1/23 15:35
      */
     public static List<Emploee> addEmploee(File dest) throws IOException {
 
         //添加的人员列表
-        ArrayList<Emploee> emploeeList=new ArrayList<>();
+        ArrayList<Emploee> emploeeList = new ArrayList<>();
         Emploee emploee;
         //打开文件
         InputStream is = new FileInputStream(dest);
@@ -107,23 +107,25 @@ public class EmploeeExcel {
                     Cell pwd = hssfRow.getCell(2);
                     Cell eml = hssfRow.getCell(3);
                     Cell tel = hssfRow.getCell(4);
-                    Cell priv=hssfRow.getCell(5);
+                    Cell priv = hssfRow.getCell(5);
 
                     emploee.setId(Integer.valueOf(Excel.dealCell(id)));
                     emploee.setName(Excel.dealCell(name));
                     emploee.setPassword(Excel.dealCell(pwd));
-                    if(Excel.dealCell(priv).startsWith("学生"))
+                    if (Excel.dealCell(priv).startsWith("学生"))
                         emploee.setPriv(2);
                     else
                         emploee.setPriv(1);
-                    if(eml!=null){
-                        emploee.setEmail(Excel.dealCell(eml));}
-                    if(tel!=null){
-                        emploee.setTel(Excel.dealCell(tel));}
+                    if (eml != null) {
+                        emploee.setEmail(Excel.dealCell(eml));
+                    }
+                    if (tel != null) {
+                        emploee.setTel(Excel.dealCell(tel));
+                    }
                     emploee.setActive(1);
                     emploeeList.add(emploee);
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
 
             }
 

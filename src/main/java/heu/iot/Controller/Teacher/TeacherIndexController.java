@@ -1,8 +1,7 @@
 package heu.iot.Controller.Teacher;
 
 import heu.iot.Controller.WebSecurityConfig;
-import heu.iot.Model.Inform_Emploee;
-import heu.iot.Model.Score_Emploee;
+import heu.iot.Model.Emploee_Course;
 import heu.iot.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +19,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/teacher")
 //顶部信息栏
-public class TopInfoController {
+public class TeacherIndexController {
     @Autowired
     private CourseService courseService;
     @Autowired
@@ -32,7 +31,7 @@ public class TopInfoController {
     @Autowired
     private ScoreService scoreService;
 
-    @RequestMapping("/info")
+    @RequestMapping("/index")
     public String info(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
         Integer id = Integer.valueOf(session.getAttribute(WebSecurityConfig.ID).toString());
@@ -49,20 +48,14 @@ public class TopInfoController {
             teachertop4.add(String.valueOf(paper));
             teachertop4.add(String.valueOf(exam));
             session.setAttribute(WebSecurityConfig.TeacherTop4, teachertop4);
-        } else {
-            teachertop4 = (List) session.getAttribute(WebSecurityConfig.TeacherTop4);
-
         }
+        //最新五门课程
+        List<Emploee_Course> courseList = courseService.showNew5();
+        
 
-        List<Score_Emploee> score_emploeeList = scoreService.showAllExamById();
-        model.addAttribute("score_emploeeList", score_emploeeList);
-        model.addAttribute("info_course", teachertop4.get(0));
-        model.addAttribute("info_question", teachertop4.get(1));
-        model.addAttribute("info_paper", teachertop4.get(2));
-        model.addAttribute("info_exam", teachertop4.get(3));
+        model.addAttribute("courseList", courseList);
 
-
-        return "teacher/TeacherIndex";
+        return "teacher/index";
 
     }
 

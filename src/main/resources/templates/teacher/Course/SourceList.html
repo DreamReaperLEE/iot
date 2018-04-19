@@ -34,19 +34,30 @@
                 return false;
             }
         }
+
+        function changetype(){
+            var type=document.getElementById("type").value;
+            if(type=="1"){
+                document.getElementById("detail").innerHTML="<label class=\"control-label\">资源内容</label>\n" +
+                    "                        <input type=\"text\" class=\"form-control\" name=\"detail\">";
+            }else{
+                document.getElementById("detail").innerHTML="<label class=\"control-label\">资源内容</label>\n" +
+                    "                        <input class=\"form-control\" name=\"digitalfile\" type=\"file\">";
+            }
+        }
     </script>
 
 </head>
 
 <body>
-<div th:include="admin/top :: top">
+<div th:include="teacher/top :: top">
 </div>
 
 <div class="container-fluid content">
 
     <div class="row">
 
-        <div th:include="admin/left :: left">
+        <div th:include="teacher/left :: left">
         </div>
 
         <!-- start: Content -->
@@ -54,36 +65,26 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <h3 class="page-header"><i class="fa fa-random"></i>考试安排</h3>
+                    <h3 class="page-header"><i class="fa fa-align-left"></i>资源管理</h3>
                     <ol class="breadcrumb">
-                        <li><i class="fa fa-home"></i><a href="/admin/index">主页</a></li>
-                        <li><i class="fa fa-list-alt"></i><a href="#">考试管理</a></li>
-                        <li><i class="fa fa-random"></i>考试安排</li>
+                        <li><i class="fa fa-home"></i><a href="/teacher/index">主页</a></li>
+                        <li><i class="fa fa-align-left"></i><a href="/teacher/course/showCourseList">课程管理</a></li>
                     </ol>
                 </div>
             </div>
 
-            <div th:include="admin/top4 :: top4">
+            <div th:include="teacher/top4 :: top4">
             </div>
 
             <div class="row">
-                <div class="alert alert-danger text-center" role="alert" th:text="${fail}" th:if="${fail!=null}"></div>
-                <div class="alert alert-success text-center" role="alert" th:text="${success}" th:if="${success!=null}"></div>
-                <div class="alert alert-success text-center" role="alert" th:text="${pisuccess+'新建：'+addi+'条;失败：'+faili+'条'}" th:if="${pisuccess!=null}"></div>
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-sm-3">
-                                <h2><i class="fa fa-table red"></i><span class="break"></span><strong>考试列表</strong></h2>
+                                <h2><i class="fa fa-table red"></i><span class="break"></span><strong th:text="${'第'+lesson+'章'}"></strong></h2>
                             </div>
                             <div class="col-sm-3">
-                                <button class="btn btn-success"  data-toggle="modal" data-target="#addexam">添加考试</button>
-                            </div>
-                            <div class="col-sm-3">
-                                <button class="btn btn-success"  data-toggle="modal" data-target="#upload">批量上传</button>
-                            </div>
-                            <div class="col-sm-3">
-                                <a href="/admin/exam/download"><button type="button" class="btn btn-primary">导出到Excel</button></a>
+                                <button class="btn btn-success"  data-toggle="modal" data-target="#addexam">添加资源</button>
                             </div>
                         </div>
                     </div>
@@ -91,21 +92,25 @@
                         <table class="table table-bordered table-striped table-condensed table-hover">
                             <thead>
                             <tr>
-                                <th>编号</th>
-                                <th>考试名称</th>
-                                <th>主管教师</th>
-                                <th>考试日期</th>
+                                <th>资源编号</th>
+                                <th>标题</th>
+                                <th>类型</th>
+                                <th>内容</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="each : ${examEmploeeList}">
+                            <tr th:each="each : ${sourceList}">
                                 <td th:text="${each.id}"></td>
-                                <td th:text="${each.ename}"></td>
-                                <td th:text="${each.name}"></td>
-                                <td th:text="${each.date}"></td>
-                                <td><a th:href="'/admin/exam/delete?id=' + ${each.id}" onclick="return del();" ><button type="button" class="btn btn-success">删除</button></a>
-                                    <a th:href="'/admin/exam/examdetail?id='+${each.id}" ><button type="button" class="btn btn-success">更改</button></a></td>
+                                <td th:text="${each.topic}"></td>
+                                <td th:if="${each.type eq 1}">文字</td>
+                                <td th:if="${each.type eq 2}">图片</td>
+                                <td th:if="${each.type eq 3}">影音</td>
+                                <td th:text="${each.detail}"></td>
+                                <td>
+                                    <a th:href="'/teacher/course/sourcedetail?id='+${each.id}+'&lesson='+${each.lesson}"><button type="button" class="btn btn-success btn-xs">章节编辑</button></a>
+                                    <a th:href="'/teacher/course/deletesource?id='+${each.id}" onclick="return del();"><button type="button" class="btn btn-success btn-xs">删除章节</button></a>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
@@ -124,47 +129,31 @@
 </div>
 
 <div class="clearfix"></div>
-
-<!--批量上传-->
-<div class="modal fade" id="upload" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">上传文件（XLS/XLSX格式）</h4>
-            </div>
-            <form class="form-horizontal" action="/admin/exam/uploadExcel" method="post" enctype="multipart/form-data">
-                <div class="modal-body">
-                    <input class="form-control" name="file" type="file" accept="application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button type="submit" class="btn btn-success">提交</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
 <!--添加单个考试-->
 <div class="modal fade" id="addexam" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel1">添加考试信息</h4>
+                <h4 class="modal-title" id="myModalLabel1">添加资源信息</h4>
             </div>
-            <form class="form-horizontal" action="/admin/exam/addexam" method="post">
+            <form class="form-horizontal" action="/teacher/course/addsource" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="control-label">考试名称</label>
-                        <input type="text" class="form-control" name="ename">
+                        <label class="control-label">资源标题</label>
+                        <input type="text" class="form-control" name="topic">
                     </div>
                     <div class="form-group">
-                        <label class="control-label">主考教师</label>
-                        <select class="form-control" name="tid">
-                            <option th:each="each : ${emploeeList}" th:value="${each.id}" th:text="${each.name}">教师</option>
+                        <label class="control-label">资源类型</label>
+                        <select class="form-control" name="type" id="type" onchange="changetype()">
+                            <option value="1">文字</option>
+                            <option value="2">图片</option>
+                            <option value="3">影音</option>
                         </select>
+                    </div>
+                    <div class="form-group" id="detail">
+                        <label class="control-label">资源内容</label>
+                        <input type="text" class="form-control" name="detail">
                     </div>
                 </div>
                 <div class="modal-footer">

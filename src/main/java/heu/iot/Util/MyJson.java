@@ -3,11 +3,9 @@ package heu.iot.Util;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import heu.iot.Model.Exam_Json;
-import heu.iot.Model.Hierarchy;
 import heu.iot.Model.HierarchyDetail;
 import heu.iot.Model.Question_Json;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -22,43 +20,45 @@ public class MyJson {
         return gson.toJson(object);
     }
 
-    public static ArrayList<ArrayList<Integer>> JsonToList(String json){
-        return gson.fromJson(json,new TypeToken<ArrayList<ArrayList<Integer>>>(){}.getType());
+    public static ArrayList<ArrayList<Integer>> JsonToList(String json) {
+        return gson.fromJson(json, new TypeToken<ArrayList<ArrayList<Integer>>>() {
+        }.getType());
     }
 
-    public static ArrayList<String> JsonToStringList(String json){
-        return gson.fromJson(json,new TypeToken<ArrayList<String>>(){}.getType());
+    public static ArrayList<String> JsonToStringList(String json) {
+        return gson.fromJson(json, new TypeToken<ArrayList<String>>() {
+        }.getType());
     }
 
-    public static String ExamToJson(ArrayList<String> info, String level){
-        Exam_Json exam_json=new Exam_Json();
+    public static String ExamToJson(ArrayList<String> info, String level) {
+        Exam_Json exam_json = new Exam_Json();
         exam_json.setInfo(info);
         exam_json.setLevel(level);
         return gson.toJson(exam_json);
     }
 
     //将Json处理成Exam_Json数据
-    public static Exam_Json JsonToExam(String json){
-        return gson.fromJson(json,Exam_Json.class);
+    public static Exam_Json JsonToExam(String json) {
+        return gson.fromJson(json, Exam_Json.class);
     }
 
     //将Question_Json转换为Json数据
-    public static String QuestionToJson(ArrayList<String> choice, ArrayList<Integer> answer){
-        Question_Json question_json=new Question_Json();
+    public static String QuestionToJson(ArrayList<String> choice, ArrayList<Integer> answer) {
+        Question_Json question_json = new Question_Json();
         question_json.setChoice(choice);
         question_json.setAnswer(answer);
         return gson.toJson(question_json);
     }
 
     //将Json数据处理成Question_Json类
-    public static Question_Json JsonToQuestion(String json){
-        return gson.fromJson(json,Question_Json.class);
+    public static Question_Json JsonToQuestion(String json) {
+        return gson.fromJson(json, Question_Json.class);
     }
 
-    public static ArrayList<HierarchyDetail> JsonToHierarchy(String json){
-        return gson.fromJson(json,new TypeToken<ArrayList<HierarchyDetail>>(){}.getType());
+    public static ArrayList<HierarchyDetail> JsonToHierarchy(String json) {
+        return gson.fromJson(json, new TypeToken<ArrayList<HierarchyDetail>>() {
+        }.getType());
     }
-
 
 
 }

@@ -99,7 +99,7 @@
                                 <td th:text="${each.tname}"></td>
                                 <td th:text="${each.cdetail}"></td>
                                 <td th:text="${each.date}"></td>
-                                <td><a th:href="'/admin/course/delete?id=' + ${each.id}" onclick="javascript:return del();" ><button type="button" class="btn btn-success">删除</button></a>
+                                <td><a th:href="'/admin/course/delete?id=' + ${each.id}" onclick="return del();" ><button type="button" class="btn btn-success">删除</button></a>
                                     <a th:href="'/admin/course/coursedetail?id='+${each.id}" ><button type="button" class="btn btn-success">更改</button></a></td>
                             </tr>
                             </tbody>

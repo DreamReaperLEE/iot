@@ -18,14 +18,14 @@ public interface SourceMapper {
 
     List<Source> selectByCourseLesson(@Param("id") Integer id, @Param("lesson") Integer lesson);
 
-    List<Source> selectByCourse(Integer cid);
+    List<Source> selectByCid(Integer cid);
 
     int updateByPrimaryKeySelective(Source record);
 
     int updateByPrimaryKey(Source record);
 
     List<Source> showAllSource();
-
+    int deleteByLesson(Integer lesson);
     //    增加课程
     int addSource(Source source);
 

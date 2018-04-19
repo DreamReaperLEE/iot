@@ -93,7 +93,7 @@
                                 <tr th:each="each : ${co_directList}">
                                     <td th:text="${each.directName}"></td>
                                     <td>
-                                        <a th:href="'/admin/course/deleteDirect?id=' + ${each.id}" onclick="javascript:return del();" ><button type="button" class="btn btn-success">删除</button></a>
+                                        <a th:href="'/admin/course/deleteDirect?id=' + ${each.id}" onclick="return del();" ><button type="button" class="btn btn-success">删除</button></a>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -125,7 +125,7 @@
                                 <tr th:each="each : ${co_typeList}">
                                     <td th:text="${each.typeName}"></td>
                                     <td>
-                                        <a th:href="'/admin/course/deleteType?id=' + ${each.id}" onclick="javascript:return del();" ><button type="button" class="btn btn-success">删除</button></a>
+                                        <a th:href="'/admin/course/deleteType?id=' + ${each.id}" onclick="return del();" ><button type="button" class="btn btn-success">删除</button></a>
                                     </td>
                                 </tr>
                                 </tbody>

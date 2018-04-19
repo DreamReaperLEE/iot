@@ -14,6 +14,8 @@ public interface QuestionMapper {
 
     Question selectByPrimaryKey(Integer id);
 
+    List<Question> selectByCourseId(Integer cid);
+
     int updateByPrimaryKeySelective(Question record);
 
     int updateByPrimaryKey(Question record);

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>保密教育在线培训考核系统</title>
+
+    <!-- Favicon and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico" type="image/x-icon" />
+
+    <!-- Css files -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/css/jquery.mmenu.css" rel="stylesheet">
+    <link href="/assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/assets/plugins/jquery-ui/css/jquery-ui-1.10.4.min.css" rel="stylesheet">
+    <link href="/assets/css/style.min.css" rel="stylesheet">
+    <link href="/assets/css/add-ons.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- JS 函数 -->
+    <script>
+        var count=0;
+        function changetype(){
+            var type=document.getElementById("type").value;
+            if(type=="0"){
+                count=0;
+                document.getElementById("check").innerHTML="<input type=\"radio\" class=\"col-xs-3\" name=\"answerunform\" value=\"1\"><label  class=\"col-xs-9\">正确</label >\n" +
+                    "<input type=\"radio\" class=\"col-xs-3\" name=\"answerunform\" value=\"0\"><label  class=\"col-xs-9\">错误</label >";
+            }else if(type=="1"){
+                count=0;
+                document.getElementById("check").innerHTML="<button type=\"button\" onclick=\"addschoice()\" class=\"btn btn-default col-xs-12 btn-xs\">添加选项</button>";
+            }else{
+                count=0;
+                document.getElementById("check").innerHTML="<button type=\"button\" onclick=\"adddchoice()\" class=\"btn btn-default col-xs-12 btn-xs\">添加选项</button>";
+            }
+        }
+
+        function addschoice(){
+            document.getElementById("check").innerHTML+="<input type=\"radio\" class=\"col-xs-2\" name=\"answerunform\" value="+count+">";
+            document.getElementById("check").innerHTML+="<input type=\"text\" class=\"col-xs-10\" name=\"answerun\">";
+            count=count+1;
+        }
+
+        function adddchoice(){
+            document.getElementById("check").innerHTML+="<input type=\"checkbox\" class=\"col-xs-2\" name=\"answerunform\" value="+count+">";
+            document.getElementById("check").innerHTML+="<input type=\"text\" class=\"col-xs-10\" name=\"answerun\">";
+            count=count+1;
+        }
+    </script>
+
+</head>
+
+<body>
+
+<div th:include="teacher/top :: top">
+</div>
+
+<div class="container-fluid content">
+
+    <div class="row">
+
+        <div th:include="teacher/left :: left">
+        </div>
+
+        <!-- start: Content -->
+        <div class="main">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header"><i class="fa fa-user"></i>题目信息</h3>
+                    <ol class="breadcrumb">
+                        <li><i class="fa fa-home"></i><a href="/teacher/index">主页</a></li>
+                        <li><i class="fa fa-bolt"></i><a href="/teacher/question/showQuestionList">题库管理</a></li>
+                    </ol>
+                </div>
+            </div>
+
+            <div th:include="teacher/top4 :: top4">
+            </div>
+
+            <div class="row profile">
+
+                <div class="col-md-offset-1 col-md-10">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">题目信息</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-horizontal" action="/teacher/question/changeQuestionInfo" method="post" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label class="control-label">题目编号</label>
+                                    <input type="text" class="form-control" name="id" th:value="${question.id}" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">题干</label>
+                                    <textarea class="form-control" rows="5" name="desc" placeholder="写下题目题干内容……" th:text="${question.desc}"></textarea>
+                                    <input type="hidden" class="form-control" name="cid" th:value="${question.cid}">
+                                    <input type="hidden" class="form-control" name="id" th:value="${question.id}">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">知识点</label>
+                                    <input type="text" class="form-control" name="label" th:value="${question.label}">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">是否有附件</label>
+                                    <select class="form-control" name="more">
+                                        <option value="0" th:selected="${0 == question.more}? 'selected'">无</option>
+                                        <option value="1" th:selected="${1 == question.more}? 'selected'">图片</option>
+                                        <option value="2" th:selected="${2 == question.more}? 'selected'">视频</option>
+                                    </select>
+                                    <img th:src="${question.digital}" alt="" width="600" height= "1200" class="img-thumbnail" th:if="${question.more==1}">
+                                    <video th:src="${question.digital}" height="400" controls preload="metadata" th:if="${question.more==2}"></video>
+                                    <input class="form-control" name="digitalfile" type="file">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">题目类型</label>
+                                    <select class="form-control" name="type" id="type" onchange="changetype()">
+                                        <option value="0" th:selected="${0 == question.type}? 'selected'">判断</option>
+                                        <option value="1" th:selected="${1 == question.type}? 'selected'">单选</option>
+                                        <option value="2" th:selected="${2 == question.type}? 'selected'">多选</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">选项及答案</label>
+                                    <!--如果为判断-->
+                                    <div id="check" th:if="${question.type==0}" th:with="answer=${question_json.getAnswer()}">
+                                        <input type="radio" class="col-xs-2" name="answerunform" value="1" th:checked="${1 == answer.get(0)}? 'checked'"><label  class="col-xs-10">正确</label >
+                                        <input type="radio" class="col-xs-2" name="answerunform" value="0" th:checked="${0 == answer.get(0)}? 'checked'"><label  class="col-xs-10">错误</label >
+                                    </div>
+                                    <!--如果为单选-->
+                                    <div id="check" th:each="every,everyStat : ${question_json.getChoice()}" th:if="${question.type==1}" th:with="answer=${question_json.getAnswer()}">
+                                        <input type="radio" class="col-xs-2" name="answerunform" th:value="${everyStat.index}" th:checked="${everyStat.index == answer.get(0)}? 'checked'">
+                                        <input type="text" class="col-xs-10" name="answerun" th:value="${every}">
+                                    </div>
+                                    <!--如果为多选-->
+                                    <div id="check"  th:each="every,everyStat : ${question_json.getChoice()}" th:if="${question.type==2}" th:with="answer=${question_json.getAnswer()}">
+                                        <input type="checkbox" class="col-xs-2" name="answerunform" th:value="${everyStat.index}" th:checked="${answer.contains(everyStat.index)}? 'checked'">
+                                        <input type="text" class="col-xs-10" name="answerun" th:value="${every}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">题目难度(0-5难度递增)</label>
+                                    <select class="form-control" name="level">
+                                        <option value="0" th:selected="${0 == question.level}? 'selected'">0</option>
+                                        <option value="1" th:selected="${1 == question.level}? 'selected'">1</option>
+                                        <option value="2" th:selected="${2 == question.level}? 'selected'">2</option>
+                                        <option value="3" th:selected="${3 == question.level}? 'selected'">3</option>
+                                        <option value="4" th:selected="${4 == question.level}? 'selected'">4</option>
+                                        <option value="5" th:selected="${5 == question.level}? 'selected'">5</option>
+                                    </select>
+                                </div>
+                                <hr>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="btn btn-success">提交</button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </div><!--/.col-->
+
+            </div>
+        </div>
+        <!-- end: Content -->
+        <br><br><br>
+
+    </div><!--/container-->
+
+
+</div>
+
+<div class="clearfix"></div>
+
+
+<!-- start: JavaScript-->
+<!--[if !IE]>-->
+
+<script src="/assets/js/jquery-2.1.1.min.js"></script>
+
+<!--<![endif]-->
+
+<!--[if IE]>
+
+<script src="/assets/js/jquery-1.11.1.min.js"></script>
+
+<![endif]-->
+
+<!--[if !IE]>-->
+
+<script type="text/javascript">
+    window.jQuery || document.write("<script src='/assets/js/jquery-2.1.1.min.js'>"+"<"+"/script>");
+</script>
+
+<!--<![endif]-->
+
+<!--[if IE]>
+
+<script type="text/javascript">
+    window.jQuery || document.write("<script src='/assets/js/jquery-1.11.1.min.js'>"+"<"+"/script>");
+</script>
+
+<![endif]-->
+<script src="/assets/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+
+
+<!-- page scripts -->
+<script src="/assets/plugins/jquery-ui/js/jquery-ui-1.10.4.min.js"></script>
+<script src="/assets/js/jquery.easy-pie-chart.min.js"></script>
+
+<!-- theme scripts -->
+<script src="/assets/js/SmoothScroll.js"></script>
+<script src="/assets/js/jquery.mmenu.min.js"></script>
+<script src="/assets/js/core.min.js"></script>
+
+<!-- inline scripts related to this page -->
+<script src="/assets/js/pages/page-profile.js"></script>
+
+<!-- end: JavaScript-->
+
+</body>
+</html>

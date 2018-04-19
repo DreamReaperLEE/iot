@@ -18,7 +18,7 @@ public class InfoService {
     private MD5 md5 = new MD5();
 
     public Emploee login(Integer id,String password){
-        password=md5.getMd5(password);
+        password= MD5.getMd5(password);
         Emploee emploee=emploeeMapper.checkPassword(id,password);
         return emploee;
     }

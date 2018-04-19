@@ -10,7 +10,7 @@
     <result column="detail" jdbcType="VARCHAR" property="detail" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, cid, lesson, type, topic, detail
+    id, cid, lesson, source.type, topic, detail
   </sql>
   <select id="showAllSource" resultMap="BaseResultMap">
     select
@@ -21,13 +21,13 @@
     select
     <include refid="Base_Column_List" />
     from source
-    where cid = #{id,jdbcType=INTEGER} and lesson = #{lesson,jdbcType=INTEGER}
+    where cid = #{id,jdbcType=INTEGER} and lesson = #{lesson,jdbcType=INTEGER} and source.type!=0
   </select>
-  <select id="selectByCourse" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByCid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from source
-    where cid = #{cid,jdbcType=INTEGER} and type=0 order by lesson
+    where cid = #{cid,jdbcType=INTEGER} and source.type=0 order by lesson
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -38,6 +38,10 @@
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from source
     where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByLesson" parameterType="java.lang.Integer">
+    delete from source
+    where lesson = #{lesson,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="heu.iot.Model.Source">
     insert into source (id, cid, lesson, 
@@ -60,7 +64,7 @@
         lesson,
       </if>
       <if test="type != null">
-        type,
+        source.type,
       </if>
       <if test="topic != null">
         topic,

@@ -103,7 +103,7 @@
                                     <td th:text="${each.name}"></td>
                                     <td th:text="${each.tel}"></td>
                                     <td th:text="${each.email}"></td>
-                                    <td><a th:href="'/admin/emploee/delete?url=student&id=' + ${each.id}" onclick="javascript:return del();" ><button type="button" class="btn btn-success">删除</button></a>
+                                    <td><a th:href="'/admin/emploee/delete?url=student&id=' + ${each.id}" onclick="return del();" ><button type="button" class="btn btn-success">删除</button></a>
                                     <a th:href="'/admin/emploee/detail?url=student&id='+${each.id}" ><button type="button" class="btn btn-success">更改</button></a></td>
                                 </tr>
                                 </tbody>

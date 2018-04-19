@@ -21,4 +21,11 @@
         from course,emploee
         WHERE course.cname LIKE concat(concat('%',#{cname},'%')) AND course.tid=emploee.id
     </select>
+
+    <select id="showRecent5" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        from course,emploee
+        WHERE course.tid=emploee.id limit 5
+    </select>
+
 </mapper>

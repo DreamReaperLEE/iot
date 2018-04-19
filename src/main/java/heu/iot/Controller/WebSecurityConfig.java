@@ -65,7 +65,7 @@ public class WebSecurityConfig extends WebMvcConfigurerAdapter {
                     response.sendRedirect("/login");
                     return false;
                 } else if (session.getAttribute(LEVEL).toString().equals("1") && !url.matches("(.*)teacher(.*)")) {
-                    response.sendRedirect("/teacher/info");
+                    response.sendRedirect("/login");
                     return false;
                 }
                 return true;

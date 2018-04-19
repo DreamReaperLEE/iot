@@ -13,4 +13,6 @@ public interface Course_EmploeeMapper {
     List<Course_Emploee> showAllCourse();
 
     List<Course_Emploee> showSelected(String cname);
+
+    List<Course_Emploee> showRecent5();
 }

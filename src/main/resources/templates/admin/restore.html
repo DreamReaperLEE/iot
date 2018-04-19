@@ -86,7 +86,7 @@
                                 <tr th:each="each : ${result}">
                                     <td th:text="${each}"></td>
                                     <td>
-                                        <a th:href="'/admin/backup/restore?filename=' + ${each}" onclick="javascript:return del();" ><button type="button" class="btn btn-success">恢复备份</button></a>
+                                        <a th:href="'/admin/backup/restore?filename=' + ${each}" onclick="return del();" ><button type="button" class="btn btn-success">恢复备份</button></a>
                                     </td>
                                 </tr>
                                 </tbody>

@@ -55,7 +55,7 @@ $(document).ready(function(){
 			var bugs = 0;
 			
 			if(!isEmail($('#email-w1').val())) {				
-				$('#email-w1').parent().parent().addClass('has-error')
+				$('#email-w1').parent().parent().addClass('has-error');
 				bugs = 1;
 			}
 			
@@ -76,7 +76,7 @@ $(document).ready(function(){
 			var bugs = 0;
 			
 			if(!$('#name-w1').val()) {				
-				$('#name-w1').parent().parent().addClass('has-error')
+				$('#name-w1').parent().parent().addClass('has-error');
 				bugs = 1;
 			}
 			

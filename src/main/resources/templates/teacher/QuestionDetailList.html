@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>保密教育在线培训考核系统</title>
+
+    <!-- Favicon and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico" type="image/x-icon" />
+
+    <!-- Css files -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/css/jquery.mmenu.css" rel="stylesheet">
+    <link href="/assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/assets/plugins/jquery-ui/css/jquery-ui-1.10.4.min.css" rel="stylesheet">
+    <link href="/assets/css/style.min.css" rel="stylesheet">
+    <link href="/assets/css/add-ons.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+    <!-- JS 函数 -->
+    <script>
+        var count=0;
+        function del() {
+            var msg = "您真的确定要删除吗？\n\n请确认！";
+            if (confirm(msg)==true){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        function changetype(){
+            var type=document.getElementById("type").value;
+            if(type=="0"){
+                count=0;
+                document.getElementById("check").innerHTML="<input type=\"radio\" class=\"col-xs-3\" name=\"answerunform\" value=\"1\"><label  class=\"col-xs-9\">正确</label >\n" +
+                    "<input type=\"radio\" class=\"col-xs-3\" name=\"answerunform\" value=\"0\"><label  class=\"col-xs-9\">错误</label >";
+            }else if(type=="1"){
+                count=0;
+                document.getElementById("check").innerHTML="<button type=\"button\" onclick=\"addschoice()\" class=\"btn btn-default col-xs-12 btn-xs\">添加选项</button>";
+            }else{
+                count=0;
+                document.getElementById("check").innerHTML="<button type=\"button\" onclick=\"adddchoice()\" class=\"btn btn-default col-xs-12 btn-xs\">添加选项</button>";
+            }
+        }
+
+        function addschoice(){
+            document.getElementById("check").innerHTML+="<input type=\"radio\" class=\"col-xs-2\" name=\"answerunform\" value="+count+">";
+            document.getElementById("check").innerHTML+="<input type=\"text\" class=\"col-xs-10\" name=\"answerun\">";
+            count=count+1;
+        }
+
+        function adddchoice(){
+            document.getElementById("check").innerHTML+="<input type=\"checkbox\" class=\"col-xs-2\" name=\"answerunform\" value="+count+">";
+            document.getElementById("check").innerHTML+="<input type=\"text\" class=\"col-xs-10\" name=\"answerun\">";
+            count=count+1;
+        }
+    </script>
+</head>
+
+<body>
+<div th:include="teacher/top :: top">
+</div>
+
+<div class="container-fluid content">
+
+    <div class="row">
+
+        <div th:include="teacher/left :: left">
+        </div>
+
+        <!-- start: Content -->
+        <div class="main ">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header"><i class="fa fa-align-left"></i>题库管理</h3>
+                    <ol class="breadcrumb">
+                        <li><i class="fa fa-home"></i><a href="/teacher/index">主页</a></li>
+                        <li><i class="fa fa-align-left"></i>题库管理</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div th:include="teacher/top4 :: top4">
+            </div>
+
+            <div class="row">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h2><i class="fa fa-table red"></i><span class="break"></span><strong th:text="${course.cname}">所有题库</strong></h2>
+                            </div>
+                            <div class="col-sm-3">
+                                <button class="btn btn-success"  data-toggle="modal" data-target="#addquestion">添加题目</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-bordered table-striped table-condensed table-hover">
+                            <thead>
+                            <tr>
+                                <th>题目编号</th>
+                                <th>题目描述</th>
+                                <th>知识点</th>
+                                <th>题目难度</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="each : ${questionList}">
+                                <td th:text="${each.id}"></td>
+                                <td th:text="${each.desc}"></td>
+                                <td th:text="${each.label}"></td>
+                                <td th:text="${each.level}"></td>
+                                <td>
+                                    <a th:href="'/teacher/question/questiondetail?id='+${each.id}" ><button type="button" class="btn btn-success btn-xs">编辑题目</button></a>
+                                    <a th:href="'/teacher/question/questiondelete?id='+${each.id}+'&cid='+${course.id}" onclick="return del();"><button type="button" class="btn btn-success btn-xs">删除题目</button></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- end: Content -->
+        <br><br><br>
+
+    </div><!--/container-->
+
+
+</div>
+
+<div class="clearfix"></div>
+
+
+<!--添加单个考试-->
+<div class="modal fade" id="addquestion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel1">添加题目信息</h4>
+            </div>
+            <form class="form-horizontal" action="/teacher/question/addquestion" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label">题干</label>
+                        <textarea class="form-control" rows="5" name="desc" placeholder="写下题目题干内容……"></textarea>
+                        <input type="hidden" class="form-control" name="cid" th:value="${course.id}">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">知识点</label>
+                        <input type="text" class="form-control" name="label">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">是否有附件</label>
+                        <select class="form-control" name="more">
+                            <option value="0">无</option>
+                            <option value="1">图片</option>
+                            <option value="2">视频</option>
+                        </select>
+                        <input class="form-control" name="digitalfile" type="file">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">题目类型</label>
+                        <select class="form-control" name="type" id="type" onchange="changetype()">
+                            <option value="0">判断</option>
+                            <option value="1">单选</option>
+                            <option value="2">多选</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">选项及答案</label>
+                        <div id="check" class="form-group">
+                            <input type="radio" class="col-xs-2" name="answerunform" value="1"><label  class="col-xs-10">正确</label >
+                            <input type="radio" class="col-xs-2" name="answerunform" value="0"><label  class="col-xs-10">错误</label >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">题目难度(0-5难度递增)</label>
+                        <select class="form-control" name="level">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="submit" class="btn btn-success">提交</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- start: JavaScript-->
+<!--[if !IE]>-->
+
+<script src="/assets/js/jquery-2.1.1.min.js"></script>
+
+<!--<![endif]-->
+
+<!--[if IE]>
+
+<script src="/assets/js/jquery-1.11.1.min.js"></script>
+
+<![endif]-->
+
+<!--[if !IE]>-->
+
+<script type="text/javascript">
+    window.jQuery || document.write("<script src='/assets/js/jquery-2.1.1.min.js'>"+"<"+"/script>");
+</script>
+
+<!--<![endif]-->
+
+<!--[if IE]>
+
+<script type="text/javascript">
+    window.jQuery || document.write("<script src='/assets/js/jquery-1.11.1.min.js'>"+"<"+"/script>");
+</script>
+
+<![endif]-->
+<script src="/assets/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+
+
+<!-- page scripts -->
+<script src="/assets/plugins/jquery-ui/js/jquery-ui-1.10.4.min.js"></script>
+<script src="/assets/js/jquery.easy-pie-chart.min.js"></script>
+
+<!-- theme scripts -->
+<script src="/assets/js/SmoothScroll.js"></script>
+<script src="/assets/js/jquery.mmenu.min.js"></script>
+<script src="/assets/js/core.min.js"></script>
+
+<!-- inline scripts related to this page -->
+<script src="/assets/js/pages/page-profile.js"></script>
+
+<!-- end: JavaScript-->
+
+</body>
+</html>

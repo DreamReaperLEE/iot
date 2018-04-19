@@ -34,7 +34,7 @@
 
 <body>
 
-<div th:include="teacher/TeacherTop :: top">
+<div th:include="teacher/top :: top">
 </div>
 
 <div class="container-fluid content">
@@ -42,7 +42,7 @@
     <div class="row">
 
 
-        <div th:include="teacher/TeacherLeft :: left">
+        <div th:include="teacher/left :: left">
         </div>
 
         <!-- start: Content -->
@@ -50,10 +50,10 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <h3 class="page-header" th:text="'欢迎您，'+${session.name}+'同学'"><i class="fa fa-laptop"></i> </h3>
+                    <h3 class="page-header" th:text="'欢迎您，'+${session.name}+'老师'"><i class="fa fa-laptop"></i> </h3>
                     <ol class="breadcrumb">
                         <li><i class="fa fa-home"></i><a href="#">主页</a></li>
-                        <li><i class="fa fa-laptop"></i>学生端</li>
+                        <li><i class="fa fa-laptop"></i>教师端</li>
                     </ol>
                 </div>
             </div>
@@ -93,33 +93,27 @@
 
             <div class="row">
 
-                <div class="col-lg-6 col-md-12">
+                <div class="col-lg-12 col-md-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h2><i class="fa fa-table red"></i><span class="break"></span><strong>成绩单（近五门）</strong></h2>
+                            <h2><i class="fa fa-table red"></i><span class="break"></span><strong>课程（近五门）</strong></h2>
                         </div>
                         <div class="panel-body">
                             <table class="table table-condensed">
                                 <thead>
                                 <tr>
-                                    <th>考试编号</th>
-                                    <th>考试名称</th>
-                                    <th>成绩</th>
-                                    <th>状态</th>
+                                    <th>课程名称</th>
+                                    <th>课程描述</th>
+                                    <th>详细介绍</th>
+                                    <th>任课教师</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="each : ${scoreList}">
-                                <td th:text="${each.pid}"></td>
-                                <td th:text="${each.ename}"></td>
-                                <td th:text="${each.score}"></td>
-                                <td>
-                                    <span class="label label-danger" th:if="${each.score lt 60}">未通过</span>
-                                    <span class="label label-default" th:if="${each.score ge 60 && each.score lt 70}">及格</span>
-                                    <span class="label label-warning" th:if="${each.score ge 70 && each.score lt 80}">中等</span>
-                                    <span class="label label-info" th:if="${each.score ge 80 && each.score lt 90}">良好</span>
-                                    <span class="label label-success" th:if="${each.score ge 90 }">优秀</span>
-                                </td>
+                                <tr th:each="each : ${courseList}">
+                                <td th:text="${each.cname}"></td>
+                                <td th:text="${each.cdetail}"></td>
+                                <td th:text="${each.cintroduce}"></td>
+                                <td th:text="${each.tname}"></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -129,38 +123,6 @@
                 </div>
 
 
-
-                <div class="col-lg-3 col-md-6">
-
-                    <div class="panel panel-default">
-
-                        <div class="panel-body text-center" style="height:230px">
-                            <h2 class="lime">课程完成率</h2>
-                            <div style="width:300px;left:50%;position:absolute;margin-left:-150px;">
-                                <canvas id="gauge1"></canvas>
-                            </div>
-                            <input hidden="hidden" id="pic1" th:value="${course_rates}">
-                            <span class="pull-right"><i class="fa fa-arrow-circle-o-up text-success"></i><div th:text="${course_rates}+'%'"></div></span>
-                        </div>
-
-                    </div>
-
-                </div><!--/.col-->
-
-                <div class="col-lg-3 col-md-6">
-
-                    <div class="panel panel-default">
-                        <div class="panel-body text-center" style="height:230px">
-                            <h2 class="lime">平均成绩</h2>
-                            <div style="width:300px;left:50%;position:absolute;margin-left:-150px;">
-                                <canvas id="gauge2"></canvas>
-                            </div>
-                            <input hidden="hidden" id="pic2" th:value="${exam_rates}">
-                            <span class="pull-right"><i class="fa fa-arrow-circle-o-up text-success"></i><div th:text="${exam_rates}+'分'"></div></span>
-                        </div>
-                    </div>
-
-                </div><!--/.col-->
             </div><!--/row-->
 
             <div class="row" hidden="hidden">
@@ -186,33 +148,6 @@
             </div><!--/row-->
 
 
-
-
-            <div class="row">
-
-                <div class="col-md-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h2><i class="fa fa-life-bouy red"></i><strong>消息通知</strong></h2>
-                        </div>
-                        <div class="panel-body no-padding">
-                            <ul class="comments-list">
-                                <li th:each="each : ${inform_emploeeList}">
-                                    <a th:href="${'/student/noticeDetail?id='+each.id}">
-                                    <img class="avatar" alt="Lucas" th:src="${each.pic}">
-                                    </a>
-                                    <div>
-                                        <strong th:text="${each.name}"></strong><p th:text="${each.topic}"></p>
-                                    </div>
-                                    <div class="date" th:text="${each.date}"></div>
-
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-            </div><!--/row-->
 
         </div>
         <!-- end: Content -->

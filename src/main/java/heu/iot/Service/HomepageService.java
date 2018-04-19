@@ -2,7 +2,6 @@ package heu.iot.Service;
 
 import heu.iot.Dao.HomepageMapper;
 import heu.iot.Model.Homepage;
-import org.apache.poi.hssf.record.formula.functions.Int;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,16 +19,16 @@ public class HomepageService {
     @Autowired
     private HomepageMapper homepageMapper;
 
-    public List<Homepage> selectByType(Integer type){
+    public List<Homepage> selectByType(Integer type) {
         return homepageMapper.selectByType(type);
 
     }
 
-    public Homepage selectByPrimaryKey(Integer id){
+    public Homepage selectByPrimaryKey(Integer id) {
         return homepageMapper.selectByPrimaryKey(id);
     }
 
-    public int updateByPrimaryKeySelective(Homepage record){
+    public int updateByPrimaryKeySelective(Homepage record) {
         return homepageMapper.updateByPrimaryKeySelective(record);
     }
 }

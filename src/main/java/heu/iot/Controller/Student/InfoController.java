@@ -130,8 +130,8 @@ public class InfoController {
             return "student/info";
         }
         //将密码转换为md5
-        inputOrigin = md5.getMd5(inputOrigin);
-        inputPassword1 = md5.getMd5(inputPassword1);
+        inputOrigin = MD5.getMd5(inputOrigin);
+        inputPassword1 = MD5.getMd5(inputPassword1);
         Integer id = Integer.valueOf(session.getAttribute(WebSecurityConfig.ID).toString());
         //判断是否更新成功
         int result = infoService.changePassword(id, inputOrigin, inputPassword1);

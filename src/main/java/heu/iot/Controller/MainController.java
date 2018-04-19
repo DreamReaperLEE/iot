@@ -66,10 +66,10 @@ public class MainController {
             return "redirect:/admin/index";
         }
         if (emploee.getPriv() == 1) {
-            return "redirect:/teacher/info";
+            return "redirect:/teacher/index";
         }
         else
-            return "teacher/info";
+            return "redirect:/login";
     }
 
     @GetMapping("/logout")

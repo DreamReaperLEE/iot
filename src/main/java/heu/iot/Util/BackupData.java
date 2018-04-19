@@ -1,11 +1,8 @@
 package heu.iot.Util;
-import heu.iot.Bean.MyConfig;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Properties;
 import java.util.Random;
 
 /**
@@ -17,16 +14,16 @@ import java.util.Random;
 public class BackupData {
 
     /**
+     * @param
      * @Author: Sumail-Lee
      * @Description:数据库备份
-     * @param
      * @Date: 2018/1/31 14:17
      */
     public static String backup() throws IOException {
 
         StringBuffer sb = new StringBuffer();
-        Random random=new java.util.Random();
-        String filename=TimeFactory.getCurrentDate()+String.valueOf(random.nextInt(899)+100)+"backup.sql";
+        Random random = new java.util.Random();
+        String filename = TimeFactory.getCurrentDate() + String.valueOf(random.nextInt(899) + 100) + "backup.sql";
         sb.append("D:\\phpStudy\\MySQL\\bin\\");
         sb.append("mysqldump ");
         sb.append("--opt ");
@@ -41,7 +38,7 @@ public class BackupData {
         sb.append(" ");
         sb.append("--lock-all-tables=true ");
         sb.append("--result-file=");
-        sb.append(SomeConfig.filepath+"backup\\");
+        sb.append(SomeConfig.filepath + "backup\\");
         sb.append(filename);
         sb.append(" ");
         sb.append("--default-character-set=utf8 ");
@@ -51,15 +48,15 @@ public class BackupData {
     }
 
     /**
+     * @param filename 恢复数据库文件名称
      * @Author: Sumail-Lee
      * @Description:数据库恢复
-     * @param filename 恢复数据库文件名称
      * @Date: 2018/1/31 13:56
      */
     public static void load(String filename) {
 
         // 备份的路径地址
-        String filepath = SomeConfig.filepath+"backup\\"+filename;
+        String filepath = SomeConfig.filepath + "backup\\" + filename;
 
         StringBuffer sb = new StringBuffer();
         sb.append("D:\\phpStudy\\MySQL\\bin\\");
@@ -67,7 +64,7 @@ public class BackupData {
         sb.append(SomeConfig.username);
         sb.append(" -p");
         sb.append(SomeConfig.password);
-        sb.append(" create "+SomeConfig.database);
+        sb.append(" create " + SomeConfig.database);
 
         StringBuffer stmt2 = new StringBuffer();
         stmt2.append("D:\\phpStudy\\MySQL\\bin\\");
@@ -75,7 +72,7 @@ public class BackupData {
         stmt2.append(SomeConfig.username);
         stmt2.append(" -p");
         stmt2.append(SomeConfig.password);
-        stmt2.append(" "+SomeConfig.database+" < ");
+        stmt2.append(" " + SomeConfig.database + " < ");
         stmt2.append(filepath);
         String[] cmd = {"cmd", "/c", stmt2.toString()};
         try {
@@ -86,11 +83,11 @@ public class BackupData {
         }
     }
 
-    public static ArrayList<String> getFileName(){
-        ArrayList<String> result=new ArrayList<String>();
-        File file = new File(SomeConfig.filepath+"backup\\");
+    public static ArrayList<String> getFileName() {
+        ArrayList<String> result = new ArrayList<String>();
+        File file = new File(SomeConfig.filepath + "backup\\");
         File[] array = file.listFiles();
-        for(int i=0;i<array.length;i++) {
+        for (int i = 0; i < array.length; i++) {
             if (array[i].isFile())//如果是文件
             {
                 result.add(array[i].getName());

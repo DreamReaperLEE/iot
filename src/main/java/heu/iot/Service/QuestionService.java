@@ -26,4 +26,14 @@ public class QuestionService {
     public int countQuestionNum() {
         return questionMapper.countQuestionNum();
     }
+
+    public List<Question> selectByCourseId(Integer cid){return questionMapper.selectByCourseId(cid);}
+
+    public int insertSelective(Question question){return questionMapper.insertSelective(question);}
+
+    public int deleteByPrimaryKey(Integer id){return questionMapper.deleteByPrimaryKey(id);}
+
+    public Question selectByPrimaryKey(Integer id){return questionMapper.selectByPrimaryKey(id);}
+
+    public int updateByPrimaryKeySelective(Question question){return questionMapper.updateByPrimaryKeySelective(question);}
 }

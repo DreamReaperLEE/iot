@@ -28,14 +28,14 @@ import static heu.iot.Util.Excel.dealCell;
 public class ExamExcel {
 
     /**
+     * @param
      * @Author: Sumail-Lee
      * @Description:标题
-     * @param
      * @Date: 2018/1/23 16:21
      */
-    public static ArrayList<String> getTitle(){
+    public static ArrayList<String> getTitle() {
 
-        ArrayList<String> title=new ArrayList<String>();
+        ArrayList<String> title = new ArrayList<String>();
         title.add("考试编号");
         title.add("考试名称");
         title.add("主考姓名");
@@ -47,21 +47,21 @@ public class ExamExcel {
     }
 
     /**
+     * @param emploeeList 人员列表
+     * @param examList    考试列表
      * @Author: Sumail-Lee
      * @Description:具体内容
-     * @param emploeeList 人员列表
-     * @param examList 考试列表
      * @Date: 2018/1/23 16:21
      */
-    public static ArrayList<ArrayList<String>> getData(List<Emploee> emploeeList,List<Exam> examList){
-        HashMap<String,String> emploeeHashMap=new HashMap<String,String>();
-        for(Emploee emploee:emploeeList){
-            emploeeHashMap.put(String.valueOf(emploee.getId()),emploee.getName());
+    public static ArrayList<ArrayList<String>> getData(List<Emploee> emploeeList, List<Exam> examList) {
+        HashMap<String, String> emploeeHashMap = new HashMap<String, String>();
+        for (Emploee emploee : emploeeList) {
+            emploeeHashMap.put(String.valueOf(emploee.getId()), emploee.getName());
         }
 
-        ArrayList<ArrayList<String>> data=new ArrayList<ArrayList<String>>();
-        for(Exam each:examList){
-            ArrayList<String> every=new ArrayList<String>();
+        ArrayList<ArrayList<String>> data = new ArrayList<ArrayList<String>>();
+        for (Exam each : examList) {
+            ArrayList<String> every = new ArrayList<String>();
 
             every.add(String.valueOf(each.getId()));
             every.add(each.getEname());
@@ -73,19 +73,19 @@ public class ExamExcel {
 
             data.add(every);
         }
-        return  data;
+        return data;
     }
 
     /**
+     * @param dest
      * @Author: Sumail-Lee
      * @Description:批量导入考试
-     * @param dest
      * @Date: 2018/1/24 10:31
      */
     public static List<Exam> addExam(File dest) throws IOException {
 
         //添加的考试列表
-        ArrayList<Exam> examList=new ArrayList<>();
+        ArrayList<Exam> examList = new ArrayList<>();
         Exam exam;
         //打开文件
         InputStream is = new FileInputStream(dest);
@@ -107,7 +107,7 @@ public class ExamExcel {
                     Cell edesc = hssfRow.getCell(2);
                     Cell date = hssfRow.getCell(3);
                     Cell stime = hssfRow.getCell(4);
-                    Cell etime=hssfRow.getCell(5);
+                    Cell etime = hssfRow.getCell(5);
 
                     exam.setEname(dealCell(ename));
                     exam.setTid(dealCell(tid));
@@ -117,7 +117,7 @@ public class ExamExcel {
                     exam.setEtime(dealCell(etime));
                     examList.add(exam);
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
 
             }
 

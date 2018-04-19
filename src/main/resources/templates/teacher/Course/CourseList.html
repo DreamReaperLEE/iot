@@ -7,10 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>保密教育在线培训考核系统</title>
 
-    <!--JS文件-->
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>-->
-    <script src="/js/Chart.js"></script>
-
     <!-- Favicon and touch icons -->
     <link rel="shortcut icon" href="/assets/ico/favicon.ico" type="image/x-icon" />
 
@@ -27,65 +23,30 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <style>
-        canvas {
-            -moz-user-select: none;
-            -webkit-user-select: none;
-            -ms-user-select: none;
+
+    <!-- JS 函数 -->
+    <script>
+        function del() {
+            var msg = "您真的确定要删除吗？\n\n请确认！";
+            if (confirm(msg)==true){
+                return true;
+            }else{
+                return false;
+            }
         }
-    </style>
-    <script th:inline="javascript">
-        var data = {
-            labels : ["0"],
-            datasets : [
-                {
-                    label: /*[[${session.name}]]*/null,
-                    backgroundColor: "rgba(220,87,18,1)",
-                    borderColor: "rgba(244,208,0,1)",
-                    data : [0]
-                }
-            ]
-        };
-
-        var result=/*[[${scoreJson}]]*/"hello";
-        var scorelist=JSON.parse(result);
-        scorelist.forEach(function(each, index, arr){
-            data.datasets[0].data.push(each.score);
-            data.labels.push(each.ename);
-        });
-
-        window.onload = function() {
-            var ctx = document.getElementById("canvas").getContext("2d");
-            window.myBar = new Chart(ctx, {
-                type: 'bar',
-                data: data,
-                options: {
-                    responsive: true,
-                    legend: {   
-                        position: 'top',
-                    },
-                    title: {
-                        display: true,
-                        text: '成绩统计'
-                    }
-                }
-            });
-        };
-
-
     </script>
 
 </head>
 
 <body>
-<div th:include="student/top :: top">
+<div th:include="teacher/top :: top">
 </div>
 
 <div class="container-fluid content">
 
     <div class="row">
 
-        <div th:include="student/left :: left">
+        <div th:include="teacher/left :: left">
         </div>
 
         <!-- start: Content -->
@@ -93,24 +54,55 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <h3 class="page-header"><i class="fa fa-outdent"></i>成绩单</h3>
+                    <h3 class="page-header"><i class="fa fa-align-left"></i>课程管理</h3>
                     <ol class="breadcrumb">
-                        <li><i class="fa fa-home"></i><a href="/student/index">主页</a></li>
-                        <li><i class="fa fa-briefcase"></i><a href="#">成绩管理</a></li>
-                        <li><i class="fa fa-outdent"></i>成绩统计</li>
+                        <li><i class="fa fa-home"></i><a href="/teacher/index">主页</a></li>
+                        <li><i class="fa fa-align-left"></i>课程管理</li>
                     </ol>
                 </div>
             </div>
 
-            <div th:include="student/top4 :: top4">
+            <div th:include="teacher/top4 :: top4">
             </div>
 
-            <canvas id="canvas" width="400" height="200"></canvas>
+            <div class="row">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-sm-9">
+                                <h2><i class="fa fa-table red"></i><span class="break"></span><strong>所有课程</strong></h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-bordered table-striped table-condensed table-hover">
+                            <thead>
+                            <tr>
+                                <th>课程编号</th>
+                                <th>课程名称</th>
+                                <th>简介</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="each : ${courseList}">
+                                <td th:text="${each.id}"></td>
+                                <td th:text="${each.cname}"></td>
+                                <td th:text="${each.cdetail}"></td>
+                                <td>
+                                    <a th:href="'/teacher/course/global?id='+${each.id}"><button type="button" class="btn btn-success btn-xs">总体设置</button></a>
+                                    <a th:href="'/teacher/course/lessonlist?id='+${each.id}"><button type="button" class="btn btn-success btn-xs">课程设置</button></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
 
-
+                    </div>
+                </div>
+            </div>
 
         </div>
-         <!--end: Content -->
+        <!-- end: Content -->
         <br><br><br>
 
     </div><!--/container-->

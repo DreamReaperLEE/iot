@@ -40,7 +40,7 @@ public class CourseService {
     public List<Course> showAllCourse(){
         return courseMapper.showAllCourse();
     }
-
+    //显示所有详细课程
     public List<Emploee_Course> showAllEmploeeCourse(){
         return emploee_courseMapper.showAllCourse();
     }
@@ -60,6 +60,7 @@ public class CourseService {
         return emploee_courseMapper.selectByID(id);
     }
 
+    public List<Course> selectByTid(Integer tid){return courseMapper.selectByTid(tid);}
 
     public int deleteCourse(Integer id){return courseMapper.deleteByPrimaryKey(id);}
 
@@ -70,4 +71,5 @@ public class CourseService {
     public List<Emploee_Course> showNew5(){
         return emploee_courseMapper.showNew5();
     }
+
 }
