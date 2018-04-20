@@ -16,4 +16,10 @@
         from score,emploee
         WHERE emploee.id=score.sid
     </select>
+    <select id="showExamByPid" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        from score,emploee
+        WHERE emploee.id=score.sid and score.pid=#{pid,jdbcType=INTEGER}
+    </select>
 </mapper>

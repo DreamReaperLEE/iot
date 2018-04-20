@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>保密教育在线培训考核系统</title>
+
+    <!-- Favicon and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico" type="image/x-icon" />
+
+    <!-- Css files -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/css/jquery.mmenu.css" rel="stylesheet">
+    <link href="/assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/assets/plugins/jquery-ui/css/jquery-ui-1.10.4.min.css" rel="stylesheet">
+    <link href="/assets/css/style.min.css" rel="stylesheet">
+    <link href="/assets/css/add-ons.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div th:include="teacher/top :: top">
+</div>
+
+<div class="container-fluid content">
+
+    <div class="row">
+
+        <div th:include="teacher/left :: left">
+        </div>
+
+        <!-- start: Content -->
+        <div class="main ">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header"><i class="fa fa-indent"></i><div th:text="${ename}"></div></h3>
+                    <ol class="breadcrumb">
+                        <li><i class="fa fa-home"></i><a href="/teacher/index">主页</a></li>
+                        <li><i class="fa fa-briefcase"></i><a href="#">成绩单</a></li>
+                    </ol>
+                </div>
+            </div>
+
+            <div th:each="each,eachStat : ${online_tests}">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" th:text="'第'+${eachStat.count}+'题'">null</h3>
+                        <p th:text=" ${each.getQuestion().desc}"></p>
+                        <img th:src="${each.getQuestion().digital}" alt="" width="600" height= "1200" class="img-thumbnail" th:if="${each.getQuestion().more==1}">
+                        <video th:src="${each.getQuestion().digital}" height="400" controls preload="metadata" th:if="${each.getQuestion().more==2}"></video>
+                    </div>
+                    <div class="panel-body">
+                        <h3>选项及答案：</h3>
+                        <!--如果为单选-->
+                        <div th:each="every,everyStat : ${each.getChoice()}" th:if="${each.getQuestion().type==1}" th:with="correct=${each.getCorrect()},answer=${each.getAnswer()}">
+                            <p class="lead" th:text="${every}" th:if="${everyStat.index!=correct.get(0)&&everyStat.index!=answer.get(0)}">null</p>
+                            <p class="bg-primary lead" th:text="${every}" th:if="${everyStat.index==correct.get(0)}">null</p>
+                            <p class="bg-danger lead" th:text="${every}" th:if="${everyStat.index!=correct.get(0)&&everyStat.index==answer.get(0)}">null</p>
+                        </div>
+                        <!--如果为多选-->
+                        <div class="checkbox" th:each="every,everyStat : ${each.getChoice()}" th:if="${each.getQuestion().type==2}" th:with="correct=${each.getCorrect()},answer=${each.getAnswer()}">
+                            <p class="lead" th:text="${every}" th:if="${!correct.contains(everyStat.index)&&!answer.contains(everyStat.index)}">null</p>
+                            <p class="bg-primary lead" th:text="${every}" th:if="${correct.contains(everyStat.index)}">null</p>
+                            <p class="bg-danger lead" th:text="${every}" th:if="${!correct.contains(everyStat.index)&&answer.contains(everyStat.index)}">null</p>
+                        </div>
+                        <!--如果为判断-->
+                        <div th:if="${each.getQuestion().type==0}" th:with="correct=${each.getCorrect()},answer=${each.getAnswer()}">
+                            <p class="lead" th:text="正确" th:if="${1!=correct.get(0)&&1!=answer.get(0)}">null</p>
+                            <p class="bg-primary lead" th:text="正确" th:if="${1==correct.get(0)}">null</p>
+                            <p class="bg-danger lead" th:text="正确" th:if="${1!=correct.get(0)&&1==answer.get(0)}">null</p>
+
+                            <p class="lead" th:text="错误" th:if="${0!=correct.get(0)&&0!=answer.get(0)}">null</p>
+                            <p class="bg-primary lead" th:text="错误" th:if="${0==correct.get(0)}">null</p>
+                            <p class="bg-danger lead" th:text="错误" th:if="${0!=correct.get(0)&&0==answer.get(0)}">null</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end: Content -->
+        <br><br><br>
+
+    </div><!--/container-->
+
+
+</div>
+
+<div class="clearfix"></div>
+
+
+<!-- start: JavaScript-->
+<!--[if !IE]>-->
+
+<script src="/assets/js/jquery-2.1.1.min.js"></script>
+
+<!--<![endif]-->
+
+<!--[if IE]>
+
+<script src="/assets/js/jquery-1.11.1.min.js"></script>
+
+<![endif]-->
+
+<!--[if !IE]>-->
+
+<script type="text/javascript">
+    window.jQuery || document.write("<script src='/assets/js/jquery-2.1.1.min.js'>"+"<"+"/script>");
+</script>
+
+<!--<![endif]-->
+
+<!--[if IE]>
+
+<script type="text/javascript">
+    window.jQuery || document.write("<script src='/assets/js/jquery-1.11.1.min.js'>"+"<"+"/script>");
+</script>
+
+<![endif]-->
+<script src="/assets/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+
+
+<!-- page scripts -->
+<script src="/assets/plugins/jquery-ui/js/jquery-ui-1.10.4.min.js"></script>
+<script src="/assets/js/jquery.easy-pie-chart.min.js"></script>
+
+<!-- theme scripts -->
+<script src="/assets/js/SmoothScroll.js"></script>
+<script src="/assets/js/jquery.mmenu.min.js"></script>
+<script src="/assets/js/core.min.js"></script>
+
+<!-- inline scripts related to this page -->
+<script src="/assets/js/pages/page-profile.js"></script>
+
+<!-- end: JavaScript-->
+
+</body>
+</html>

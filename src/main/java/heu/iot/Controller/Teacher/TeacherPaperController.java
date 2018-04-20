@@ -201,7 +201,6 @@ public class TeacherPaperController {
         questionListId=panduanList;
         questionListId.addAll(singleList);
         questionListId.addAll(checkList);
-        System.out.println("=============="+MyJson.toJson(questionListId)+"===============");
         info=new ArrayList<String>();
         for(Integer every:questionListId){
             info.add(String.valueOf(every));

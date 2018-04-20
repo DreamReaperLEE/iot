@@ -1,6 +1,8 @@
 package heu.iot.Dao;
 
 import heu.iot.Model.Score_Exam_Paper;
+import heu.iot.Model.Score_Exam_Paper_List;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,4 +16,6 @@ public interface Score_Exam_PaperMapper {
     List<Score_Exam_Paper> showAllExamByStudentId(Integer id);
 
     List<Score_Exam_Paper> showRecent5(Integer id);
+
+    List<Score_Exam_Paper_List> showOldExamByTidDate(@Param("tid") Integer tid, @Param("date") String date);
 }

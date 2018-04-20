@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface Score_EmploeeMapper {
     List<Score_Emploee> showAllExamById();
+    List<Score_Emploee> showExamByPid(Integer pid);
 }

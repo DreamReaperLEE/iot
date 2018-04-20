@@ -1,4 +1,4 @@
-package heu.iot.Controller.Student;
+package heu.iot.Controller.Teacher;
 
 import heu.iot.Controller.WebSecurityConfig;
 import heu.iot.Model.Emploee;
@@ -17,14 +17,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
- * 学生个人信息管理
- *
  * @Author: Sumail-Lee
- * @Date: 9:45 2017/11/29
+ * @Version: V1.0.0
+ * @Description:
+ * @Since: 2018/4/20 15:10
  */
 @Controller
-@RequestMapping("/student")
-public class InfoController {
+@RequestMapping("/teacher/info")
+public class TeacherInfoController {
     @Autowired
     private InfoService infoService;
 
@@ -39,7 +39,7 @@ public class InfoController {
      */
     @RequestMapping("/info")
     public String showInfo() {
-        return "student/info";
+        return "teacher/Info/info";
     }
 
     /**
@@ -50,10 +50,10 @@ public class InfoController {
      * @Date: 2018/1/10 15:35
      */
     @RequestMapping("/Detailinfo")
-    public String detailInfo(Model model,HttpSession session) {
+    public String detailInfo(Model model, HttpSession session) {
         Integer id=Integer.valueOf(session.getAttribute(WebSecurityConfig.ID).toString());
         model.addAttribute("emploee", emploeeService.selectByPrimaryKey(id));
-        return "student/DetailInfo";
+        return "teacher/Info/DetailInfo";
     }
 
     /**
@@ -68,7 +68,7 @@ public class InfoController {
      * @Date: 2018/2/1 13:48
      */
     @RequestMapping("/changeDetailInfo")
-    public String changeDetailInfo(Model model,HttpSession session,@RequestParam(value = "name", defaultValue = "") String name,@RequestParam(value = "email", defaultValue = "") String email,@RequestParam(value = "tel", defaultValue = "") String tel,@RequestParam(value = "introduce", defaultValue = "") String introduce) {
+    public String changeDetailInfo(Model model, HttpSession session, @RequestParam(value = "name", defaultValue = "") String name, @RequestParam(value = "email", defaultValue = "") String email, @RequestParam(value = "tel", defaultValue = "") String tel, @RequestParam(value = "introduce", defaultValue = "") String introduce) {
 
         Integer id=Integer.valueOf(session.getAttribute(WebSecurityConfig.ID).toString());
         Emploee emploee=new Emploee();
@@ -86,7 +86,7 @@ public class InfoController {
         }
         model.addAttribute("emploee", emploeeService.selectByPrimaryKey(id));
 
-        return "student/DetailInfo";
+        return "teacher/Info/DetailInfo";
     }
 
     /**
@@ -97,7 +97,7 @@ public class InfoController {
      * @Date: 2018/2/1 13:49
      */
     @RequestMapping("/changePic")
-    public String changePic(@RequestParam("imgfile") MultipartFile file,@RequestParam("id") Integer id){
+    public String changePic(@RequestParam("imgfile") MultipartFile file, @RequestParam("id") Integer id){
 
         Emploee emploee=new Emploee();
         emploee.setId(id);
@@ -107,7 +107,7 @@ public class InfoController {
             emploee.setPic(filename);
         }
         emploeeService.updateByPrimaryKeySelective(emploee);
-        return "redirect:/student/Detailinfo";
+        return "redirect:/teacher/Info/Detailinfo";
     }
 
     /**
@@ -125,7 +125,7 @@ public class InfoController {
         //判断两次密码输入是否一致
         if (!inputPassword2.equals(inputPassword1)) {
             model.addAttribute("fail", "更新失败，新密码两次输入不正确");
-            return "student/info";
+            return "teacher/Info/info";
         }
         //将密码转换为md5
         inputOrigin = MD5.getMd5(inputOrigin);
@@ -137,6 +137,7 @@ public class InfoController {
             model.addAttribute("fail", "更新失败，密码错误");
         else
             model.addAttribute("success", "更新成功");
-        return "student/info";
+        return "teacher/Info/info";
     }
+
 }
