@@ -19,6 +19,8 @@ public interface ScoreMapper {
 
     List<Score> selectByStudentId(Integer id);
 
+    List<Score> selectByPid(Integer pid);
+
     int updateByPrimaryKeySelective(Score record);
 
     int updateByPrimaryKey(Score record);

@@ -17,6 +17,16 @@ public class Exam {
 
     private String stime;
 
+    private int done;
+
+    public int getDone() {
+        return done;
+    }
+
+    public void setDone(int done) {
+        this.done = done;
+    }
+
     public Integer getId() {
         return id;
     }

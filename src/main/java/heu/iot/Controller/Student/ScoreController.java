@@ -34,8 +34,6 @@ public class ScoreController {
     @Autowired
     private ScoreService scoreService;
 
-    @Autowired
-    private ExamService examService;
 
     @Autowired
     private PaperService paperService;

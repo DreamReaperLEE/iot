@@ -76,5 +76,9 @@ public class ScoreService {
 
     public List<Score_Emploee> showExamByPid(Integer pid){return score_emploeeMapper.showExamByPid(pid);}
 
+    public List<Score> selectByPid(Integer pid){return scoreMapper.selectByPid(pid);}
+
+    public int updateByPrimaryKeySelective(Score score){return scoreMapper.updateByPrimaryKeySelective(score);}
+
 
 }

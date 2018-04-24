@@ -7,7 +7,7 @@ package heu.iot.Util;
  * @Since: 2018/1/31 14:12
  */
 public class SomeConfig {
-    public final static String filepath = "D:\\java_workplace\\iot\\src\\main\\resources\\static\\";
+    public final static String filepath = "D:\\java_workplace\\iot\\src\\main\\resources\\static";
 
     public final static String dbaddress = "localhost";
 

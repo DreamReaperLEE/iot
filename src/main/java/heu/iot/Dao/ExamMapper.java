@@ -24,6 +24,8 @@ public interface ExamMapper {
 
     List<Exam> showCurrentExam(@Param("date") String date, @Param("time") String time);
 
+    List<Exam> showTodayUndoneExam(@Param("date") String date);
+
     int countExamNum();
 
     List<ExamEmploee> selectExamEmploeeRecent5();

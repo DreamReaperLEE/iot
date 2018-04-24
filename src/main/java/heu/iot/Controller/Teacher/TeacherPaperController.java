@@ -2,8 +2,10 @@ package heu.iot.Controller.Teacher;
 
 import heu.iot.Controller.WebSecurityConfig;
 import heu.iot.Model.*;
+import heu.iot.MyThread.GradePaper;
 import heu.iot.Service.*;
 import heu.iot.Util.MyJson;
+import heu.iot.Util.TimeFactory;
 import heu.iot.Util.dealFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -59,6 +61,9 @@ public class TeacherPaperController {
             exam.setEpic(filepath);
         }
         examService.updateByPrimaryKeySelective(exam);
+        if(exam.getDate().equals(TimeFactory.getCurrentDate())){
+            GradePaper.examConcurrentHashMap.put(exam.getId(),exam);
+        }
         return "redirect:/teacher/paper/showExamList";
     }
 

@@ -36,6 +36,12 @@ public class ExamService {
         return examList;
     }
 
+    public List<Exam> showTodayUndoneExam() {
+        String date= TimeFactory.getCurrentDate();
+        List<Exam> examList=examMapper.showTodayUndoneExam(date);
+        return examList;
+    }
+
     public int countExamNum(){
         return examMapper.countExamNum();
     }

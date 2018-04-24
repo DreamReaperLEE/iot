@@ -3,10 +3,12 @@ package heu.iot.Controller.Admin;
 import heu.iot.Model.Emploee;
 import heu.iot.Model.Exam;
 import heu.iot.Model.ExamEmploee;
+import heu.iot.MyThread.GradePaper;
 import heu.iot.Service.EmploeeService;
 import heu.iot.Service.ExamService;
 import heu.iot.Util.ExamExcel;
 import heu.iot.Util.Excel;
+import heu.iot.Util.TimeFactory;
 import heu.iot.Util.dealFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -99,8 +101,10 @@ public class ExamAdminController {
      */
     @PostMapping("/updateexam")
     public String updatecourse(Exam exam, Model model) {
-
         examService.updateByPrimaryKeySelective(exam);
+        if(exam.getDate().equals(TimeFactory.getCurrentDate())){
+            GradePaper.examConcurrentHashMap.put(exam.getId(),exam);
+        }
         return "redirect:/admin/exam/allexam";
     }
 
@@ -134,6 +138,9 @@ public class ExamAdminController {
     @RequestMapping("/addexam")
     public String addExam(Exam exam,Model model) {
         examService.insertSelective(exam);
+        if(exam.getDate().equals(TimeFactory.getCurrentDate())){
+            GradePaper.examConcurrentHashMap.put(exam.getId(),exam);
+        }
         return "redirect:/admin/exam/allexam";
     }
 

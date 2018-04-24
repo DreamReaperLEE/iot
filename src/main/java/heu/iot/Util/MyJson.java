@@ -30,6 +30,11 @@ public class MyJson {
         }.getType());
     }
 
+    public static ArrayList<Integer> JsonToIntegerList(String json) {
+        return gson.fromJson(json, new TypeToken<ArrayList<Integer>>() {
+        }.getType());
+    }
+
     public static String ExamToJson(ArrayList<String> info, String level) {
         Exam_Json exam_json = new Exam_Json();
         exam_json.setInfo(info);

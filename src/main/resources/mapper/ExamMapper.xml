@@ -10,6 +10,7 @@
     <result column="date" jdbcType="VARCHAR" property="date" />
     <result column="etime" jdbcType="VARCHAR" property="etime" />
     <result column="stime" jdbcType="VARCHAR" property="stime" />
+    <result column="done" jdbcType="INTEGER" property="done" />
   </resultMap>
   <resultMap id="ExamEmploeeMap" type="heu.iot.Model.ExamEmploee">
     <id column="id" jdbcType="INTEGER" property="id" />
@@ -19,7 +20,7 @@
   </resultMap>
 
   <sql id="Base_Column_List">
-    id, tid, edesc, epic, ename, exam.date, etime, stime
+    id, tid, edesc, epic, ename, exam.date, etime, stime, done
   </sql>
   <sql id="ExamEmploee_List">
     exam.id,emploee.name,exam.ename,exam.date
@@ -66,6 +67,12 @@
     <include refid="Base_Column_List" />
     from exam
     where date = #{date,jdbcType=VARCHAR} and  etime> #{time,jdbcType=VARCHAR} and #{time,jdbcType=VARCHAR} >stime
+  </select>
+  <select id="showTodayUndoneExam" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from exam
+    where date = #{date,jdbcType=VARCHAR} and done=0
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from exam
@@ -157,6 +164,9 @@
       </if>
       <if test="stime != null">
         stime = #{stime,jdbcType=VARCHAR},
+      </if>
+      <if test="done != null">
+        done = #{done,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}

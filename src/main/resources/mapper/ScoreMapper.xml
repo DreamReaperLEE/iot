@@ -30,6 +30,13 @@
     where sid = #{sid,jdbcType=INTEGER}
   </select>
 
+  <select id="selectByPid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from score
+    where pid = #{pid,jdbcType=INTEGER}
+  </select>
+
   <select id="selectBySidPid" parameterType="map" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
