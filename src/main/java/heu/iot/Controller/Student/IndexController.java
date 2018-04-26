@@ -77,7 +77,7 @@ public class IndexController {
         }
 
         //获取近五条通知
-        List<Inform_Emploee> inform_emploeeList=informService.showRecent5();
+        List<Inform_Emploee> inform_emploeeList=informService.showRecent(5);
         //学习课程数量
         model.addAttribute("course_num", studenttop4.get(0));
         //参加考试数量

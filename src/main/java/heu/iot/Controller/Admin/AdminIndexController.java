@@ -51,7 +51,7 @@ public class AdminIndexController {
     public String IndexPage(HttpSession session, Model model){
 
         //获取近五条通知
-        List<Inform_Emploee> inform_emploeeList=informService.showRecent5();
+        List<Inform_Emploee> inform_emploeeList=informService.showRecent(5);
         //获取最近五门考试
         List<ExamEmploee> examEmploeeList=examService.selectExamEmploeeRecent5();
         //获取最新五门课程

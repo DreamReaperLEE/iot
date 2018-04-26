@@ -13,10 +13,10 @@
     <sql id="Base_Column_List">
         inform.id,emploee.pic,emploee.name,inform.topic,inform.date,inform.type,inform.active
     </sql>
-    <select id="showRecent5" resultMap="BaseResultMap">
+    <select id="showRecent" resultMap="BaseResultMap">
     SELECT <include refid="Base_Column_List" />
     from inform,emploee
-    WHERE inform.iid=emploee.id and inform.active = 1 order by inform.id desc limit 5
+    WHERE inform.iid=emploee.id and inform.active = 1 order by inform.id desc limit #{num,jdbcType=INTEGER}
     </select>
 
     <select id="showAll" resultMap="BaseResultMap">

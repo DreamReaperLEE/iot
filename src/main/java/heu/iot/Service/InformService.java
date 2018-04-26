@@ -23,8 +23,8 @@ public class InformService {
     @Autowired
     private InformMapper informMapper;
 
-    public List<Inform_Emploee> showRecent5() {
-        return inform_emploeeMapper.showRecent5();
+    public List<Inform_Emploee> showRecent(Integer num) {
+        return inform_emploeeMapper.showRecent(num);
     }
 
     public List<Inform_Emploee> showAll() {

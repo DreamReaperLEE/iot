@@ -11,7 +11,7 @@ import java.util.List;
  * @Since: 2017/12/27 19:35
  */
 public interface Inform_EmploeeMapper {
-    List<Inform_Emploee> showRecent5();
+    List<Inform_Emploee> showRecent(Integer num);
 
     List<Inform_Emploee> showAll();
 

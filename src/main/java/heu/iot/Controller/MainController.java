@@ -1,9 +1,16 @@
 package heu.iot.Controller;
 
 
+import heu.iot.Model.Course;
 import heu.iot.Model.Course_Emploee;
 import heu.iot.Model.Emploee;
+import heu.iot.Model.Homepage;
+import heu.iot.MyThread.IndexThread;
+import heu.iot.Service.CourseService;
+import heu.iot.Service.EmploeeService;
+import heu.iot.Service.HomepageService;
 import heu.iot.Service.InfoService;
+import heu.iot.Util.MyJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,6 +34,13 @@ public class MainController {
 
     @Autowired
     private InfoService infoService;
+    @Autowired
+    private HomepageService homepageService;
+    @Autowired
+    private EmploeeService emploeeService;
+    @Autowired
+    private CourseService courseService;
+
     //登陆
     @GetMapping("/login")
     public String login() {
@@ -33,7 +48,11 @@ public class MainController {
     }
     //主页
     @GetMapping("/index")
-    public String index() {
+    public String index(Model model) {
+        model.addAttribute("pic",IndexThread.pic);
+        model.addAttribute("emploeeList",IndexThread.emploeeList);
+        model.addAttribute("courseList",IndexThread.courseList);
+        model.addAttribute("inform_emploees",IndexThread.inform_emploees);
         return "index";
     }
 

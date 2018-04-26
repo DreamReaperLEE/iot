@@ -1,4 +1,6 @@
 <!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <html>
 	<head>
 	<meta charset="utf-8">
@@ -81,7 +83,7 @@
 		</div>
 	</nav>
 
-	<header id="fh5co-header" class="fh5co-cover" role="banner" style="background-image:url(/index/images/img_bg_1.jpg);" data-stellar-background-ratio="0.5">
+	<header id="fh5co-header" class="fh5co-cover" role="banner" th:style="'background-image:url('+${pic}+');'" data-stellar-background-ratio="0.5">
 		<div class="overlay"></div>
 		<div class="container">
 			<div class="row">
@@ -165,45 +167,9 @@
 		</div>
 		<div class="container-fluid proj-bottom">
 			<div class="row">
-				<div class="col-md-4 col-sm-6 fh5co-project animate-box" data-animate-effect="fadeIn">
-					<a href="#"><img src="/index/images/project-1.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
-						<h3>保密管理</h3>
-						<span>查看课程</span>
-					</a>
-				</div>
-				<div class="col-md-4 col-sm-6 fh5co-project animate-box" data-animate-effect="fadeIn">
-					<a href="#"><img src="/index/images/project-2.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
-						<h3>驱动编程</h3>
-						<span>查看课程</span>
-					</a>
-				</div>
-				<div class="col-md-4 col-sm-6 fh5co-project animate-box" data-animate-effect="fadeIn">
-					<a href="#"><img src="/index/images/project-3.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
-						<h3>Windows消息机制</h3>
-						<span>查看课程</span>
-					</a>
-				</div>
-				<div class="col-md-4 col-sm-6 fh5co-project animate-box" data-animate-effect="fadeIn">
-					<a href="#"><img src="/index/images/project-9.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
-						<h3>保密技术</h3>
-						<span>查看课程</span>
-					</a>
-				</div>
-				<div class="col-md-4 col-sm-6 fh5co-project animate-box" data-animate-effect="fadeIn">
-					<a href="#"><img src="/index/images/project-5.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
-						<h3>数据库安全</h3>
-						<span>查看课程</span>
-					</a>
-				</div>
-				<div class="col-md-4 col-sm-6 fh5co-project animate-box" data-animate-effect="fadeIn">
-					<a href="#"><img src="/index/images/project-6.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
-						<h3>防火墙维护</h3>
-						<span>查看课程</span>
-					</a>
-				</div>
-				<div class="col-md-4 col-sm-6 fh5co-project animate-box" data-animate-effect="fadeIn">
-					<a href="#"><img src="/index/images/project-6.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
-						<h3>防火墙维护</h3>
+				<div class="col-md-4 col-sm-6 fh5co-project animate-box" data-animate-effect="fadeIn" th:each="each : ${courseList}">
+					<a th:href="'/student/course_list?id='+${each.id}"><img th:src="${each.cpic}" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
+						<h3 th:text="${each.cname}"></h3>
 						<span>查看课程</span>
 					</a>
 				</div>
@@ -223,36 +189,14 @@
 				<div class="col-md-10 col-md-offset-1">
 					<div class="row animate-box">
 						<div class="owl-carousel owl-carousel-fullwidth">
-							<div class="item">
+							<div class="item" th:each="each : ${emploeeList}">
 								<div class="testimony-slide active text-center">
 									<figure>
-										<img src="/index/images/person_1.jpg" alt="user">
+										<img th:src="${each.pic}" alt="user">
 									</figure>
-									<span>李守政<a href="#" class="twitter">哈尔滨工程大学</a></span>
+									<span><a href="#" class="twitter" th:text="${each.name}">哈尔滨工程大学</a></span>
 									<blockquote>
-										<p>&ldquo;教书育人，就像喝一杯苦丁茶，开始时会有些苦，但是很快便会回味出丝丝甜味。&rdquo;</p>
-									</blockquote>
-								</div>
-							</div>
-							<div class="item">
-								<div class="testimony-slide active text-center">
-									<figure>
-										<img src="/index/images/person_2.jpg" alt="user">
-									</figure>
-									<span>胡鹏宇<a href="#" class="twitter">黑龙江省电子研究所</a></span>
-									<blockquote>
-										<p>&ldquo;我只是一个教育的受益者，我今天的一切都来自我所受的教育。中国人从来都注重教育。&rdquo;</p>
-									</blockquote>
-								</div>
-							</div>
-							<div class="item">
-								<div class="testimony-slide active text-center">
-									<figure>
-										<img src="/index/images/person_3.jpg" alt="user">
-									</figure>
-									<span>郑博强<a href="#" class="twitter">黑龙江省政府</a></span>
-									<blockquote>
-										<p>&ldquo;以良好之教育，能产良好之躯体与良好之性情，而具此好之躯体与性情者，复受良好之教育，则其所产自必更善。&rdquo;</p>
+										<p th:text="${each.introduce}">&ldquo;教书育人，就像喝一杯苦丁茶，开始时会有些苦，但是很快便会回味出丝丝甜味。&rdquo;</p>
 									</blockquote>
 								</div>
 							</div>
@@ -272,36 +216,12 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-lg-4 col-md-4">
+				<div class="col-lg-4 col-md-4"  th:each="each : ${inform_emploees}">
 					<div class="fh5co-blog animate-box">
-						<a href="#"><img class="img-responsive" src="/index/images/project-4.jpg" alt=""></a>
 						<div class="blog-text">
-							<h3><a href=""#>保密管理考试通知</a></h3>
-							<span class="posted_on">9月15日</span>
-							<p>保密管理即将考试，请同学们做好准备。学工部认真落实学校《方案》工作要求，建立学生体质健康与学生工作考核挂钩机制，将体质健康测试及格率作为院系学生工作考核的重要指标。</p>
-							<a href="#" class="btn btn-primary">资讯详情</a>
-						</div> 
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-4">
-					<div class="fh5co-blog animate-box">
-						<a href="#"><img class="img-responsive" src="/index/images/project-2.jpg" alt=""></a>
-						<div class="blog-text">
-							<h3><a href=""#>“脱口而出100句 机机相传100人”倡议书</a></h3>
-							<span class="posted_on">9月12日</span>
-							<p>为切实学懂弄通做实党的十九大精神，我们在支部学习中发起了“脱口而出100句，人人可为宣讲员”的活动，从报告中最直击心灵的一句话，学深悟透十九大精神实质。</p>
-							<a href="#" class="btn btn-primary">资讯详情</a>
-						</div> 
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-4">
-					<div class="fh5co-blog animate-box">
-						<a href="#"><img class="img-responsive" src="/index/images/project-3.jpg" alt=""></a>
-						<div class="blog-text">
-							<h3><a href=""#>水声学院30余名保研生赴英俄访学</a></h3>
-							<span class="posted_on">9月10日</span>
-							<p>2017年，水声学院留校保研的本科生数量大幅提升。为进一步推动水声学院与国外大学及科研院所在人才培养、科学研究和文化交流等方面的深入合作，促进国际化人才培养。</p>
-							<a href="#" class="btn btn-primary">资讯详情</a>
+							<h3><a href="/login" th:text="${each.topic}">保密管理考试通知</a></h3>
+							<span class="posted_on" th:text="${each.date}">9月15日</span>
+							<a href="/login" class="btn btn-primary">资讯详情</a>
 						</div> 
 					</div>
 				</div>
@@ -321,7 +241,7 @@
 			</div>
 			<div class="row animate-box">
 				<div class="col-md-8 col-md-offset-2 text-center">
-					<p><a href="#" class="btn btn-default btn-lg">开始学习</a></p>
+					<p><a href="/login" class="btn btn-default btn-lg">开始学习</a></p>
 				</div>
 			</div>
 		</div>

@@ -70,7 +70,7 @@ public class HomePageController {
         //存图片
         if(!file.isEmpty()) {
             String filename = dealFile.saveFile("pic",file);
-            homepage.setOther("/pic/"+filename);
+            homepage.setOther(filename);
         }
         homepageService.updateByPrimaryKeySelective(homepage);
         return "redirect:/admin/homepage/showpic";
