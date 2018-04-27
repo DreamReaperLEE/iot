@@ -1,14 +1,8 @@
 package heu.iot.Controller.Admin;
 
 import heu.iot.Model.*;
-import heu.iot.Service.Co_directService;
-import heu.iot.Service.Co_typeService;
-import heu.iot.Service.CourseService;
-import heu.iot.Service.EmploeeService;
-import heu.iot.Util.CourseExcel;
-import heu.iot.Util.Excel;
-import heu.iot.Util.TimeFactory;
-import heu.iot.Util.dealFile;
+import heu.iot.Service.*;
+import heu.iot.Util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,6 +36,8 @@ public class CourseManageController {
     private Co_typeService co_typeService;
     @Autowired
     private Co_directService co_directService;
+    @Autowired
+    private HierarchyService hierarchyService;
 
 
     /**
@@ -173,7 +169,7 @@ public class CourseManageController {
         //存课程封面
         if(!file.isEmpty()) {
             String filename = dealFile.saveFile("pic",file);
-            course.setCpic("/pic/"+filename);
+            course.setCpic(filename);
         }
         //创建时间
         course.setDate(TimeFactory.getCurrentDate());
@@ -330,6 +326,101 @@ public class CourseManageController {
     }
 
 
+
+    @RequestMapping("/hierarchy/showall")
+    public String showAllHierarchy(Model model){
+        List<Hierarchy> hierarchies=hierarchyService.showAll();
+        model.addAttribute("hierarchies",hierarchies);
+        return "admin/Hierarchie/showall";
+    }
+
+    @RequestMapping("/hierarchy/add")
+    public String addHierarchy(Hierarchy hierarchy,@RequestParam("imgfile") MultipartFile file){
+        //存课程封面
+        if(file!=null){
+            if(!file.isEmpty()) {
+                String filename = dealFile.saveFile("pic",file);
+                hierarchy.setPic(filename);
+            }
+        }
+
+        hierarchyService.insertSelective(hierarchy);
+
+        return "redirect:/admin/hierarchy/showall";
+    }
+
+    @RequestMapping("/hierarchy/delete")
+    public String DeleteHierarchy(Integer id){
+        hierarchyService.deleteByPrimaryKey(id);
+        return "redirect:/admin/hierarchy/showall";
+    }
+
+    @RequestMapping("/hierarchy/detail")
+    public String HierarchyDetail(Model model,Integer id){
+        //获取标题等信息
+        Hierarchy hierarchy=hierarchyService.selectByPrimaryKey(id);
+        //获取列表
+        ArrayList<HierarchyDetail> hierarchyDetailArrayList=MyJson.JsonToHierarchy(hierarchy.getDetail());
+        //标题等信息
+        model.addAttribute("hierarchy", hierarchy);
+
+        //具体课程等信息
+        model.addAttribute("hierarchyDetailArrayList", hierarchyDetailArrayList);
+        return "admin/Hierarchie/DetailList";
+    }
+
+    @RequestMapping("/hierarchy/addtopic")
+    public String addTopic(Model model,HierarchyDetail hierarchyDetail,Integer id){
+        //获取标题等信息
+        Hierarchy hierarchy=hierarchyService.selectByPrimaryKey(id);
+        //获取列表
+        ArrayList<HierarchyDetail> hierarchyDetailArrayList=MyJson.JsonToHierarchy(hierarchy.getDetail());
+        hierarchyDetailArrayList.add(hierarchyDetail);
+        hierarchy.setDetail(MyJson.toJson(hierarchyDetailArrayList));
+        hierarchyService.updateByPrimaryKeySelective(hierarchy);
+        //标题等信息
+        model.addAttribute("hierarchy", hierarchy);
+        model.addAttribute("success", "添加小节成功！");
+        //具体课程等信息
+        model.addAttribute("hierarchyDetailArrayList", hierarchyDetailArrayList);
+        return "admin/Hierarchie/DetailList";
+    }
+
+    @RequestMapping("/hierarchy/deleteTopic")
+    public String deleteTopic(Model model,Integer topic,Integer id){
+        //获取标题等信息
+        Hierarchy hierarchy=hierarchyService.selectByPrimaryKey(id);
+        //获取列表
+        ArrayList<HierarchyDetail> hierarchyDetailArrayList=MyJson.JsonToHierarchy(hierarchy.getDetail());
+        hierarchyDetailArrayList.remove(hierarchyDetailArrayList.get(topic));
+        hierarchy.setDetail(MyJson.toJson(hierarchyDetailArrayList));
+        hierarchyService.updateByPrimaryKeySelective(hierarchy);
+        //标题等信息
+        model.addAttribute("hierarchy", hierarchy);
+        model.addAttribute("success", "删除小节成功！");
+        //具体课程等信息
+        model.addAttribute("hierarchyDetailArrayList", hierarchyDetailArrayList);
+        return "admin/Hierarchie/DetailList";
+    }
+
+    @RequestMapping("/hierarchy/detailTopic")
+    public String detailTopic(Model model,Integer topic,Integer id){
+        //获取标题等信息
+        Hierarchy hierarchy=hierarchyService.selectByPrimaryKey(id);
+        //获取列表
+        ArrayList<HierarchyDetail> hierarchyDetailArrayList=MyJson.JsonToHierarchy(hierarchy.getDetail());
+
+        HierarchyDetail hierarchyDetail=hierarchyDetailArrayList.get(topic);
+
+        hierarchyDetail.setCourseList(courseService.showSelected(hierarchyDetail.getIntList()));
+
+        //标题等信息
+        model.addAttribute("hierarchy", hierarchy);
+        //具体小节等信息
+        model.addAttribute("hierarchyDetail", hierarchyDetail.getCourseList());
+
+        return "admin/Hierarchie/TopicList";
+    }
 
 
 

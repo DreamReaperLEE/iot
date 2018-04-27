@@ -26,4 +26,10 @@ public class HierarchyService {
         return hierarchyMapper.selectByPrimaryKey(id);
     }
 
+    public int deleteByPrimaryKey(Integer id){return hierarchyMapper.deleteByPrimaryKey(id);}
+
+    public int insertSelective(Hierarchy hierarchy){return hierarchyMapper.insertSelective(hierarchy);}
+
+    public int updateByPrimaryKeySelective(Hierarchy hierarchy){return hierarchyMapper.updateByPrimaryKeySelective(hierarchy);}
+
 }
