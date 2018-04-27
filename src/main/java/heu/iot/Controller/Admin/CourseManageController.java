@@ -373,6 +373,7 @@ public class CourseManageController {
     public String addTopic(Model model,HierarchyDetail hierarchyDetail,Integer id){
         //获取标题等信息
         Hierarchy hierarchy=hierarchyService.selectByPrimaryKey(id);
+        hierarchyDetail.setIntList(new ArrayList<Integer>());
         //获取列表
         ArrayList<HierarchyDetail> hierarchyDetailArrayList=MyJson.JsonToHierarchy(hierarchy.getDetail());
         hierarchyDetailArrayList.add(hierarchyDetail);
@@ -405,21 +406,70 @@ public class CourseManageController {
 
     @RequestMapping("/hierarchy/detailTopic")
     public String detailTopic(Model model,Integer topic,Integer id){
+        List<Course> courses=courseService.showAllCourse();
+
         //获取标题等信息
         Hierarchy hierarchy=hierarchyService.selectByPrimaryKey(id);
         //获取列表
         ArrayList<HierarchyDetail> hierarchyDetailArrayList=MyJson.JsonToHierarchy(hierarchy.getDetail());
 
         HierarchyDetail hierarchyDetail=hierarchyDetailArrayList.get(topic);
+        if(hierarchyDetail.getIntList().size()!=0){
+            hierarchyDetail.setCourseList(courseService.showSelected(hierarchyDetail.getIntList()));
+        }else{
+            hierarchyDetail.setCourseList(new ArrayList<Course>());
+        }
 
-        hierarchyDetail.setCourseList(courseService.showSelected(hierarchyDetail.getIntList()));
-
+        //标题等信息
+        model.addAttribute("courses", courses);
+        //标题等信息
+        model.addAttribute("topic", topic);
         //标题等信息
         model.addAttribute("hierarchy", hierarchy);
         //具体小节等信息
         model.addAttribute("hierarchyDetail", hierarchyDetail.getCourseList());
 
         return "admin/Hierarchie/TopicList";
+    }
+
+    @RequestMapping("/hierarchy/deleteCourse")
+    public String deleteCourse(Integer topic,Integer id,Integer cid){
+        //获取标题等信息
+        Hierarchy hierarchy=hierarchyService.selectByPrimaryKey(id);
+        //获取列表
+        ArrayList<HierarchyDetail> hierarchyDetailArrayList=MyJson.JsonToHierarchy(hierarchy.getDetail());
+        //获取某一小节
+        HierarchyDetail hierarchyDetail=hierarchyDetailArrayList.get(topic);
+
+        ArrayList<Integer> integers=hierarchyDetail.getIntList();
+        integers.remove((Integer)cid);
+        hierarchyDetail.setIntList(integers);
+
+        hierarchyDetailArrayList.set(topic,hierarchyDetail);
+
+        hierarchy.setDetail(MyJson.toJson(hierarchyDetailArrayList));
+        hierarchyService.updateByPrimaryKeySelective(hierarchy);
+        return "redirect:/admin/hierarchy/detailTopic?topic="+topic+"&id="+id;
+    }
+
+    @RequestMapping("/hierarchy/addCourse")
+    public String addCourse(Integer topic,Integer id,Integer cid){
+        //获取标题等信息
+        Hierarchy hierarchy=hierarchyService.selectByPrimaryKey(id);
+        //获取列表
+        ArrayList<HierarchyDetail> hierarchyDetailArrayList=MyJson.JsonToHierarchy(hierarchy.getDetail());
+        //获取某一小节
+        HierarchyDetail hierarchyDetail=hierarchyDetailArrayList.get(topic);
+
+        ArrayList<Integer> integers=hierarchyDetail.getIntList();
+        integers.add((Integer)cid);
+        hierarchyDetail.setIntList(integers);
+
+        hierarchyDetailArrayList.set(topic,hierarchyDetail);
+
+        hierarchy.setDetail(MyJson.toJson(hierarchyDetailArrayList));
+        hierarchyService.updateByPrimaryKeySelective(hierarchy);
+        return "redirect:/admin/hierarchy/detailTopic?topic="+topic+"&id="+id;
     }
 
 

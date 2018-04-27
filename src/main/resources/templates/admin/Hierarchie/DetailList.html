@@ -95,7 +95,7 @@
                                 <td th:text="${each.topic}"></td>
                                 <td th:text="${each.introduce}"></td>
                                 <td><a th:href="'/admin/hierarchy/deleteTopic?topic=' + ${eachStat.index}+'&id='+${hierarchy.id}" onclick="return del();" ><button type="button" class="btn btn-success">删除</button></a>
-                                    <a th:href="'/admin/hierarchy/detailTopic?topic='+${eachStat.index}+'&id='+${hierarchy.id}" ><button type="button" class="btn btn-success">更改</button></a></td>
+                                    <a th:href="'/admin/hierarchy/detailTopic?topic='+${eachStat.index}+'&id='+${hierarchy.id}" ><button type="button" class="btn btn-success">管理课程</button></a></td>
                             </tr>
                             </tbody>
                         </table>

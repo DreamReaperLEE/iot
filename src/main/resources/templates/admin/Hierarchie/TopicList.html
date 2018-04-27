@@ -94,7 +94,7 @@
                             <tr th:each="each,eachStat : ${hierarchyDetail}">
                                 <td th:text="${each.cname}"></td>
                                 <td th:text="${each.cdetail}"></td>
-                                <td><a th:href="'/admin/hierarchy/deleteCourse?topic=' + ${eachStat.index}+'&id='+${hierarchy.id}+'&cid='+${each.id}" onclick="return del();" ><button type="button" class="btn btn-success">删除</button></a>
+                                <td><a th:href="'/admin/hierarchy/deleteCourse?topic=' + ${topic}+'&id='+${hierarchy.id}+'&cid='+${each.id}" onclick="return del();" ><button type="button" class="btn btn-success">删除</button></a>
                             </tr>
                             </tbody>
                         </table>
@@ -121,18 +121,19 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel1">添加小节</h4>
+                <h4 class="modal-title" id="myModalLabel1">添加课程</h4>
             </div>
-            <form class="form-horizontal" action="/admin/hierarchy/addtopic" method="post">
+            <form class="form-horizontal" action="/admin/hierarchy/addCourse" method="post">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="control-label">小节名称</label>
-                        <input type="text" class="form-control" name="topic">
                         <input type="hidden" class="form-control" name="id" th:value="${hierarchy.id}">
+                        <input type="hidden" class="form-control" name="topic" th:value="${topic}">
                     </div>
                     <div class="form-group">
-                        <label class="control-label">小节介绍</label>
-                        <input type="text" class="form-control" name="introduce">
+                        <label class="control-label">选择课程</label>
+                        <select class="form-control" name="cid">
+                            <option th:each="each : ${courses}" th:value="${each.id}" th:text="${each.cname}" >课程</option>
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">
