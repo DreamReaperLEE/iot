@@ -24,6 +24,11 @@
         from score,paper,exam
         where score.pid=paper.id and paper.eid=exam.id and exam.tid=#{tid,jdbcType=INTEGER} and exam.date &lt; #{date,jdbcType=VARCHAR} group by pid
     </select>
+    <select id="showAllOldExamByDate" resultMap="ListResultMap">
+        SELECT <include refid="List_Column_List" />,count(*) as num
+        from score,paper,exam
+        where score.pid=paper.id and paper.eid=exam.id and exam.date &lt; #{date,jdbcType=VARCHAR} group by pid
+    </select>
     <select id="showAllExamByStudentId" resultMap="BaseResultMap">
         SELECT <include refid="Base_Column_List" />
         from score,paper,exam

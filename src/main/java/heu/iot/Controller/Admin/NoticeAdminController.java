@@ -80,14 +80,14 @@ public class NoticeAdminController {
         //存附件
         if(!addfile.isEmpty()) {
             filename = dealFile.saveFile("file",addfile);
-            inform.setFile("/file/"+filename);
+            inform.setFile(filename);
         }
 
         //存图片
         for(MultipartFile every:imgfile){
             if(every!=null){
                 filename = dealFile.saveFile("pic",every);
-                filelist.add("/pic/"+filename);
+                filelist.add(filename);
             }
         }
         if(filelist.size()!=0)

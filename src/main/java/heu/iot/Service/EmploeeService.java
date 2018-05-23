@@ -28,6 +28,8 @@ public class EmploeeService {
 
     public Emploee selectByPrimaryKey(Integer id){return emploeeMapper.selectByPrimaryKey(id);}
 
+    public Emploee getIdByName(String name){return emploeeMapper.getIdByName(name);}
+
     public int updateByPrimaryKey(Emploee emploee){return emploeeMapper.updateByPrimaryKey(emploee);}
 
     public List<Emploee> selectByEmploeePriv(Integer priv){

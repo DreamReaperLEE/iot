@@ -45,6 +45,42 @@ public class TeacherScoreController {
         model.addAttribute("score_exam_paper_lists",score_exam_paper_lists);
         return "teacher/Score/ScoreList";
     }
+
+    @RequestMapping("/scorePic")
+    public String scorePic(Model model,HttpSession session) {
+        List<Score_Exam_Paper_List> score_exam_paper_lists=scoreService.showOldExamByTidDate(Integer.valueOf(session.getAttribute(WebSecurityConfig.ID).toString()));
+        model.addAttribute("score_exam_paper_lists",score_exam_paper_lists);
+        return "teacher/Score/ScorePic";
+    }
+
+    @RequestMapping("/changeExam")
+    @ResponseBody
+    public List<ScorePic> checkClient(int pid){
+        List<Score_Emploee> score_emploees=scoreService.showExamByPid(pid);
+        Integer bujige=0,jige=0,zhongdeng=0,lianghao=0,youxiu=0;
+        for(Score_Emploee each:score_emploees){
+            if(each.getScore()<60){
+                bujige++;
+            }else if(each.getScore()<65){
+                jige++;
+            }else if(each.getScore()<75){
+                zhongdeng++;
+            }else if(each.getScore()<85){
+                lianghao++;
+            }else{
+                youxiu++;
+            }
+        }
+
+        ArrayList<ScorePic> scorePics=new ArrayList<ScorePic>();
+        scorePics.add(new ScorePic(bujige,"不及格"));
+        scorePics.add(new ScorePic(jige,"及格"));
+        scorePics.add(new ScorePic(zhongdeng,"中等"));
+        scorePics.add(new ScorePic(lianghao,"良好"));
+        scorePics.add(new ScorePic(youxiu,"优秀"));
+        return scorePics;
+    }
+
     @RequestMapping("/scorelist")
     public String scoreList(Model model,Integer pid,String ename) {
         List<Score_Emploee> score_emploees=scoreService.showExamByPid(pid);

@@ -105,7 +105,7 @@ public class InfoAdminController {
         //存头像
         if(!file.isEmpty()) {
             String filename = dealFile.saveFile("pic",file);
-            emploee.setPic("/pic/"+filename);
+            emploee.setPic(filename);
         }
         emploeeService.updateByPrimaryKeySelective(emploee);
         return "redirect:/admin/info/Detailinfo";

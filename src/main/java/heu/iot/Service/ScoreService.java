@@ -32,6 +32,9 @@ public class ScoreService {
     public List<Score_Exam_Paper_List> showOldExamByTidDate(Integer tid){
         return score_exam_paperMapper.showOldExamByTidDate(tid,TimeFactory.getCurrentDate());
     }
+    public List<Score_Exam_Paper_List> showAllOldExamByDate(){
+        return score_exam_paperMapper.showAllOldExamByDate(TimeFactory.getCurrentDate());
+    }
 
     public List<Score_Exam_Paper> showAllExamByStudentId(Integer id) {
         return score_exam_paperMapper.showAllExamByStudentId(id);

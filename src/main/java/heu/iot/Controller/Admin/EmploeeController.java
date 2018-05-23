@@ -2,10 +2,7 @@ package heu.iot.Controller.Admin;
 
 import heu.iot.Model.Emploee;
 import heu.iot.Service.EmploeeService;
-import heu.iot.Util.EmploeeExcel;
-import heu.iot.Util.Excel;
-import heu.iot.Util.MD5;
-import heu.iot.Util.dealFile;
+import heu.iot.Util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -146,7 +143,7 @@ public class EmploeeController {
     public String addSource(Model model, @RequestParam("file") MultipartFile file) throws Exception {
         int addi=0,existi=0,faili=0;
         String filename=dealFile.saveFile("excel",file);
-        String filePath="D:\\java_workplace\\iot\\src\\main\\resources\\static\\excel\\"+filename;
+        String filePath=SomeConfig.filepath+"\\excel\\"+filename;
         File dest = new File(filePath);
         List<Emploee> emploeeList= EmploeeExcel.addEmploee(dest);
         for(Emploee each:emploeeList){
@@ -204,7 +201,7 @@ public class EmploeeController {
         //存头像
         if(!file.isEmpty()) {
             String filename = dealFile.saveFile("pic",file);
-            emploee.setPic("/pic/"+filename);
+            emploee.setPic(filename);
         }
 
         //存人员信息

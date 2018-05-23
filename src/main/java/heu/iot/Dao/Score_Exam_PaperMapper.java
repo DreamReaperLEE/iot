@@ -18,4 +18,7 @@ public interface Score_Exam_PaperMapper {
     List<Score_Exam_Paper> showRecent5(Integer id);
 
     List<Score_Exam_Paper_List> showOldExamByTidDate(@Param("tid") Integer tid, @Param("date") String date);
+
+    List<Score_Exam_Paper_List> showAllOldExamByDate(String date);
+
 }

@@ -26,7 +26,7 @@ public class dealFile {
         Random random = new java.util.Random();
         int result = random.nextInt(899) + 100;
         fileName = TimeFactory.getTimeWithoutFormat() + String.valueOf(result) + fileName;
-        String filePath = "D:\\java_workplace\\iot\\src\\main\\resources\\static\\" + Floder + "\\";
+        String filePath = SomeConfig.filepath+ Floder + "\\";
         System.out.println(filePath);
         try {
             File targetFile = new File(filePath);

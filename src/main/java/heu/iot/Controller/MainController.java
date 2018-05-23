@@ -10,12 +10,14 @@ import heu.iot.Service.CourseService;
 import heu.iot.Service.EmploeeService;
 import heu.iot.Service.HomepageService;
 import heu.iot.Service.InfoService;
+import heu.iot.Util.MD5;
 import heu.iot.Util.MyJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -66,12 +68,12 @@ public class MainController {
      */
     @PostMapping("/loginPost")
     public String loginPost(String account, String password, HttpSession session,Model model) {
-
-        //获取数据库中账号信息
-        Emploee emploee = infoService.login(Integer.valueOf(account), password);
-        if (emploee == null) {
+        if (infoService.login(Integer.valueOf(account), password) == null) {
+            model.addAttribute("fail","账号或密码错误");
             return "login";
         }
+        //获取数据库中账号信息
+        Emploee emploee = infoService.login(Integer.valueOf(account), password);
         // 设置session
         session.setAttribute(WebSecurityConfig.ID, account);
         session.setAttribute(WebSecurityConfig.NAME, emploee.getName());
@@ -98,6 +100,28 @@ public class MainController {
         session.removeAttribute(WebSecurityConfig.NAME);
         session.removeAttribute(WebSecurityConfig.LEVEL);
         return "redirect:/login";
+    }
+
+    @RequestMapping("/register")
+    public String register() {
+        return "register";
+    }
+
+    @RequestMapping("/registerPost")
+    public String register(Emploee emploee,Model model) {
+        if(emploee.getPassword()==null){
+            model.addAttribute("fail","请输入密码");
+            return "register";
+        }else if(emploee.getName()==null)
+        {
+            model.addAttribute("fail","请输入姓名");
+            return "register";
+        }
+        emploee.setPassword(MD5.getMd5(emploee.getPassword()));
+        emploeeService.insertSelective(emploee);
+        Emploee emploee1=emploeeService.getIdByName(emploee.getName());
+        model.addAttribute("success","用户创建成功，请牢记您的账号为:"+emploee1.getId());
+        return "login";
     }
 
 }

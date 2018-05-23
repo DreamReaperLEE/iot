@@ -6,10 +6,7 @@ import heu.iot.Model.ExamEmploee;
 import heu.iot.MyThread.GradePaper;
 import heu.iot.Service.EmploeeService;
 import heu.iot.Service.ExamService;
-import heu.iot.Util.ExamExcel;
-import heu.iot.Util.Excel;
-import heu.iot.Util.TimeFactory;
-import heu.iot.Util.dealFile;
+import heu.iot.Util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -122,7 +119,7 @@ public class ExamAdminController {
         //存头像
         if(!file.isEmpty()) {
             String filename = dealFile.saveFile("pic",file);
-            exam.setEpic("/pic/"+filename);
+            exam.setEpic(filename);
         }
         examService.updateByPrimaryKeySelective(exam);
         return "redirect:/admin/exam/examdetail?id="+String.valueOf(id);
@@ -156,7 +153,7 @@ public class ExamAdminController {
 
         int addi=0,faili=0;
         String filename=dealFile.saveFile("excel",file);
-        String filePath="D:\\java_workplace\\iot\\src\\main\\resources\\static\\excel\\"+filename;
+        String filePath=SomeConfig.filepath+"\\excel\\"+filename;
         File dest = new File(filePath);
         List<Exam> examList= ExamExcel.addExam(dest);
         for(Exam each:examList){

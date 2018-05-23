@@ -126,7 +126,7 @@ public class CourseManageController {
         //存头像
         if(!file.isEmpty()) {
             String filename = dealFile.saveFile("pic",file);
-            course.setCpic("/pic/"+filename);
+            course.setCpic(filename);
         }
         courseService.updateByPrimaryKeySelective(course);
         return "redirect:/admin/course/coursedetail?id="+String.valueOf(id);
@@ -201,7 +201,7 @@ public class CourseManageController {
     public String addSourceExcel(Model model, @RequestParam("file") MultipartFile file) throws Exception {
         int addi=0,faili=0;
         String filename=dealFile.saveFile("excel",file);
-        String filePath="D:\\java_workplace\\iot\\src\\main\\resources\\static\\excel\\"+filename;
+        String filePath=SomeConfig.filepath+"\\excel\\"+filename;
         File dest = new File(filePath);
         List<Course> courseList= CourseExcel.addCourse(dest);
         for(Course each:courseList){

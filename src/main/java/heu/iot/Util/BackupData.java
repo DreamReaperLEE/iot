@@ -24,7 +24,7 @@ public class BackupData {
         StringBuffer sb = new StringBuffer();
         Random random = new java.util.Random();
         String filename = TimeFactory.getCurrentDate() + String.valueOf(random.nextInt(899) + 100) + "backup.sql";
-        sb.append("D:\\phpStudy\\MySQL\\bin\\");
+        sb.append(SomeConfig.phpstudy);
         sb.append("mysqldump ");
         sb.append("--opt ");
         sb.append("-h ");
@@ -59,7 +59,7 @@ public class BackupData {
         String filepath = SomeConfig.filepath + "backup\\" + filename;
 
         StringBuffer sb = new StringBuffer();
-        sb.append("D:\\phpStudy\\MySQL\\bin\\");
+        sb.append(SomeConfig.phpstudy);
         sb.append("mysqladmin -u ");
         sb.append(SomeConfig.username);
         sb.append(" -p");
@@ -67,7 +67,7 @@ public class BackupData {
         sb.append(" create " + SomeConfig.database);
 
         StringBuffer stmt2 = new StringBuffer();
-        stmt2.append("D:\\phpStudy\\MySQL\\bin\\");
+        stmt2.append(SomeConfig.phpstudy);
         stmt2.append("mysql -u ");
         stmt2.append(SomeConfig.username);
         stmt2.append(" -p");
